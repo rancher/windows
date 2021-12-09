@@ -15,8 +15,8 @@ The Windows on Rancher team is:
 
 With assists by:
 
-* [Nick Gerace](https://github.com/nickgerace)
 * [Arvind Iyengar](https://github.com/aiyengar2)
+* The RKE2/K3s team at Rancher
 
 and others at [Rancher](https://github.com/rancher).
 
