@@ -1,0 +1,5 @@
+#### Variable definitions
+owner                   = "" # owner tag value for AWS to avoid cleanup by cloud custodian
+aws_credentials_file    = "" # full path to your local AWS credentials file
+aws_profile             = "" # name of the profile to use from the AWS credentials file
+aws_region              = "us-east-1" # pick your preferred aws region
