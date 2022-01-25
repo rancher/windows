@@ -1,0 +1,22 @@
+#cloud-config
+
+
+users:
+  - name: rancher
+    primary_group: Administrators
+    passwd: ${windows_password}
+    inactive: False
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDmTHDC3tc8upEVmSsJVq2bMV1VOi0bJpXA7HY7159oyeR+cLEoCggfgWQZPd8oK+gaL08lP2mESb9SAcwalLB7ZUdTz7KX1Mr/DZSp/7rEp6P17Ya1zJBHaZeTtfSQUPPpDJyazNlBQbL600QEQo/VWgxJewrdIbBA2bVsKJPSmVneRhQaPmfxjftrD/4EXkXDOZmCmsI0QpJke11ZUDAMkzHARqxNaiCnNFu94Lh5Mnayl1Dw9oPGl14FtKm3nqIaPo1+bit/Qaf1yQSczY8B/xLNRj2ZFrZ+SJ0zHbj2+1SdxZDw8UoSZtzFwSxPsG51gGNLyudaeq8A8JcWkWChXZ6tXT7aCbcoMvMaJzjaoJy2pm/sSKgGe62ttdwJb+Um/4kSF8esm30hnzwrf4GDYiIMV5i+wNSd7jqJGo7ypVsNh0C3BKCSJ9T1b7vR4X7Md6g17iA9xr6wmRdzp0pWYbEwFIDCDtiNP+lpGyAcDGnXvbbj6gD62UEMoXxRpf0=
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1izIIyghp+xiJsEO9eLo1q2RugJWr9LUqI/xzgLAhDk5hCq4ZUMnFOfsdK+T/ZJB0bWr8+zKH4EI3xV4AE4ZfAo2wv+vnXOALKzIoakHjZBGJKWsrHnW+6wR/8qO29nh3oaMbEoF1i8uxvaHkkCYKVygH0tVj2yB22YqeMPLjGiBMlgDYTaiW711cUurDwxzlohKedBelBkKhdLltwgR60lMTNe+qYSffouI9IlK6OUK5BzHEltCJfg+sBE4pG4yGjv6l7jYQtbf1bQSFR07JF10ZNJLtOT+YxQBIsI0sT85StTAMdfvcxivDpLGgkFKQvMbj/y51CJilwuV9vvmiWTsztg2DZ/NLkX4lWoAEQHsHxFsl43LA6f1U2AqGs/liOe1WHc+Yx1j+3g1+aOq/z11x+GzTmpUdAQDMCsSWpw6Bypkv23PWbF4Dli7tLpQC+l/vXDPwztBCGX5EmNC2l0jZb5d1+WKcqZT/+5JrLLbTqdIqaNHdW7NipcAQnuU=
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzbOEQRbLtzPJYhdYVfXo+XMV4GdySZNs711HYZIGjdBO/0bMHBaAf3gQGkjFPrUNAu/lMPgc9hNHoSAfRpBlecAAZjgQR2Rz5iH70ANuqBMHpC5/9I3DSheIXOJltCJc9HU1l7O82bihSb3VN3w2o3mWC9sTZsHEH6qYFZyKwnW7yi+v4ho2UUsqduKi7Pf9tBvcBvjxb2UDtDmsjGTxxpXuNhQAAtKcZ4SXzzDdVokMyha0wpi78epIm9FqSVKhtDlqM3y0VzwF28fjM1z3ALXojjYCnio/uIhZP/3RE0wBw8S43ZLPDkOKRr9PM6cWyQrbFqLReWMN9iThkr8UX
+
+write_files:
+  - path: "%ProgramData%\\Amazon\\EC2Launch\\config\\agent-config.yml"
+    encoding: b64
+    content: | 
+      ${ec2launchv2_config_b64}
+
+run-cmd:
+  - echo "Hello World!"
+  - ec2launch run

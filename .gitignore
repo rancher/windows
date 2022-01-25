@@ -1,0 +1,6 @@
+.DS_Store
+*.auto.tfvars
+*.tfstate
+*.tfstate.*
+.terraform*
+keys*
