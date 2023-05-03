@@ -7,15 +7,10 @@ For tracking:
 * project planning
 
 The Windows on Rancher team is:
-
-* [Luther Monson](https://github.com/luthermonson)
-* [Jamie Phillips](https://github.com/phillipsj)
-* [Ross Kirkpatrick](https://github.com/rosskirkpat)
-* [Hayden Barnes](https://github.com/sirredbeard)
+* [Arvind Iyengar](https://github.com/aiyengar2)
+* [Harrison Affel](https://github.com/harrisonwaffel)
 
 With assists by:
-
-* [Arvind Iyengar](https://github.com/aiyengar2)
 * The RKE2/K3s team at Rancher
 
 and others at [Rancher](https://github.com/rancher).
