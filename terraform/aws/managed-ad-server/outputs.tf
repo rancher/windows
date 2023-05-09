@@ -11,7 +11,7 @@ output "ad_bastion_public_ip" {
 }
 
 output "windows_bastion_password" {
-    value = data.template_file.decrypted_keys[0].rendered
+    value = rsadecrypt(aws_instance.windows[0].password_data, tls_private_key.ssh_key.private_key_pem)
 }
 
 output "aws_managed_ad_url" {
@@ -32,6 +32,7 @@ output "aws_managed_ad_short_name" {
 output "aws_managed_ad_password" {
     description = "Administrator password for managing the new AWS Directory Service Managed Active Directory Server"
     value = random_password.this.result
+    sensitive = true
 }
 
 output "aws_managed_ad_dns" {

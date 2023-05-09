@@ -43,3 +43,20 @@ variable "ad_sam_name" {
     type = string 
     description = "Base name for SAM Accounts"
 }
+
+variable "active_directory_users" {
+  type = list(object({
+    organizational_unit = string
+    display_name = string
+    principal_name = string
+    sam_account_name = string
+    initial_password = string
+    # e.g. global, domainlocal, universal
+    group = string
+  }))
+}
+
+variable "ad_name" {
+  type = string
+  description = "name of the active directory aws instance"
+}

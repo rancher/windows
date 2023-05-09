@@ -8,3 +8,53 @@ windows_admin_password  = "" # the password for the `rancher` administrator user
 prefix                  = "" # name to prefix certain AWS resources with
 ad_group_name           = "test group" # Base name for AD Groups
 ad_sam_name             = "TESTGROUP" # Base name for SAM Accounts
+ad_name                 = "" # the name of the manged active directory instance
+
+# active_directory_users specifies
+# a list of users who should be added
+# to the active directory. They must
+# specify a pre-defined organizational unit (OU).
+# If a user is within the TestOU, a group must also
+# be assigned.
+#
+# Available OU's: TestOU, gplinktestOU
+# For more information on Organizational Units,
+# see: https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc759186(v=ws.10)#active-directory-domains-and-forests-1
+#
+# Available Groups: domainlocal, global, universal
+# For more information on the available groups,
+# see: https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#group-scope
+active_directory_users = [
+      {
+      display_name = "test user 1"
+      principal_name = "tu1"
+      sam_account_name = "tu1"
+      initial_password = "password123"
+      group = "domainlocal"
+      organizational_unit = "gplinktestOU"
+    },
+    {
+      display_name = "test user 2"
+      principal_name = "tu1"
+      sam_account_name = "tu1"
+      initial_password = "password123"
+      group = "domainlocal"
+      organizational_unit = "gplinktestOU"
+    },
+    {
+      display_name = "test user 3"
+      principal_name = "tu1"
+      sam_account_name = "tu1"
+      initial_password = "password123"
+      group = "domainlocal"
+      organizational_unit = "gplinktestOU"
+    },
+    {
+      display_name = "test user 4"
+      principal_name = "tu1"
+      sam_account_name = "tu1"
+      initial_password = "password123"
+      group = ""
+      organizational_unit = "TestOU"
+    }
+  ]

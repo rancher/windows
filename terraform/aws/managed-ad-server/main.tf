@@ -36,7 +36,7 @@ resource "local_file" "pem" {
 
 resource "aws_directory_service_directory" "rancher_eng_ad" {
   # name       = "ad-${random_integer.this.result}.rancher-eng.rancherlabs.com"
-  name       = "rancher-eng.rancherlabs.com"
+  name       = var.ad_name
   password   = random_password.this.result
   type       = "MicrosoftAD"
   alias      = "ad-${random_integer.this.result}"
@@ -218,10 +218,15 @@ resource "aws_instance" "windows" {
 #   network_interface_id = element(aws_instance.windows.*.primary_network_interface_id, count.index)
 # }
 
-data "template_file" "decrypted_keys" {
-  count = length(aws_instance.windows)
-  template = rsadecrypt(element(aws_instance.windows.*.password_data, count.index), tls_private_key.ssh_key.private_key_pem)
-}
+# 'template_file' is a deprecated provider and is no longer supported.
+# use of this provider actually results in managed-ad-server module
+# being unusable on apple m1 systems, as the provider was never compiled
+# for that architecture.
+# ----
+#data "template_file" "decrypted_keys" {
+#  count = length(aws_instance.windows)
+#  template = rsadecrypt(element(aws_instance.windows[0].password_data, count.index), tls_private_key.ssh_key.private_key_pem)
+#}
 
 locals {
   bastion_username   = "Administrator"
@@ -234,7 +239,10 @@ locals {
 provider "ad" {
   winrm_hostname = aws_instance.windows[0].public_dns
   winrm_username = local.bastion_username
-  winrm_password = data.template_file.decrypted_keys[0].rendered
+  # this decrypt line was extracted from the deprecated template_file block.
+  # this is a direct copy-paste, so if issues are encountered here we need
+  # to rethink how we are doing this password management.
+  winrm_password = rsadecrypt(aws_instance.windows[0].password_data, tls_private_key.ssh_key.private_key_pem)
   winrm_use_ntlm = true
   winrm_port     = 5986
   winrm_proto    = "https"
@@ -254,4 +262,16 @@ module "populate" {
   domain = aws_directory_service_directory.rancher_eng_ad.name
   ad_group_name = local.group_name
   ad_sam_name = local.sam_account_name
+
+  # active_directory_users specifies
+  # a list of users who should be added
+  # to the active directory. They must
+  # specify a pre-defined organizational unit (OU).
+  # If a user is within the TestOU, a group must also
+  # be assigned.
+  #
+  # Available OU's: TestOU, gplinktestOU
+  # Available Groups: domainlocal, global, universal
+
+  active_directory_users = var.active_directory_users
 }

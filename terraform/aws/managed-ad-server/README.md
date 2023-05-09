@@ -79,4 +79,6 @@ Useful Content:
 
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/directory_service_directory
 
+https://registry.terraform.io/providers/hashicorp/ad/latest/docs
+
 https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_key_concepts_gmsa.html
