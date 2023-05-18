@@ -1,0 +1,13 @@
+apiVersion: management.cattle.io/v3
+kind: Cluster
+metadata:
+  name: ${name}
+spec:
+  displayName: ${name}
+  fleetWorkspaceName: ${fleet_workspace}
+  rancherKubernetesEngineConfig:
+    kubernetesVersion: "${kubernetes_version}"
+    network:
+      plugin: ${cni}
+      options: ${jsonencode(cni_options)}
+  windowsPreferedCluster: ${windows_preferred}

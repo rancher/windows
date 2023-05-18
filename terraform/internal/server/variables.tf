@@ -1,0 +1,33 @@
+variable "name" {
+  type = string
+}
+
+variable "server" {
+  type = object({
+    name         = string
+    image        = optional(string, null)
+    disk_size_gb = optional(number, null)
+    size         = optional(string, null)
+    scripts      = optional(list(string), [])
+    open_ports   = optional(list(number), [])
+  })
+}
+
+variable "infrastructure" {
+  type = object({
+    azure = object({
+      enabled  = optional(bool, false)
+      location = optional(string, "West US")
+    })
+  })
+
+  validation {
+    condition     = sum([for provider in var.infrastructure : provider.enabled ? 1 : 0]) == 1
+    error_message = "Exactly one provider must be enabled to provision infrastructure."
+  }
+}
+
+variable "ssh_public_key_path" {
+  type    = string
+  default = "~/.ssh/id_rsa.pub"
+}
