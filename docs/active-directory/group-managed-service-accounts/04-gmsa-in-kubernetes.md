@@ -111,3 +111,7 @@ Microsoft, in response to this scenario, developed a way to retrieve a gMSA pass
 an Active Directory domain. This ‘plugin’ functionality is leveraged by Azures AKS and AWS EKS to solve the auto-scaling
 problem for their paying customers. While not well documented, plugins may be written by other developers to achieve the
 same outcome outside AKS.
+
+---
+> [Continue to the next page](05-gmsa-outside-the-domain.md) to learn more about how gMSA's are used outside an Active
+  Directory Domain using un-joined nodes

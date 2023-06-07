@@ -1,6 +1,6 @@
 # Active-Directory Documentation
 
-This directory contains documentation for various aspects of Microsoft's Active Directory. Each directory focuses on a 
+This directory contains documentation for various aspects of Microsoft's Active Directory. Each subdirectory focuses on a 
 particular topic and contains multiple markdown files focusing on discrete parts of the topic. Files are written
 in such a way that they can be read in the same manner as a book, with earlier sections introducing concepts used in 
 later sections - while still being easily linkable when needed. 

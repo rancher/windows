@@ -53,3 +53,6 @@ basis as each one will need to join the domain.
 
 Due to the main benefit of gMSA’s being that they can be used across a number of hosts, they are the go-to service
 account for clustered solutions, including Kubernetes. 
+
+---
+> [Continue to the next page](03-gmsa-in-docker-and-containerd.md) to learn more about how Docker and Containerd provide support for using gMSA in containers

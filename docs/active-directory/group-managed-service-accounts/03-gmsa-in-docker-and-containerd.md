@@ -59,3 +59,6 @@ The host would then use this information to contact a Domain controller and retr
 option is for use exclusively with windows images, as gMSA’s are an Active Directory concept not shared with Linux.
 This approach requires that the host be domain joined so metadata stored on the host may be used during the Domain
 Controller connection process. 
+
+---
+> [Continue to the next page](04-gmsa-in-kubernetes.md) to learn more about how gMSA's are supported within Kubernetes 

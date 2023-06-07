@@ -41,7 +41,7 @@ non-domain joined host looks like the following
         ],
         "HostAccountConfig": { <-- New!
             "PortableCcgVersion": "1", <-- this should always be '1'
-            "PluginGUID": "{GDMA0342-266A-4D1P-831J-20990E82944F}", <-- must equal GUID inside the plugin source code
+            "PluginGUID": "{GDMA0342-266A-4D1P-831J-20990E82944F}", <-- must equal GUID inside the plugin source code, used by CCG to call specific plugins
             "PluginInput": "contoso.com:gmsaccg:<password>" 
         }
     }
@@ -104,3 +104,8 @@ are unique to the secret store used to protect the portable user account credent
 would be needed to store account credentials in Azure Key Value vs a Kubernetes secret store’.*  
 
 When the plugin is queried by `ccg.exe` during a gMSA credential authorization operation, this is done via COM.
+
+
+---
+
+> [Continue to the next page](07-additional-resources.md) to find links to additional resources used when crafting this documentation 

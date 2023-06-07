@@ -104,3 +104,7 @@ The core components of the storage layer are
 - Extensible Storage Engine (ESE)
 
 ![Data Store Architecture](../media/Untitled%201.png)
+
+---
+
+> [Continue to the next page](02-active-directory-domains-data-accounts-and-controllers.md) to learn more about Active Directory Domains and Data

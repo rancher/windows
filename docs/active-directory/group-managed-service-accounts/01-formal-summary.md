@@ -90,3 +90,8 @@ AD applications. The complexity comes with how a pod communicates with the Activ
 credentials can be accessed and authenticated. There exist two options: One, wherein a node is joined into the Windows
 domain, and another where a plugin is used to retrieve the credentials outside the domain. In both cases the Kubernetes
 SIG for Windows has provided a web-hook which can be used to facilitate the passing of domain credentials to pods. 
+
+
+---
+
+> [Continue to the next page](02-gmsa-overview-and-details.md) to learn more specifics about Group Managed Service Accounts

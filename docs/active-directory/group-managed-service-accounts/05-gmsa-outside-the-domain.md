@@ -37,3 +37,7 @@ Diagram describing `ccg.exe`'s role in the gMSA authentication process for non-d
 
 So, *plugins* are specific to a particular storage mechanism while `ccg.exe` facilitates the intermediary communication
 with Active Directory so that the gMSA password can be passed to the container and exchanged for a TGT.
+
+---
+
+> [Continue to the next page](06-gmsa-ccg-plugin.md) to learn more about how the Windows OS provides support for containerized gMSA's in non-domain-joined nodes 
