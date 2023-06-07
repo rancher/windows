@@ -1,10 +1,10 @@
-# Windows on Rancher Team project repo
+# Windows on Rancher
 
 For tracking:
 
 - new features
 - documentation tasks
-- devrel efforts
+- developer relations efforts
 - project planning
 
 The Windows on Rancher team is:
@@ -14,7 +14,7 @@ The Windows on Rancher team is:
 
 With assists by:
 
-- The RKE2/K3s team at Rancher
+- The RKE2/k3s team at Rancher
 
 and others at [Rancher](https://github.com/rancher).
 
