@@ -6,7 +6,7 @@
 [user accounts](https://en.wikipedia.org/wiki/User_account), computers, printers and other
 [security principals](https://en.wikipedia.org/wiki/Principal_(computer_security)), are registered with a central
 database located on one or more clusters of central computers known as
-[domain controllers](https://en.wikipedia.org/wiki/Domain_controller_(Windows)). Authentication takes place on domain
+[domain controllers](https://en.wikipedia.org/wiki/Domain_controller_(Windows)) (DC). Authentication takes place on domain
 controllers. Each person who uses computers within a domain receives a unique user account that can then be assigned
 access to resources within the domain. Starting with [Windows Server 2000](https://en.wikipedia.org/wiki/Windows_Server_2000),
 [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) is the Windows component in charge of maintaining
@@ -33,20 +33,21 @@ a subset of that prefix.
 ## Active Directory Domain Controllers
 
 Active Directory Domain Controllers represent the main API server responsible for handling operations occurring with
-a particular Domain. There may be one or many Controllers per domain, and Controllers may have special roles assigned
-to them to achieve different outcomes within a Forest.
+a particular Domain, typically relating to authentication or other security operations.
+There may be one or many Controllers per domain, and Controllers may have special roles assigned
+to them to achieve different outcomes within Domains and Forests.
 
 There are two main types of domain controllers
 
-1. Single Primary Domain Controller (PDC)
-    1. A single computer responsible for controlling the domain. It contains a master directory database which includes
-       all the Domains resources and security information
+1. Primary Domain Controller (PDC)
+    1. The primary Domain Controller for a given Domain, it contains a master directory database which includes
+       all the Domains resources and security information.
 2. Backup Domain Controllers (BDC)
     1. Backups for the Primary Domain Controller. These can also be used in conjunction to the Primary Domain
        Controller as a load balancing solution. The databases are automatically replicated across all BDC from the
        PDC on a periodic basis.
 
-Domain Controllers can be assigned a dedicate type to better handle data replication and consistency 
+Domain Controllers can be assigned a dedicated role to better handle data replication and consistency 
 ([Source](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc779716(v=ws.10)))
 
 1. Standard
@@ -61,30 +62,30 @@ Domain Controllers can be assigned a dedicate type to better handle data replica
 3. Operations Masters
     1. These types are responsible for maintaining consistency across the entire database. There are five sub-roles, each
        focusing on maintaining consistency with a particular aspect of the database. All operations related to a
-       particular role will be routed only to a controller with that role. This ensures conflicts and duplicate
+       particular role will be routed only to a controller with that role, if one exists. This ensures conflicts and duplicate
        records are avoided.
         1. Schema Master
             1. Responsible for handling schema changes across the entire forest
         2. Domain Naming Master
             1. Responsible for handling domain CRUD across the entire forest
         3. Relative ID Master
-            1. The **relative identifier (RID) operations master** allocates blocks of RIDs to each domain controller
-               in the domain. Whenever a domain controller creates a new security principal, such as a user, group,
-               or computer object, it assigns the object a unique security identifier (SID). This SID consists of a
-               domain SID, which is the same for all security principals created in the domain, and a RID, which
+            1. The **relative identifier (RID) operations master** allocates blocks of RIDs to each Domain Controller
+               in the domain. Whenever a Domain Controller creates a new security principal, such as a user, group,
+               or computer object, it assigns the object a **unique security identifier (SID)**. This **SID** consists of a
+               domain **SID**, which is the same for all security principals created in the domain, and a **RID**, which
                uniquely identifies each security principal created in the domain.
         4. Primary Domain Controller Emulator
             1. **The primary domain controller (PDC) emulator operations master**. The PDC emulator receives
                  preferential replication of password changes that are performed by other domain controllers in the
                  domain, and it is the source for the latest password information whenever a logon attempt fails as
                  a result of a bad password. It is a preferred point of administration for services (examples are Group
-                 Policy and Distributed File System, DFS). For this reason, of all operations master roles, 
+                 Policy and Distributed File System (DFS)). For this reason, of all operations master roles, 
                  the PDC emulator operations master role has the highest impact on the performance of the domain
                  controller that hosts that role. The PDC emulator in the forest root domain is also the default
                  Windows Time service (W32time) time source for the forest.
         5. Infrastructure Master
             1. The **infrastructure operations master** is responsible for updating object references in its domain
-               that point to the object in another domain. The infrastructure master updates object references locally
+               that point to an object in another domain. The infrastructure master updates object references locally
                and uses replication to bring all other replicas of the domain up to date. The object reference contains
                the object’s globally unique identifier (GUID), distinguished name and possibly a SID. The distinguished
                name and SID on the object reference are periodically updated to reflect changes made to the actual
@@ -117,13 +118,13 @@ and minimize the impact to network traffic.”*
 ### Domain user Accounts
 
 When using Domains, user accounts are not tied to a particular computer. Instead, all user accounts are stored in the 
-**Active Directory**, which exists in the **Domain Controllers**. This allows you to sign onto any computer in the 
-Domain and access the same data, and provides a means for Administrators to disable or create users across all 
-computers. Domains may contain both user accounts and service accounts, as well as a plethora of other resources.
+**Active Directory**. This allows you to sign onto any computer in an Active Directory Domain 
+and access the same data, and provides a means for Administrators to disable or create users across all 
+computers. Domains may contain user accounts, service accounts, as well as a plethora of other resources.
 
 ### Domain Control and Administrative Advantages
 
-Domains allow for scalable control of computers using the **Active Directory** system as well as **Group Policy**. 
+Domains allow for scalable control of computers using the **Active Directory** system as well as **Group Policies**. 
 **Group Policies** allow admins to limit network capabilities (changing networks), map local directories to networked 
 directories, prevent users from using the command prompt or similar administrative tools, map networked printers to 
 particular computers, as well as other desktop level configurations such as the start menu. 

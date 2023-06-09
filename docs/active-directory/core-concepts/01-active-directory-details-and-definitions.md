@@ -5,15 +5,15 @@
 Active Directory Domain Services (AD DS, or more simply just AD for Active Directory) is a storage and management
 mechanism for everything related to a collection of resources within a computer network. This includes users, files,
 network configurations, and devices like physical computers and printers. Administrators can modify the Active Directory
-and remotely manage all the components currently tracked at once. In its simplest terms, AD is used to logically
-represent an organizations resources and users and enforce policies and behaviors across them.
+and remotely manage all the components currently tracked at once. In its simplest terms, **AD is used to logically
+represent an organizations resources and users and enforce policies and behaviors across them.**
 
 AD Includes the following features
 
 - Data schemas which enforce particular requirements onto AD data
-- A global catalog of data
-- Query and Indexing mechanisms for finding and publishing data
-- Database replication to BDCs
+- A global catalog of all data
+- Query and Indexing mechanisms for finding and publishing specific data
+- Database replication to various Domain Controllers (DC)
 
 ### AD Storage Structure
 
@@ -38,22 +38,22 @@ The **forest represents the security boundary for AD DS**. Within Domains, you c
 subdivide the various divisions of administration.*
 
 *The **logical structure** of AD DS includes a two-dimensional definition that can be viewed as a hierarchy, even though
-the objects themselves are stored in a flat database file. In addition to its own name, each object stores the name of
+the objects themselves are stored in a flat database file. In addition to its own name, **each object stores the name of
 the container directly above it in the hierarchy. That container object stores the name of its superior container,
 and so on, up to the root container. In this way, a logical structure is imposed that can be viewed by using AD DS tools
-as a tree of containers. By virtue of a hierarchical naming system, the objects in the tree appear to be nested inside
+as a tree of containers**. By virtue of a hierarchical naming system, the objects in the tree appear to be nested inside
 (contained by) other objects.”*
 
 The main components of the Active Directory logical structure are described as follows
 
 - Active Directory Forest
-    - The highest level in the hierarchy. A forest represents a self-contained directory. It is a security boundary, 
-    which gives administrators have complete control and access to all the information inside both the Forest and all
-    Domains within the Forest.
+    - The highest level in the hierarchy. A forest represents a collection of Directories. It is a security boundary, 
+    which gives administrators complete control and access to all the information inside both the Forest and all
+    Domains within the Forest. Multiple Forests may exist at a time.
 - Domain
     - Domains partition the information that is stored inside the directory into smaller portions so that the
   information can be more easily stored on various domain controllers and so that administrators have a greater
-  degree of control over replication. Data that is stored in the directory is replicated throughout the forest from
+  degree of control over replication. Data that is stored in the Active Directory is replicated throughout the forest from
   one domain controller to another. Some data that is relevant to the entire forest is replicated to all domain
   controllers. Other data that is relevant only to a specific domain is replicated only to domain controllers in
   that particular domain. A good domain design makes it possible to implement an efficient replication topology.
@@ -67,8 +67,9 @@ specific admins, so that they only have control over their subset of resources.
 Other core components of an Active Directory are
 
 - DNS Support
-    - DNS is used to locate Domain Controllers, as well as used during the Domain naming process. All domains are 
-     organized in a root and subordinate domain hierarchy.
+    - In Active Directory, DNS is the means by which directory clients locate, or discover, domain controllers. 
+      The primary components of the architecture for DNS support of Active Directory include the domain controller
+      Locator, Active Directory domain names in DNS, and Active Directory DNS objects.
     - Every Active Directory domain has a DNS domain name (for example, [cohovineyard.com](http://cohovineyard.com/)),
       and every domain joined computer has a DNS name (for example, 
       [server1.cohovineyard.com](http://server1.cohovineyard.com/)). Architecturally, domains and computers are
@@ -84,11 +85,11 @@ Other core components of an Active Directory are
       literal data. Each data store is represented as a single file replicated across all domain controllers.
     - Proper logical structuring of an Active Directory will ensure that Domain Controllers will only have access to the
       data required for their domain, keeping replication quick and simple. Improper structuring can saturate the
-      network with replication data.
+      network with replication data. Properly structuring an on premise Active Directory is an art.
 
 ### The Components and Interfaces of Active Directory Storage
 
-There are several storage components that come together to form the data handling of a DC
+There are several storage components that come together to form the data handling of Active Directory
 
 The core interfaces used to communicate with the storage layer are
 

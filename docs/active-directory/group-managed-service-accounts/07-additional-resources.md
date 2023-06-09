@@ -6,7 +6,7 @@
 - Active Directory Domains:
     - [https://en.wikipedia.org/wiki/Active_Directory](https://en.wikipedia.org/wiki/Active_Directory)
     - Specifics on Domain Controller types: [https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786438(v=ws.10)](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786438(v=ws.10))
-- A incredibly useful blog post regarding the use of a gMSA plugin (One of very few resources describing this functionality)
+- An incredibly useful blog post regarding the use of a gMSA plugin (One of very few resources describing this functionality in detail)
     - [https://www.fearofoblivion.com/running-a-windows-container-under-gmsa](https://www.fearofoblivion.com/running-a-windows-container-under-gmsa)
 - example repositories containing a .NET application which implements the gMSA credential plugin
     - [https://github.com/ChrisKlug/FiftyNine.CCG.KeyVault](https://github.com/ChrisKlug/FiftyNine.CCG.KeyVault) and https://github.com/macsux/gmsa-ccg-plugin
