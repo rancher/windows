@@ -50,8 +50,8 @@ non-domain joined host looks like the following
 
 ### gMSA CCG Plugin, Azure Key Vault, and General Object Stores
 
-The CCG plugin is responsible for providing the Domain Controller password to `ccg.exe`. `ccg.exe` will then
-authenticate with a Domain Controller using the retrieved Domain password, and retrieves the gMSA password. The gMSA
+The CCG plugin is responsible for providing the Domain Controller password, username, and hostname to `ccg.exe`. `ccg.exe` will then
+authenticate with the Domain Controller using the retrieved Domain password, and retrieves the gMSA password. The gMSA
 password is then passed back to the container, which then requests a new Kerberos Ticket-Granting Ticket (TGT) from the
 Domain Controller. The TGT is then used by the container to interact with other domain services.
 
@@ -90,21 +90,20 @@ having a generalized format for all stores.
 
 ### COM+
 
-COM+ is an evolution of Microsoft's Component Object Model, which provides a means of interprocess communication.
-The protocol was initially developed to facilitate communication between Microsoft products, such a MS Word and MS Excel
-communicating the state of an embedded spreadsheet. The technology has since improved and become more simplified
-allowing it to be used in a number of other contexts. 
+COM+ is an evolution of Microsoft's Component Object Model, which provides a means of interprocess communication both locally
+and across the network. The protocol was initially developed to facilitate communication between Microsoft products, 
+such as MS Word and MS Excel communicating the state of an embedded spreadsheet. The technology has since improved and 
+become more simplified allowing it to be used in a number of other contexts. 
 
-While COM applications can technically be developed in any language, and was primarily created for C++, The .NET
+While COM applications can technically be developed in any language, and was primarily created for C/C++, The .NET
 framework can create COM+ applications natively in C#. This is a more modern approach to developing the plugin and 
 automates a lot of the nitty-gritty when creating a COM+ application.  
 
-COM applications are identified using a GUID (A.K.A a UUID) which must stay the same. Microsoft states that *‘Plug-ins
+COM applications are identified using a GUID (A.K.A. a UUID) which must stay the same. Microsoft states that *‘Plug-ins
 are unique to the secret store used to protect the portable user account credentials. For example, different plug-ins
 would be needed to store account credentials in Azure Key Value vs a Kubernetes secret store’.*  
 
 When the plugin is queried by `ccg.exe` during a gMSA credential authorization operation, this is done via COM.
-
 
 ---
 

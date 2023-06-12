@@ -11,7 +11,7 @@ virtualized environment of the container can no longer directly access the requi
 on the host which is needed to get the gMSA password and TGT.
 
 To solve this issue, many container runtimes such as docker and containerd have provided flags which allow a user to
-pass a file generally referred to as a ‘gMSA credential Spec’ to the container which can then be used within the
+pass a file (generally referred to as a ‘gMSA credential Spec’) to the container which can then be used within the
 program. The credential spec is a set of metadata which can be used to connect to a Domain Controller. When passing the
 metadata manually, the credential spec file for the gMSA must be manually created using PowerShell and stored as a file.
 This file can then be passed as a security option to the container at runtime.

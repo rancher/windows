@@ -21,9 +21,9 @@ Managing these JSON strings and placing them onto each definition can be cumbers
 this issue the Kubernetes SIG developed a gMSA CRD and a mutating and validating web-hook.
 
 The new CRD is called a `GMSACredentialSpec`. This resource defines each attribute of the JSON formatted gMSA credential
-spec, and offers greater ease of management with almost no possibility of human error as it is a CRD which needs to only
-be defined once. Each gMSA account can have one of these resources defined for it, and this resource can be used for
-many workloads at once.
+spec, and offers greater ease of management with almost no possibility of human error as it is a custom resource which
+needs to only be defined once. Each gMSA account can have one of these resources defined for it, and this resource can 
+be used for many workloads at once.
 
 ```yaml
 # An Example of a GMSA Credential Spec Object
@@ -91,7 +91,7 @@ spec:
 
 ### gMSA Web-hook Considerations
 
-This web-hook is very useful for creating deployments which need to leverage gMSA’s, but it  should be treated in the
+This web-hook is very useful for creating deployments which need to leverage gMSA’s, but it should be treated in the
 same manner as any other critical web-hook. It is configured with a ‘Fail’ policy by default, meaning that if no
 instances of the web-hook are available all cluster operations will be blocked by Kubernetes. This event is recoverable,
 as you can simply remove the web-hook configuration manually and retry the operation, however this problem should not be
@@ -104,14 +104,14 @@ which can be scheduled to run a gMSA workload must be joined into the Active Dir
 gMSA account is valid.
 
 While not an overly complicated process, joining a host to a domain is not a one-step action and requires a restart of
-the host. In auto-scaling environments this can be a dealbreaker, as complicated automation is needed to properly
+the host. In auto-scaling environments this can be a deal-breaker, as complicated automation is needed to properly
 achieve what should be a reliable and native Kubernetes concept.
 
 Microsoft, in response to this scenario, developed a way to retrieve a gMSA password without having to join a node into
-an Active Directory domain. This ‘plugin’ functionality is leveraged by Azures AKS and AWS EKS to solve the auto-scaling
+an Active Directory domain using 'plugins'. This ‘plugin’ functionality is leveraged by Azure AKS and AWS EKS to solve the auto-scaling
 problem for their paying customers. While not well documented, plugins may be written by other developers to achieve the
 same outcome outside AKS.
 
 ---
 > [Continue to the next page](05-gmsa-outside-the-domain.md) to learn more about how gMSA's are used outside an Active
-  Directory Domain using un-joined nodes
+  Directory Domain using un-joined nodes and plugins

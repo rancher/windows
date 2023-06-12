@@ -1,10 +1,10 @@
-# gMSA Outside of the Domain
+# gMSA Outside the Domain
 
-Accessing gMSA credentials from hosts outside of the domain (non-joined hosts) is becoming increasingly important due to
+Accessing gMSA credentials from hosts outside the domain is becoming increasingly important due to
 the overhead required to join a domain and the prevalence of cluster computing. This desired functionality was the
-impetus for the creation of the `ccg.exe` application and associated plugins. Ensuring that such behavior is possible
-requires an understanding of both the `ccg.exe` program and the plugins it consumes, as well as the architectural
-decisions on how to enable outside access to Domain Controllers. 
+impetus for the creation of the Container Credential Guard (`ccg.exe`) application and associated plugins. Ensuring 
+that such behavior is possible requires an understanding of both the `ccg.exe` program and the plugins it consumes, 
+as well as the architectural decisions on how to enable outside access to Domain Controllers. 
 
 ### Architectural Requirements
 
@@ -15,9 +15,9 @@ established between the two, and the means in which this is done should be asses
 
 ### CCG.exe: Windows Container Credential Guard Server
 
-`ccg.exe` is an executable included on Windows operating systems. As its name implies, it is responsible for handling
-credentials for containerized applications. It plays a critical role in the gMSA authentication process. The chain of
-operations when using the `ccg.exe` server is as follows
+`ccg.exe` is an executable included on Windows operating systems, introduced in Windows 2019.
+As its name implies, it is responsible for handling credentials for containerized applications. It plays a critical role
+in the gMSA authentication process. The chain of operations when using the `ccg.exe` server is as follows
 ([Source](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#gmsa-architecture-and-improvements))
 
 1. `ccg.exe` is started by passing a Credential Spec file to the executable
