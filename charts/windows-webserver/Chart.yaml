@@ -1,0 +1,18 @@
+apiVersion: v2
+name: windows-webserver
+description: A simple webserver that is deployed on all Windows nodes in a cluster
+version: 0.0.0
+appVersion: 0.0.0
+annotations:
+  catalog.cattle.io/certified: rancher
+  catalog.cattle.io/display-name: Windows Webserver
+  catalog.cattle.io/kube-version: '>=1.16.0-0'
+  catalog.cattle.io/namespace: cattle-wins-system
+  catalog.cattle.io/permits-os: linux,windows
+  catalog.cattle.io/release-name: windows-webserver
+  catalog.cattle.io/os: windows
+maintainers:
+- email: arvind.iyengar@suse.com
+  name: aiyengar2
+- email: harrison.affel@suse.com
+  name: harrisonwaffel
