@@ -13,13 +13,14 @@ kube-proxy
 etcd
 controlplane
 
-cli
+CLI
 docker
 containerd
 dockerd
 systemd
 cloud-init
 terraform
+webserver
 
 Dockershim
 Websocket
@@ -34,6 +35,8 @@ hostNetwork
 init
 natively
 provisioner
+
+windows-webserver
 
 Arvind
 Iyengar

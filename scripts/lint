@@ -16,16 +16,38 @@ fail=0
 
 set +e
 for md_path in $(echo ${all_mds}); do
+    echo "---"
     if ! markdownlint ${md_path}; then
+        echo "FAIL: 'markdownlint' on '${md_path}'"
         fail=1
+    else
+        echo "PASS: 'markdownlint' on '${md_path}'"
     fi
+    echo "---"
     if ! write-good ${md_path} --no-illusion; then
+        echo "FAIL: 'write-good' on '${md_path}'"
         fail=1
+    else
+        echo "PASS: 'write-good' on '${md_path}'"
     fi
-    if ! spellchecker --files ${md_path}; then
+    echo "---"
+    if ! spellchecker -q --files ${md_path}; then
+        echo "FAIL: 'spellchecker' on '${md_path}'"
         fail=1
+    else
+        echo "PASS: 'spellchecker' on '${md_path}'"
     fi
 done
 set -e
+
+for chart_path in $(find ./charts -mindepth 1 -maxdepth 1 -type d); do
+    echo "---"
+    if ! helm lint --quiet ${chart_path}; then
+        echo "FAIL: 'helm lint' on '${chart_path}'"
+        fail=1
+    else
+        echo "PASS: 'helm lint' on '${chart_path}'"
+    fi
+done
 
 exit ${fail}
