@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: {{ template "windows-webserver.name" . }}
-          image: "{{ template "system_default_registry" }}{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           command:
           - {{ .Values.powershell.path }}

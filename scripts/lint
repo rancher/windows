@@ -3,29 +3,104 @@ set -e
 
 cd $(dirname $0)/..
 
-all_mds=$(
+check_executable () {
+    if [[ -z $0 ]] || [[ -z $1 ]]; then
+        echo "Usage: check_executable <command-fmt>"
+        exit 1
+    fi
+    local cmd_fmt=$1
+    executable=$(echo ${cmd_fmt} | cut -d' ' -f1)
+    if ! command -v "${executable}" 1>/dev/null; then
+        echo "SKIP: no '${executable}' available"
+        return 1
+    fi
+}
+
+run_command () {
+    if [[ -z $0 ]] || [[ -z $1 ]]; then
+        echo "Usage: run_command <command-fmt> <paths>"
+        exit 1
+    fi
+    local cmd_fmt=$1
+    local path=$2
+    local cmd=$(printf "$cmd_fmt" "$path")
+
+    set +e
+    if ${cmd}; then
+        echo "PASS: ${cmd}"
+    else
+        echo "FAIL: ${cmd}"
+        fail=1
+    fi
+    set -e
+}
+
+unset fail
+
+markdown_files=$(
     find . -type f -name "*.md" \
     ! -name 'CODE_OF_CONDUCT.md' \
     ! -name 'MAINTAINERS.md' \
     ! -name 'CONTRIBUTING.md' \
     ! -name 'SECURITY.md' \
-    ! -path "./.github/*"
+    ! -path "./.github/*" \
+    ! -path "*/.terraform/*"
 )
 
-fail=0
+markdown_command_fmts=(
+    "markdownlint %s"
+    "spellchecker -q --files %s"
+    "write-good --no-illusion %s"
+)
 
-set +e
-for md_path in $(echo ${all_mds}); do
-    if ! markdownlint ${md_path}; then
-        fail=1
+for cmd_fmt in "${markdown_command_fmts[@]}"; do
+    if ! check_executable ${cmd_fmt}; then
+        continue
     fi
-    if ! write-good ${md_path} --no-illusion; then
-        fail=1
-    fi
-    if ! spellchecker --files ${md_path}; then
-        fail=1
-    fi
+    for path in ${markdown_files[@]}; do
+        run_command "${cmd_fmt}" "${path}"
+    done
 done
-set -e
 
-exit ${fail}
+chart_dirs=$(
+    find ./charts -type f -name "Chart.yaml" | rev | cut -d'/' -f2- | rev
+)
+
+chart_command_fmts=(
+    "helm lint --quiet %s"
+)
+
+for cmd_fmt in "${chart_command_fmts[@]}"; do
+    if ! check_executable ${cmd_fmt}; then
+        continue
+    fi
+    for path in ${chart_dirs[@]}; do
+        run_command "${cmd_fmt}" "${path}"
+    done
+done
+
+terraform_dirs=$(
+    find ./terraform -type f -name "*.tf" | rev | cut -d'/' -f2- | rev | uniq
+)
+
+terraform_command_fmts=(
+    "terraform fmt --recursive %s"
+)
+
+for cmd_fmt in "${terraform_command_fmts[@]}"; do
+    if ! check_executable ${cmd_fmt}; then
+        continue
+    fi
+    for path in ${terraform_dirs[@]}; do
+        run_command "${cmd_fmt}" "${path}"
+    done
+done
+
+if [[ -n "${fail}" ]]; then
+    echo "---"
+    echo "FAIL: Some tests did not pass"
+    exit 1
+else
+    echo "---"
+    echo "PASS: All tests succeeded"
+fi

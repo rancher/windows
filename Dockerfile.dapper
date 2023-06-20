@@ -3,7 +3,7 @@ FROM registry.suse.com/bci/nodejs:18
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
-RUN zypper -n install git-core curl tar gzip docker wget awk hostname make patch jq && \
+RUN zypper -n install git-core curl tar gzip unzip docker wget awk hostname make patch jq && \
     zypper -n clean -a && \
     rm -rf /tmp/* /var/tmp/* /usr/share/doc/packages/*
 
@@ -13,6 +13,15 @@ ENV HELM_URL_V3 https://get.helm.sh/helm-${HELM_VERSION}-linux-${ARCH}.tar.gz
 RUN mkdir /usr/tmp && \
     curl ${HELM_URL_V3} | tar xvzf - --strip-components=1 -C /usr/tmp/ && \
     mv /usr/tmp/helm /usr/bin/helm && \
+    rm -rf /usr/tmp
+
+# set up terraform
+ENV TERRAFORM_VERSION 1.5.1
+ENV TERRAFORM_URL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${ARCH}.zip
+RUN mkdir /usr/tmp && \
+    curl ${TERRAFORM_URL} -o /usr/tmp/terraform.zip && \
+    unzip -d /usr/tmp/ /usr/tmp/terraform.zip && \
+    mv /usr/tmp/terraform /usr/bin/terraform && \
     rm -rf /usr/tmp
 
 # set up markdownlint

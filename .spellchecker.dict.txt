@@ -6,25 +6,34 @@ RKE
 RKE1
 RKE2
 
+AWS
+Azure
+DigitalOcean
+GCP
+vsphere
+
 kubelet
 kube-apiserver
 kube-controller-manager
 kube-proxy
 etcd
 controlplane
+kubectl
 
-cli
+CLI
 docker
 containerd
 dockerd
 systemd
 cloud-init
-terraform
+Terraform
+webserver
 
 Dockershim
 Websocket
 Multus
 TCP
+DNS
 20H2
 V2
 SSHing
@@ -34,6 +43,20 @@ hostNetwork
 init
 natively
 provisioner
+EOL
+GRPC
+VM
+YAML
+sku
+PowerShell
+VPC
+VPCs
+subnet
+subnets
+air-gapped
+filesystem
+
+windows-webserver
 
 Arvind
 Iyengar

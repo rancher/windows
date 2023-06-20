@@ -6,7 +6,7 @@ module "resource_group" {
 }
 
 module "network" {
-  source = "../rancher/network"
+  source = "../network"
 
   resource_group = var.name
   location       = var.location

@@ -13,3 +13,8 @@
 /.dapper
 /.cache
 /Dockerfile.dapper[0-9]*
+
+# Others
+*.rdp
+kubeconfig
+*.kubeconfig

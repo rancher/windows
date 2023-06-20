@@ -43,10 +43,7 @@ variable "servers" {
     scripts = optional(list(string), [])
   }))
   description = "Additional servers that should be created alongside your cluster. These servers will automatically be added to the same network as the cluster."
-  default = [{
-    name  = "windows-standalone"
-    image = "windows"
-  }]
+  default     = []
 }
 
 variable "open_ports" {
