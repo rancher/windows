@@ -1,0 +1,28 @@
+FROM registry.suse.com/bci/nodejs:18
+
+ARG DAPPER_HOST_ARCH
+ENV ARCH $DAPPER_HOST_ARCH
+
+RUN zypper -n install git-core curl tar gzip docker wget awk hostname make patch jq && \
+    zypper -n clean -a && \
+    rm -rf /tmp/* /var/tmp/* /usr/share/doc/packages/*
+
+# set up helm 3
+ENV HELM_VERSION v3.9.4
+ENV HELM_URL_V3 https://get.helm.sh/helm-${HELM_VERSION}-linux-${ARCH}.tar.gz
+RUN mkdir /usr/tmp && \
+    curl ${HELM_URL_V3} | tar xvzf - --strip-components=1 -C /usr/tmp/ && \
+    mv /usr/tmp/helm /usr/bin/helm && \
+    rm -rf /usr/tmp
+
+# set up markdownlint
+RUN npm install -g markdownlint-cli
+
+ENV DAPPER_ENV DRONE_TAG REGISTRY_URL IGNORE_IMAGES
+ENV DAPPER_SOURCE /home/rancher/windows
+ENV DAPPER_DOCKER_SOCKET true
+ENV HOME ${DAPPER_SOURCE}
+WORKDIR ${DAPPER_SOURCE}
+
+ENTRYPOINT ["./scripts/entry"]
+CMD ["ci"]
