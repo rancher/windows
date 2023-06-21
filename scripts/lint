@@ -3,4 +3,26 @@ set -e
 
 cd $(dirname $0)/..
 
-markdownlint docs/*.md README.md
+all_mds=$(
+    find . -type f -name "*.md" \
+    ! -name 'CODE_OF_CONDUCT.md' \
+    ! -name 'MAINTAINERS.md' \
+    ! -name 'CONTRIBUTING.md' \
+    ! -name 'SECURITY.md' \
+    ! -path "./.github/*"
+)
+
+fail=0
+
+set +e
+for md_path in $(echo ${all_mds}); do
+    if ! markdownlint ${md_path}; then
+        fail=1
+    fi
+    if ! write-good ${md_path} --no-illusion; then
+        fail=1
+    fi
+done
+set -e
+
+exit ${fail}

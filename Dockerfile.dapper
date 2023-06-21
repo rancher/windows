@@ -18,6 +18,9 @@ RUN mkdir /usr/tmp && \
 # set up markdownlint
 RUN npm install -g markdownlint-cli
 
+# set up write-good
+RUN npm install -g write-good
+
 ENV DAPPER_ENV DRONE_TAG REGISTRY_URL IGNORE_IMAGES
 ENV DAPPER_SOURCE /home/rancher/windows
 ENV DAPPER_DOCKER_SOCKET true
