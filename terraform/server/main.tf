@@ -1,7 +1,7 @@
 module "infrastructure" {
   source = "../internal/server"
 
-  name = "${var.name}"
+  name = var.name
 
   server = var.server
 

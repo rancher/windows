@@ -13,7 +13,7 @@ variable "server" {
     open_ports   = optional(list(number), [])
   })
   default = {
-    name = "linux"
+    name  = "linux"
     image = "linux"
   }
 }

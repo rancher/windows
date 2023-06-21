@@ -1,3 +1,7 @@
+locals {
+  ssh_public_key = file(var.ssh_public_key_path)
+}
+
 module "images" {
   source = "../images"
 
@@ -33,8 +37,18 @@ module "azure" {
       os        = local.source_images[var.server.image].os
     }
     subnet       = "external"
-    boot_scripts = []
-    scripts      = concat(local.source_images[var.server.image].scripts, var.server.scripts)
+    boot_scripts = concat(local.source_images[var.server.image].scripts, var.server.boot_scripts)
+    scripts = local.source_images[var.server.image].os != "windows" ? var.server.scripts : concat(
+      [
+        <<-EOT
+          Start-Service sshd;
+          Set-Service -Name sshd -StartupType 'Automatic';
+          Add-Content -Path 'C:\ProgramData\ssh\administrators_authorized_keys' -Value '${local.ssh_public_key}';
+          icacls.exe 'C:\ProgramData\ssh\administrators_authorized_keys' /inheritance:r /grant 'Administrators:F' /grant 'SYSTEM:F';
+        EOT
+      ],
+      var.server.scripts
+    )
   })]
 }
 

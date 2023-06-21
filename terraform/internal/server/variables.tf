@@ -8,6 +8,7 @@ variable "server" {
     image        = optional(string, null)
     disk_size_gb = optional(number, null)
     size         = optional(string, null)
+    boot_scripts = optional(list(string), [])
     scripts      = optional(list(string), [])
     open_ports   = optional(list(number), [])
   })

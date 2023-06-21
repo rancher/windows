@@ -1,7 +1,7 @@
 $scripts = @(${scripts})
 $bootScripts = @(${boot_scripts})
 
-$scriptDir = "C:\etc\rancher-dev\windows-cluster"
+$scriptDir = "C:\etc\rancher-dev\cluster"
 
 $entryTaskName = "run_init_scripts_task" 
 Remove-Item $scriptDir -Recurse -Force -ErrorAction SilentlyContinue;

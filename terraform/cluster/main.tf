@@ -70,7 +70,7 @@ locals {
 resource "kubernetes_manifest" "cluster" {
   manifest = yamldecode([
     local.rke2_cluster_base, local.rke1_cluster_base
-    ][var.distribution == "rke2" ? 0 : 1])
+  ][var.distribution == "rke2" ? 0 : 1])
 
   dynamic "wait" {
     for_each = var.distribution == "rke2" ? ["status.clusterName"] : []
