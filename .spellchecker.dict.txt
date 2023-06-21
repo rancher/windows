@@ -6,6 +6,12 @@ RKE
 RKE1
 RKE2
 
+AWS
+Azure
+DigitalOcean
+GCP
+vsphere
+
 kubelet
 kube-apiserver
 kube-controller-manager
@@ -19,13 +25,14 @@ containerd
 dockerd
 systemd
 cloud-init
-terraform
+Terraform
 webserver
 
 Dockershim
 Websocket
 Multus
 TCP
+DNS
 20H2
 V2
 SSHing
@@ -35,6 +42,9 @@ hostNetwork
 init
 natively
 provisioner
+EOL
+GRPC
+VM
 
 windows-webserver
 
