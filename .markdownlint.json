@@ -11,6 +11,7 @@
     "fenced-code-language": {
       "allowed_languages": [
         "bash",
+        "powershell",
         "yaml",
         "json",
         "markdown",
