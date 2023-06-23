@@ -1,0 +1,18 @@
+rules:
+- name: "default"
+  description: "Deny all inbound traffic by default"
+  action: "deny"
+  direction: "inbound"
+  port_range: "*"
+  from: "*"
+  to: "*"
+  protocol: "*"
+outbound:
+- name: "default"
+  description: "Allow all outbound traffic by default"
+  action: "allow"
+  direction: "inbound"
+  port_range: "*"
+  from: "*"
+  to: "*"
+  protocol: "*"

@@ -1,3 +1,10 @@
+module "azure" {
+  count = var.infrastructure_provider == "azure" ? 1 : 0
+  source = "../azure/images"
+}
+
 output "source_images" {
-  value = var.infrastructure_provider == "azure" ? local.azure_source_images : null
+  value = merge(
+    module.azure[0].source_images
+  )
 }

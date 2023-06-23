@@ -137,7 +137,7 @@ locals {
         [for blobk, blobv in local.boot_script_blobs : blobv.source_content if blobv.storage_container_name == local.generated_storage_containers[k].name],
         [for blobk, blobv in local.registration_blobs : blobv.source_content if blobv.storage_container_name == local.generated_storage_containers[k].name],
         [for blobk, blobv in local.script_blobs : blobv.source_content if blobv.storage_container_name == local.generated_storage_containers[k].name],
-        v.image.os == "windows" ? ["${file("${path.module}/files/scheduled_task.ps1.tftpl")}"] : []
+        v.image.os == "windows" ? ["${file("${path.module}/files/scheduled_task.ps1")}"] : []
       ))), 0, 10)
     }
   }
@@ -192,7 +192,7 @@ resource "azurerm_virtual_machine_extension" "windows_bootstrap" {
     fileUris           = concat(each.value.boot_file_uris, each.value.file_uris)
     commandToExecute = format("powershell -EncodedCommand \"%s\"",
       textencodebase64(
-        templatefile("${path.module}/files/scheduled_task.ps1.tftpl", {
+        templatefile("${path.module}/files/scheduled_task.ps1", {
           scripts = join(",", [
             for file_path in [for file_uri in each.value.file_uris : element(split("/", file_uri), length(split("/", file_uri)) - 1)] :
             format("\"%s\"", file_path)

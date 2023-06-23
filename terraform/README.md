@@ -6,7 +6,7 @@ This directory contains [Terraform](https://www.terraform.io/) modules that prod
 
 Each module rooted at this directory is a Terraform module that can be **independently** used to produce **a component within a development environment** (i.e. a [Windows or Linux server](./server/), [Docker-based Rancher setup](./rancher/), or [Rancher custom cluster](./cluster/)).
 
-The only special subdirectory is [`internal/`](./internal/), which contains the underlying Terraform "library" modules that are referenced by all "external" Terraform modules to produce the underlying Terraform resources.
+The [`internal/`](./internal/) directory is the exception, which contains the underlying Terraform "library" modules referenced by all "external" Terraform modules to produce the underlying Terraform resources.
 
 ## State of Support
 
