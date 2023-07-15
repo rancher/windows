@@ -1,0 +1,25 @@
+ubuntu-1804:
+  publisher: Canonical
+  offer: UbuntuServer
+  sku: 18.04-LTS
+  scripts: []
+sles-15:
+  publisher: SUSE
+  offer: sles-15-sp3
+  sku: gen2
+  scripts: []
+rhel-8:
+  publisher: RedHat
+  offer: RHEL
+  sku: 8-lvm-gen2
+  scripts: []
+opensuse-leap-15-4:
+  publisher: SUSE
+  offer: openSUSE-leap-15-4
+  sku: gen2
+  scripts: []
+centos-7:
+  publisher: OpenLogic
+  offer: CentOS
+  sku: "7.5"
+  scripts: []

@@ -1,0 +1,16 @@
+apiVersion: management.cattle.io/v3
+kind: Cluster
+metadata:
+  name: ${name}
+spec:
+  displayName: ${name}
+  fleetWorkspaceName: fleet-default
+  rancherKubernetesEngineConfig:
+    kubernetesVersion: "${kubernetes_version}"
+    network:
+      plugin: flannel
+      options:
+        flannel_backend_port: "4789"
+        flannel_backend_type: vxlan
+        flannel_backend_vni: "4096"
+  windowsPreferedCluster: ${windows_cluster}
