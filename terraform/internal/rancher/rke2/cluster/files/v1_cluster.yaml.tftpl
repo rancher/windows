@@ -1,0 +1,20 @@
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  name: ${name}
+  namespace: fleet-default
+spec:
+  kubernetesVersion: "${kubernetes_version}"
+  rkeConfig:
+    chartValues:
+      rke2-calico: {}
+    etcd:
+      snapshotRetention: 5
+      snapshotScheduleCron: 0 */5 * * *
+    machineGlobalConfig:
+      cni: calico
+      disable-kube-proxy: false
+      etcd-expose-metrics: false
+    machineSelectorConfig:
+      - config:
+          protect-kernel-defaults: false

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "windows-webserver.name" . }}
+  namespace: {{ template "windows-webserver.namespace" . }}
+  labels: {{ include "windows-webserver.labels" . | nindent 4 }}
+    app: {{ template "windows-webserver.name" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "windows-webserver.name" . }}
+      release: {{ $.Release.Name | quote }}
+  template:
+    metadata:
+      labels: {{ include "windows-webserver.labels" . | nindent 8 }}
+        app: {{ template "windows-webserver.name" . }}
+    spec:
+      containers:
+        - name: {{ template "windows-webserver.name" . }}
+          image: "{{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command:
+          - {{ .Values.powershell.path }}
+          - -File
+          - c:/scripts/webserver.ps1
+          volumeMounts:
+          - name: scripts
+            mountPath: c:/scripts/
+      volumes:
+      - name: scripts
+        configMap:
+          name: {{ template "windows-webserver.name" . }}
+      serviceAccountName: {{ template "windows-webserver.name" . }}
+      affinity: {{ include "windows-affinity" . | nindent 8 }}

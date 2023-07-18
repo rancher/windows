@@ -1,0 +1,16 @@
+windows-2019-core:
+  publisher: MicrosoftWindowsServer
+  offer: WindowsServer
+  sku: 2019-Datacenter-Core
+windows-2019:
+  publisher: MicrosoftWindowsServer
+  offer: WindowsServer
+  sku: 2019-Datacenter
+windows-2022-core:
+  publisher: MicrosoftWindowsServer
+  offer: WindowsServer
+  sku: 2022-datacenter-core
+windows-2022:
+  publisher: MicrosoftWindowsServer
+  offer: WindowsServer
+  sku: 2022-datacenter

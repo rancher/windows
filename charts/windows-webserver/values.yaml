@@ -1,0 +1,45 @@
+# Default values for helm-locker.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Helm Locker Configuration
+
+global:
+  cattle:
+    systemDefaultRegistry: ""
+
+  imagePullSecrets: []
+  # - name: "image-pull-secret"
+
+nameOverride: ""
+
+namespaceOverride: ""
+
+image:
+  repository: windows/servercore
+  tag: ltsc2019
+  # tag: ltsc2022
+  pullPolicy: IfNotPresent
+
+powershell:
+  # Update if you are using an image that has a different path to powershell
+  path: "powershell.exe"
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+## Define which Nodes the Pods are scheduled on.
+## ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+
+## Tolerations for use with node taints
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations: []
+# - key: "key"
+#   operator: "Equal"
+#   value: "value"
+#   effect: "NoSchedule"
