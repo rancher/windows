@@ -48,6 +48,7 @@ GRPC
 VM
 VMs
 YAML
+GUID
 sku
 PowerShell
 rsa
@@ -60,11 +61,24 @@ air-gapped
 filesystem
 gMSA
 gMSAs
-CCG
-TLS
 namespace
 UI
 RDP
+
+CCG
+CCGRKC
+TLS
+DLL
+EXE
+VTable
+IID
+IIDs
+CLSID
+CoClasses
+CoClass
+coClasses
+coClass
+IPC
 
 windows-webserver
 windows-gmsa-webserver
