@@ -1,4 +1,4 @@
-image = "windows"
+image = "windows-2019"
 scripts = [
   <<-EOT
     Enable-WindowsOptionalFeature -Online -FeatureName containers -All -NoRestart;
