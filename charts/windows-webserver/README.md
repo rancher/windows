@@ -31,3 +31,11 @@ To test that the webserver is working:
 
 1. Create a proxy to the API Server using kubectl proxy: `kubectl proxy --port=8080`
 2. Go to `http://localhost:8080/api/v1/namespaces/default/services/http:windows-webserver:80/proxy/`
+
+## State of Support
+
+**The Rancher Windows team does not support this Helm chart in any official capacity.**
+
+Community members should note this Helm chart is **never intended for use in any production environment** and is **subject to breaking changes at any point of time**.
+
+The primary audience for this Helm chart is **members of the Rancher Windows team** who require this Helm chart to reproduce setups that mimic supported environments.

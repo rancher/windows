@@ -6,6 +6,7 @@ appVersion: 0.0.0
 annotations:
   catalog.cattle.io/certified: rancher
   catalog.cattle.io/display-name: Windows Webserver
+  catalog.cattle.io/experimental: "true"
   catalog.cattle.io/kube-version: '>=1.16.0-0'
   catalog.cattle.io/namespace: cattle-wins-system
   catalog.cattle.io/permits-os: linux,windows
