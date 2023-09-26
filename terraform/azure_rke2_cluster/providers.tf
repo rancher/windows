@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.20.0"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.11.0"
+    }
   }
 }
 
@@ -28,4 +32,10 @@ data "external" "kubeconfig" {
 
 provider "kubernetes" {
   config_path = data.external.kubeconfig.result.kubeconfig
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = data.external.kubeconfig.result.kubeconfig
+  }
 }

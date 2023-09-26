@@ -1,6 +1,6 @@
 locals {
   path_is_link = startswith(var.path, "http") || startswith(var.path, "https")
-  
+
   resolved_path        = startswith(var.path, "/") || local.path_is_link ? var.path : "${path.cwd}/${var.path}"
   resolved_values_path = var.values_file == null ? "" : startswith(var.values_file, "/") ? var.values_file : "${path.cwd}/${var.values_file}"
 }

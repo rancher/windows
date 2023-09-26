@@ -15,21 +15,23 @@ variable "name" {
 
 variable "network" {
   type = object({
-    type       = string
-    airgap     = bool
-    open_ports = list(number)
+    type          = string
+    address_space = string
+    airgap        = bool
+    open_ports    = list(string)
   })
   default = {
-    type       = "simple"
-    airgap     = false
-    open_ports = []
+    type          = "simple"
+    address_space = "10.0.256.0/16"
+    airgap        = false
+    open_ports    = []
   }
 }
 
 variable "servers" {
   type = list(object({
     name   = string
-    size   = optional(string, "Standard_F4")
+    size   = optional(string, "Standard_B2s")
     subnet = optional(string, "external")
     image = optional(object({
       publisher = string
@@ -44,10 +46,26 @@ variable "servers" {
       version   = "latest"
       os        = "linux"
     })
-    scripts = optional(list(string), [])
+    scripts     = optional(list(string), [])
+    domain_join = optional(bool, false)
   }))
   description = "The group of servers you would like to provision."
   default     = []
+}
+
+variable "active_directory" {
+  type = object({
+    name                = string
+    domain_name         = string
+    domain_netbios_name = string
+    ip_address          = string
+    join_credentials = object({
+      username = string
+      password = string
+    })
+  })
+  description = "Values to integrate with ActiveDirectory module."
+  default     = null
 }
 
 variable "ssh_public_key_path" {

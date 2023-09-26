@@ -1,5 +1,10 @@
 locals {
   ssh_public_key = file(var.ssh_public_key_path)
+
+  windows_hostname = length(var.name) > 15 ? join("-", [
+    substr(var.name, 0, 9),
+    substr(sha256(substr(var.name, 10, -1)), 0, 5)
+  ]) : var.name
 }
 
 data "azurerm_subnet" "subnet" {
@@ -24,12 +29,14 @@ resource "azurerm_network_interface" "nic" {
   name                = var.name
   location            = var.location
   resource_group_name = var.resource_group
+  dns_servers         = var.dns_servers
 
   ip_configuration {
     name      = var.name
     subnet_id = data.azurerm_subnet.subnet.id
 
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = var.private_ip_address
     public_ip_address_id          = azurerm_public_ip.pip.id
   }
 
@@ -85,10 +92,7 @@ resource "azurerm_windows_virtual_machine" "machine" {
   resource_group_name = var.resource_group
   size                = var.size
 
-  computer_name = length(var.name) > 15 ? join("-", [
-    substr(var.name, 0, 9),
-    substr(sha256(substr(var.name, 10, -1)), 0, 5)
-  ]) : var.name
+  computer_name = local.windows_hostname
 
   admin_username = "adminuser"
   admin_password = random_string.windows_admin_password[0].result

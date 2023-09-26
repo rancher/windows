@@ -18,6 +18,12 @@ variable "type" {
   description = "The type of network to provision."
 }
 
+variable "address_space" {
+  type        = string
+  description = "The address space of the VPC"
+  default     = "10.0.0.0/16"
+}
+
 variable "airgap" {
   type        = bool
   description = "Disable all outbound connections."
@@ -25,7 +31,21 @@ variable "airgap" {
 }
 
 variable "open_ports" {
-  type        = list(number)
+  type        = list(string)
   description = "Ports to leave on the external (default) subnet."
   default     = []
+}
+
+variable "peers" {
+  type = map(object({
+    resource_group = optional(string, null)
+  }))
+  description = "Additional virtual networks to create a peering relationship with."
+  default     = {}
+}
+
+variable "dns_servers" {
+  type        = list(string)
+  description = "DNS servers that should be used for this virtual network."
+  default     = null
 }

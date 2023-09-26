@@ -9,6 +9,17 @@ variable "type" {
   }
 }
 
+variable "address_space" {
+  type        = string
+  description = "The address space of the virtual network."
+  default     = "10.0.0.0/16"
+
+  validation {
+    condition     = can(regex("^10\\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.0\\.0\\/16$", var.address_space))
+    error_message = "Address space must be IPv4 CIDR matching the format 10.X.0.0/16."
+  }
+}
+
 variable "airgap" {
   type        = bool
   description = "Disable all outbound connections."
@@ -16,96 +27,7 @@ variable "airgap" {
 }
 
 variable "open_ports" {
-  type        = list(number)
+  type        = list(string)
   description = "Ports to leave on the external (default) subnet."
   default     = []
-}
-
-variable "vpc" {
-  type = object({
-    address_space = string
-  })
-  description = "The name of the VPC."
-  default = {
-    address_space = "10.0.0.0/16"
-  }
-}
-
-variable "subnets" {
-  type = object({
-    external = object({
-      address_space = string
-      roles         = list(string)
-    })
-    controlplane = object({
-      address_space = string
-      roles         = list(string)
-    })
-    etcd = object({
-      address_space = string
-      roles         = list(string)
-    })
-    worker = object({
-      address_space = string
-      roles         = list(string)
-    })
-    controlplane-etcd = object({
-      address_space = string
-      roles         = list(string)
-    })
-    controlplane-worker = object({
-      address_space = string
-      roles         = list(string)
-    })
-    controlplane-etcd-worker = object({
-      address_space = string
-      roles         = list(string)
-    })
-    etcd-worker = object({
-      address_space = string
-      roles         = list(string)
-    })
-  })
-
-  description = "The subnets to create."
-
-  default = {
-    external = {
-      address_space = "10.0.224.0/19"
-      roles         = null
-    }
-    controlplane = {
-      address_space = "10.0.32.0/19"
-      roles         = ["controlplane"]
-    }
-    etcd = {
-      address_space = "10.0.0.0/19"
-      roles         = ["etcd"]
-    }
-    worker = {
-      address_space = "10.0.64.0/19"
-      roles         = ["worker"]
-    }
-    controlplane-etcd = {
-      address_space = "10.0.96.0/19"
-      roles         = ["controlplane", "etcd"]
-    }
-    controlplane-worker = {
-      address_space = "10.0.160.0/19"
-      roles         = ["controlplane", "worker"]
-    }
-    etcd-worker = {
-      address_space = "10.0.128.0/19"
-      roles         = ["etcd", "worker"]
-    }
-    controlplane-etcd-worker = {
-      address_space = "10.0.192.0/19"
-      roles         = ["controlplane", "etcd", "worker"]
-    }
-  }
-
-  validation {
-    condition     = [for subnet in var.subnets : subnet.roles != null ? sum([for role in subnet.roles : contains(["etcd", "controlplane", "worker"], role) ? 0 : 1]) : 0] != 0
-    error_message = "If roles are defined, they must be 'etcd', 'controlplane', or 'worker'."
-  }
 }

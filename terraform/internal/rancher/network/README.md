@@ -21,6 +21,14 @@ NETWORK_TEMPLATE="simple"
 terraform -chdir=terraform/internal/rancher/network plan --var="type=${NETWORK_TEMPLATE}"
 ```
 
+## Expectations On Address Spaces
+
+While not explicitly required for this module to function, this module validates that the `address_space` is in the format `10.X.0.0/16`.
+
+This encodes the expectation that all other modules in this repository must have a **unique address space within `10.0.0.0/24`** to instantiate their resources.
+
+This simplifies adding cross-module features such as support for [network peering](https://en.wikipedia.org/wiki/Peering) that is necessary for more complex setups that require that servers share a common network (i.e. Active Directory).
+
 ## State of Support
 
 **The Rancher Windows team does not support these Terraform modules in any official capacity.**

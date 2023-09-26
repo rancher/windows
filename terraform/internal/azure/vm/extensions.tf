@@ -2,18 +2,32 @@ locals {
   scripts = concat(
     var.image.os == "windows" ? [
       # Add SSH support for Windows
-      <<-EOT
-      Add-WindowsCapability -Online -Name 'OpenSSH.Server~~~~0.0.1.0';
-      Start-Process -NoNewWindow powershell.exe "Start-Sleep 3; Restart-Computer -Confirm:`$false;"
-      EOT
-      ,
-      <<-EOT
-      Start-Service sshd;
-      Set-Service -Name sshd -StartupType 'Automatic';
-      Add-Content -Path 'C:\ProgramData\ssh\administrators_authorized_keys' -Value '${local.ssh_public_key}';
-      icacls.exe 'C:\ProgramData\ssh\administrators_authorized_keys' /inheritance:r /grant 'Administrators:F' /grant 'SYSTEM:F';
-      Start-Process -NoNewWindow powershell.exe "Start-Sleep 3; Restart-Computer -Confirm:`$false;"
-      EOT
+      templatefile("${path.module}/files/install_ssh.ps1", {}),
+      templatefile("${path.module}/files/start_ssh.ps1", {
+        ssh_public_key = trim(local.ssh_public_key, "\n")
+      })
+    ] : [],
+    var.image.os == "windows" && var.active_directory != null ? [
+      templatefile("${path.module}/files/ad_verify_dns.ps1", {
+        domain_name = var.active_directory.domain_name
+      }),
+      templatefile("${path.module}/files/ad_verify_reverse_dns.ps1", {
+        domain_ip = var.active_directory.ip_address
+      }),
+      templatefile("${path.module}/files/ad_domain_join.ps1", {
+        domain_name               = var.active_directory.domain_name
+        domain_netbios_name       = var.active_directory.domain_netbios_name
+        machine_username          = "adminuser"
+        machine_password          = random_string.windows_admin_password[0].result
+        active_directory_username = var.active_directory.join_credentials.username
+        active_directory_password = var.active_directory.join_credentials.password
+        # The assumption here is that the Active Directory instance should exist in a
+        # network that this VM has access to (i.e. the network this VM exists within
+        # should be peered with the AD network) and the Active Directory instance should
+        # have an IP of the format 10.X.Y.Z, where X, Y, and Z can be any number from 0-255.
+        # This is where the network prefix length of 8 bits * 3 spaces comes from.
+        network_prefix_length = 8 * 3
+      })
     ] : [],
     var.scripts
   )
@@ -64,7 +78,7 @@ locals {
 
   extensions = module.storage_blobs.storage.blobs
 
-  command_to_execute = var.image.os == "windows" ? "powershell.exe -File add_scheduled_tasks.ps1" : length(local.script_blobs) > 0 ? join("&& ", [for k, v in local.script_blobs : "./${k}"]) : "echo \"Nothing to do.\""
+  command_to_execute = var.image.os == "windows" ? "powershell.exe -File add_scheduled_tasks.ps1" : length(local.script_blobs) > 0 ? join("; ", [for k, v in local.script_blobs : "./${k}"]) : "echo \"Nothing to do.\""
 
   script_content = join("; ", concat([local.command_to_execute], values(local.script_blobs)))
 

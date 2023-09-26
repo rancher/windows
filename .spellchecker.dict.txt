@@ -46,6 +46,7 @@ provisioner
 EOL
 GRPC
 VM
+VMs
 YAML
 sku
 PowerShell
@@ -55,8 +56,16 @@ subnet
 subnets
 air-gapped
 filesystem
+gMSA
+gMSAs
+CCG
+TLS
+namespace
+UI
+RDP
 
 windows-webserver
+windows-gmsa-webserver
 
 Arvind
 Iyengar

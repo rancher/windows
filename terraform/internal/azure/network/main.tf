@@ -1,9 +1,10 @@
 module "network" {
   source = "../../rancher/network"
 
-  type       = var.type
-  airgap     = var.airgap
-  open_ports = var.open_ports
+  type          = var.type
+  address_space = var.address_space
+  airgap        = var.airgap
+  open_ports    = var.open_ports
 }
 
 locals {
@@ -39,6 +40,7 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = var.resource_group
 
   address_space = [local.vpc.address_space]
+  dns_servers   = var.dns_servers
 
   lifecycle {
     ignore_changes = [tags]
