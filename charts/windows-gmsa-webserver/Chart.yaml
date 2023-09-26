@@ -1,0 +1,18 @@
+apiVersion: v2
+name: windows-gmsa-webserver
+description: A simple webserver that can confirm that a gMSA can be assumed
+version: 0.0.0
+appVersion: 0.0.0
+annotations:
+  catalog.cattle.io/certified: rancher
+  catalog.cattle.io/display-name: Windows GMSA Webserver
+  catalog.cattle.io/experimental: "true"
+  catalog.cattle.io/kube-version: '>=1.19.0-0'
+  catalog.cattle.io/namespace: cattle-wins-system
+  catalog.cattle.io/permits-os: linux,windows
+  catalog.cattle.io/os: windows
+maintainers:
+- email: arvind.iyengar@suse.com
+  name: aiyengar2
+- email: harrison.affel@suse.com
+  name: harrisonwaffel

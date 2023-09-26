@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "windows-webserver.name" . }}
+  labels: {{ include "windows-webserver.labels" . | nindent 4 }}
+    app: {{ template "windows-webserver.name" . }}
+rules:
+- apiGroups: ["windows.k8s.io"]
+  resources: ["gmsacredentialspecs"]
+  verbs: ["use"]
+  resourceNames: [{{ .Values.gmsa | quote }}]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ template "windows-webserver.name" . }}
+  namespace: {{ template "windows-webserver.namespace" . }}
+  labels: {{ include "windows-webserver.labels" . | nindent 4 }}
+    app: {{ template "windows-webserver.name" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ template "windows-webserver.name" . }}
+  namespace: {{ template "windows-webserver.namespace" . }}
+roleRef:
+  kind: ClusterRole
+  name: {{ template "windows-webserver.name" . }}
+  apiGroup: rbac.authorization.k8s.io
