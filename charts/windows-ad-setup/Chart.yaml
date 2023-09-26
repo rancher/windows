@@ -1,0 +1,19 @@
+apiVersion: v2
+name: windows-ad-setup
+description: A chart that deploys several components such as GMSACredentialSpecs, a CCG Plugin Secret, and Domain Join Jobs onto a cluster to set up a cluster for testing Active Directory integrations
+version: 0.0.0
+appVersion: 0.0.0
+annotations:
+  catalog.cattle.io/certified: rancher
+  catalog.cattle.io/display-name: Windows Active Directory Setup
+  catalog.cattle.io/experimental: "true"
+  catalog.cattle.io/kube-version: '>=1.16.0-0'
+  catalog.cattle.io/namespace: cattle-wins-system
+  catalog.cattle.io/permits-os: linux,windows
+  catalog.cattle.io/release-name: windows-ad-setup
+  catalog.cattle.io/os: windows
+maintainers:
+- email: arvind.iyengar@suse.com
+  name: aiyengar2
+- email: harrison.affel@suse.com
+  name: harrisonwaffel

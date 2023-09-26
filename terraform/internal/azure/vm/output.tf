@@ -11,7 +11,10 @@ locals {
       size  = local.vm.size
     }
     public_ip              = azurerm_public_ip.pip.ip_address
-    windows_admin_password = local.windows_admin_password
+    private_ip             = local.virtual_machine.private_ip_address
+    windows_admin_password = var.image.os == "linux" ? "" : local.windows_admin_password
+    windows_hostname       = var.image.os == "linux" ? "" : local.windows_hostname
+    windows_domain         = var.image.os == "linux" ? "" : var.active_directory == null ? "" : var.active_directory.domain_name
     ssh_command = format("ssh -i %s -t %s@%s '%s'",
       local.inferred_ssh_private_key_path,
       local.vm.admin_username,
@@ -19,10 +22,40 @@ locals {
       var.image.os == "linux" ? "sudo su - root" : "powershell"
     )
   }
+
+  debug = {
+    windows = <<-EOT
+      # Check whether there are any pending initialization scripts
+      Get-ScheduledTask -TaskPath "\Rancher\Terraform\"
+
+      # Check the initialization script logs for any errors
+      Get-ChildItem "C:\etc\rancher-dev\cluster" -Filter "bootstrap-*.log" | sort | Get-Content
+      
+      # Get all successful task scheduler events
+      Get-WinEvent -FilterXml @"
+      <QueryList>
+      <Query Id="0" Path="Microsoft-Windows-TaskScheduler/Operational">
+      <Select Path="Microsoft-Windows-TaskScheduler/Operational">*[EventData [@Name='TaskSuccessEvent']]</Select>
+      </Query>
+      </QueryList>
+      "@
+      EOT
+    linux   = <<-EOT
+      # Check all stderr logs from initialization scripts
+      cat /var/lib/waagent/custom-script/download/*/stderr
+
+      # Check all stdout logs from initialization scripts
+      cat /var/lib/waagent/custom-script/download/*/stdout
+    EOT
+  }
 }
 
 output "machine" {
   value = local.machine
+}
+
+output "debug" {
+  value = local.debug
 }
 
 output "server" {

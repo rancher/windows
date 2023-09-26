@@ -1,0 +1,16 @@
+apiVersion: fleet.cattle.io/v1alpha1
+kind: Bundle
+metadata:
+  name: ${name}
+  namespace: ${fleet_workspace}
+spec:
+  defaultNamespace: ${default_namespace}
+  helm:
+    takeOwnership: true
+  targets:
+  - clusterName: ${cluster_name}
+  dependsOn: ${jsonencode(depends_on)}
+  resources:
+  - name: ${name}.yaml
+    content: ${base64encode(manifest)}
+    encoding: "base64"

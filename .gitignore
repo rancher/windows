@@ -3,6 +3,8 @@
 .vscode/
 .idea
 
+dist/
+
 # Terraform
 *.auto.tfvars
 *.tfstate
@@ -13,8 +15,11 @@
 /.dapper
 /.cache
 /Dockerfile.dapper[0-9]*
+/*.yaml
+/*.ps1
 
 # Others
 *.rdp
 kubeconfig
 *.kubeconfig
+!/terraform/internal/rancher/kubeconfig

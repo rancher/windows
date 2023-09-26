@@ -1,0 +1,10 @@
+questions:
+- variable: image.tag
+  default: "windowsservercore-ltsc2019"
+  description: "The Windows Server version of Windows hosts in this cluster (only one can be selected)."
+  label: "Windows Server Version"
+  type: enum
+  group: "Windows"
+  options:
+  - "windowsservercore-ltsc2019"
+  - "windowsservercore-ltsc2022"

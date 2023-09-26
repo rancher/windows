@@ -23,6 +23,17 @@ variable "subnet" {
   description = "The name of the subnet."
 }
 
+variable "private_ip_address" {
+  type        = string
+  description = "The private IP address to assign to this VM. Should be in the VPC's address space."
+}
+
+variable "dns_servers" {
+  type        = list(string)
+  description = "DNS servers that should be used for this virtual network."
+  default     = null
+}
+
 # Storage
 
 variable "storage_account" {
@@ -40,7 +51,7 @@ variable "name" {
 variable "size" {
   type        = string
   description = "The size to use for this VM."
-  default     = "Standard_F4"
+  default     = "Standard_B2s"
 }
 
 variable "image" {
@@ -64,6 +75,25 @@ variable "scripts" {
   type        = list(string)
   description = "The scripts to run on this server on boot."
 }
+
+# Active Directory
+
+variable "active_directory" {
+  type = object({
+    name                = string
+    domain_name         = string
+    domain_netbios_name = string
+    ip_address          = string
+    join_credentials = object({
+      username = string
+      password = string
+    })
+  })
+  description = "Values to integrate with ActiveDirectory module."
+  default     = null
+}
+
+# General
 
 variable "ssh_public_key_path" {
   type        = string

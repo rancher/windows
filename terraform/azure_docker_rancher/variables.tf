@@ -34,8 +34,14 @@ variable "registry_hostname" {
 
 variable "docker_version" {
   type        = string
-  default     = "20.10"
+  default     = "24.0"
   description = "Version of Docker to run Rancher on. Find this in https://github.com/rancher/install-docker/tree/master/dist."
+}
+
+variable "address_space" {
+  type        = string
+  description = "The address space of the virtual network this Rancher instance resides in"
+  default     = "10.1.0.0/16"
 }
 
 variable "ssh_public_key_path" {

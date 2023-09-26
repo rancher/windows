@@ -17,20 +17,48 @@ variable "replicas" {
 }
 
 variable "open_ports" {
-  type        = list(number)
+  type        = list(string)
   description = "Ports to leave on the external (default) subnet."
   default     = []
 }
 
+variable "active_directory" {
+  type = object({
+    name                = string
+    domain_name         = string
+    domain_netbios_name = string
+    ip_address          = string
+    join_credentials = object({
+      username = string
+      password = string
+    })
+  })
+  description = "Values to integrate with ActiveDirectory module."
+  default     = null
+}
+
+variable "domain_join" {
+  type        = bool
+  description = "Whether to domain join this host or not. Assumed to be false if active_directory is null."
+  default     = false
+}
+
 variable "image" {
-  type    = string
-  default = "linux"
+  type        = string
+  description = "Image to use for this server."
+  default     = "linux"
 }
 
 variable "scripts" {
   type        = list(string)
   description = "The scripts to run on this server on boot."
   default     = []
+}
+
+variable "address_space" {
+  type        = string
+  description = "The address space of the virtual network this server resides in."
+  default     = "10.3.0.0/16"
 }
 
 variable "ssh_public_key_path" {

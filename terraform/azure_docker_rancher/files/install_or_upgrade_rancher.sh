@@ -1,8 +1,10 @@
 ${replace != null ? "REPLACE=\"${replace}\"" : "unset REPLACE"}
 VOLUME_COMMAND=""
-if docker inspect rancher 1>/dev/null 2>/dev/null; then
+if [ -n "$(docker ps -aq --filter "name=rancher")" ]; then
     container_id=$(docker stop rancher)
-    docker rm -f rancher-data || true
+    if [ -n "$(docker ps -aq --filter "name=rancher-data")" ]; then
+        docker rm -f rancher-data
+    fi
     if [ -z "$REPLACE" ]; then
         docker create --volumes-from rancher --name rancher-data $(docker inspect rancher --format="{{ .Config.Image }}")
         VOLUME_COMMAND="--volumes-from rancher-data"

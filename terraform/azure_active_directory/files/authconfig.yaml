@@ -1,0 +1,40 @@
+apiVersion: management.cattle.io/v3
+kind: AuthConfig
+accessMode: unrestricted
+allowedPrincipalIds:
+- activedirectory_user://${distinguished_name}
+connectionTimeout: 5000
+defaultLoginDomain: null
+enabled: true
+groupDNAttribute: distinguishedName
+groupMemberMappingAttribute: member
+groupMemberUserAttribute: distinguishedName
+groupNameAttribute: name
+groupObjectClass: group
+groupSearchAttribute: sAMAccountName
+metadata:
+  name: activedirectory
+nestedGroupMembershipEnabled: false
+port: 389
+servers:
+- ${active_directory_ip}
+serviceAccountPassword: cattle-global-data:activedirectoryconfig-serviceaccountpassword
+serviceAccountUsername: ${netbios_name}\${account}
+starttls: false
+tls: false
+type: activeDirectoryConfig
+userDisabledBitMask: 2
+userEnabledAttribute: userAccountControl
+userLoginAttribute: sAMAccountName
+userNameAttribute: name
+userObjectClass: person
+userSearchAttribute: sAMAccountName|sn|givenName
+userSearchBase: ${user_search_base}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: activedirectoryconfig-serviceaccountpassword
+  namespace: cattle-global-data
+data:
+  serviceaccountpassword: ${base64encode(password)}

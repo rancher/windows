@@ -1,9 +1,45 @@
 locals {
-  vpc = var.vpc
+  split_subnets = cidrsubnets(var.address_space, 4, 4, 4, 4, 4, 4, 4, 4)
 
   subnets = var.type == "simple" ? {
-    external = var.subnets.external
-  } : var.subnets
+    external = {
+      address_space = var.address_space
+      roles         = tolist(null)
+    }
+    } : {
+    external = {
+      address_space = tostring(local.split_subnets[0])
+      roles         = tolist(null)
+    }
+    controlplane = {
+      address_space = tostring(local.split_subnets[1])
+      roles         = ["controlplane"]
+    }
+    etcd = {
+      address_space = tostring(local.split_subnets[2])
+      roles         = ["etcd"]
+    }
+    worker = {
+      address_space = tostring(local.split_subnets[3])
+      roles         = ["worker"]
+    }
+    controlplane-etcd = {
+      address_space = tostring(local.split_subnets[4])
+      roles         = ["controlplane", "etcd"]
+    }
+    controlplane-worker = {
+      address_space = tostring(local.split_subnets[5])
+      roles         = ["controlplane", "worker"]
+    }
+    etcd-worker = {
+      address_space = tostring(local.split_subnets[6])
+      roles         = ["etcd", "worker"]
+    }
+    controlplane-etcd-worker = {
+      address_space = tostring(local.split_subnets[7])
+      roles         = ["controlplane", "etcd", "worker"]
+    }
+  }
 }
 
 locals {
@@ -12,7 +48,7 @@ locals {
       "*"
     ]
     vpc = [
-      var.vpc.address_space
+      var.address_space
     ]
     controlplane-etcd = [
       for k, v in local.subnets :
@@ -55,18 +91,20 @@ locals {
   flannel_rules = yamldecode(file("${path.module}/files/flannel.yaml"))["rules"]
 
   # Open Ports
-  open_port_rules = [
-    for port in var.open_ports : {
-      name        = "tcp-${port}"
-      description = "Allows TCP traffic to port ${port} on hosts in the external subnet"
-      direction   = "inbound"
-      action      = "allow"
-      port_range  = "${port}"
-      from        = "*"
-      to          = "external"
-      protocol    = "tcp"
-    }
-  ]
+  open_port_rules = flatten([
+    for port in concat(var.open_ports) : [
+      {
+        name        = "open-${port}"
+        description = "Allows TCP traffic to port ${port} on hosts in the external subnet"
+        direction   = "inbound"
+        action      = "allow"
+        port_range  = "${port}"
+        from        = "*"
+        to          = "external"
+        protocol    = "*"
+      },
+    ]
+  ])
 
   # Rule Templates
   simple_rule_template = concat(
@@ -101,7 +139,9 @@ locals {
 }
 
 output "vpc" {
-  value = local.vpc
+  value = {
+    address_space = var.address_space
+  }
 }
 
 output "subnets" {

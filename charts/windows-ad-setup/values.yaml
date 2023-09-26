@@ -1,0 +1,31 @@
+# Default values for this chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## Domain-Specific Configuration
+
+activeDirectory:
+  # A subset of what is available from the AD Domain object returned by `Get-ADDomain`
+  domain:
+    DNSRoot: ""
+    Forest: ""
+    NetBIOSName: ""
+    ObjectGUID: ""
+    SID: ""
+
+  ccg:
+    namespace: cattle-windows-gmsa-system
+
+    # Credentials to an account that has the permission to retrive the managed password of all gMSAs
+    impersonationAccount: {}
+      # username: ""
+      # password: ""
+
+  gmsas: []
+  # ["GMSA1", "GMSA2"]
+
+## General Configuration
+
+nameOverride: ""
+
+namespaceOverride: ""
