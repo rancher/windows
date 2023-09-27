@@ -79,7 +79,7 @@ apps = {
     path      = "charts/windows-gmsa-webserver"
     namespace = "cattle-wins-system"
     values = {
-      gmsa = "windows-ad-setup-gmsa1"
+      gmsa = "gmsa1"
     }
     dependencies = ["windows-ad-setup"]
   }
