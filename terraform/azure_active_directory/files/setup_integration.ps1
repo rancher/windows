@@ -20,6 +20,8 @@ ${jsonencode(gmsas)}
 "@
 
 $activeDirectoryDir = "C:\etc\rancher-dev\active_directory"
+Remove-Item $activeDirectoryDir -Recurse -Force -ErrorAction SilentlyContinue;
+New-Item -ItemType Directory -Force -Path "$activeDirectoryDir";
 
 # Create values.yaml
 $activeDirectoryIntegrationsDir = "$activeDirectoryDir\values.json"
