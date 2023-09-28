@@ -84,7 +84,7 @@ terraform_dirs=$(
 )
 
 terraform_command_fmts=(
-    "terraform fmt --recursive %s"
+    "terraform fmt --recursive -check %s"
 )
 
 for cmd_fmt in "${terraform_command_fmts[@]}"; do
