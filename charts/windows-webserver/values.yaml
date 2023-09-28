@@ -28,6 +28,10 @@ service:
   port: 80
   targetPort: 80
 
+# Uncomment if you would like this webserver to run using a specific ActiveDirectory gMSA
+# Requires rancher-gmsa-webhook to be installed and a valid GMSACredentialSpec
+# gmsa: "gmsa1"
+
 ## Define which Nodes the Pods are scheduled on.
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
