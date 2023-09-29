@@ -16,6 +16,9 @@ spec:
       labels: {{ include "windows-webserver.labels" . | nindent 8 }}
         app: {{ template "windows-webserver.name" . }}
     spec:
+      securityContext:
+        windowsOptions:
+          gmsaCredentialSpecName: {{ .Values.gmsa }}
       containers:
         - name: {{ template "windows-webserver.name" . }}
           image: "{{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}"

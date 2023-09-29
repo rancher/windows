@@ -6,10 +6,11 @@ nodes = [
     replicas = 1
   },
   {
-    name     = "windows-server"
-    image    = "windows"
-    roles    = ["worker"]
-    replicas = 1
+    name        = "windows-server"
+    image       = "windows"
+    roles       = ["worker"]
+    replicas    = 1
+    domain_join = true
   }
 ]
 
@@ -44,14 +45,14 @@ apps = {
   }
 
   gmsa-crd = {
-    path         = "https://github.com/HarrisonWAffel/charts/raw/update-gmsa/assets/rancher-windows-gmsa-crd/rancher-windows-gmsa-crd-3.0.0.tgz"
+    path         = "https://charts.rancher.io/assets/rancher-windows-gmsa-crd/rancher-windows-gmsa-crd-2.0.0.tgz"
     namespace    = "cattle-windows-gmsa-system"
     values       = {}
     dependencies = ["hack-gmsa-namespace"]
   }
 
   gmsa = {
-    path      = "https://github.com/HarrisonWAffel/charts/raw/update-gmsa/assets/rancher-windows-gmsa/rancher-windows-gmsa-3.0.0.tgz"
+    path      = "https://charts.rancher.io/assets/rancher-windows-gmsa/rancher-windows-gmsa-2.0.0.tgz"
     namespace = "cattle-windows-gmsa-system"
     values = {
       credential = {
@@ -74,28 +75,12 @@ apps = {
     dependencies = ["gmsa"]
   }
 
-  rancher-gmsa-plugin-installer = {
-    path      = "https://github.com/HarrisonWAffel/Rancher-Plugin-gMSA/raw/additional-fixes-refactors-and-docs/rancher-gmsa-plugin-installer-0.0.1.tgz"
-    namespace = "cattle-windows-gmsa-system"
-    values    = {}
-  }
-
-  rancher-gmsa-account-provider = {
-    path      = "https://github.com/HarrisonWAffel/Rancher-Plugin-gMSA/raw/additional-fixes-refactors-and-docs/rancher-gmsa-account-provider-0.0.1.tgz"
-    namespace = "cattle-windows-gmsa-system"
-    values = {
-      secret = {
-        createDefault = false
-      }
-    }
-  }
-
   windows-gmsa-webserver = {
     path      = "charts/windows-gmsa-webserver"
     namespace = "cattle-wins-system"
     values = {
-      gmsa = "gmsa1-ccg"
+      gmsa = "gmsa1"
     }
-    dependencies = ["windows-ad-setup", "rancher-gmsa-plugin-installer", "rancher-gmsa-account-provider", "cert-manager"]
+    dependencies = ["windows-ad-setup"]
   }
 }
