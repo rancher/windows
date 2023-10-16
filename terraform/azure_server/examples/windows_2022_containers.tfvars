@@ -1,4 +1,4 @@
-image = "windows-2022-core"
+image = "windows-2022"
 scripts = [
   <<-EOT
     Enable-WindowsOptionalFeature -Online -FeatureName containers -All -NoRestart;
