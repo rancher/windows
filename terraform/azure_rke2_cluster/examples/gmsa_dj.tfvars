@@ -2,6 +2,7 @@ nodes = [
   {
     name     = "linux-server"
     image    = "linux"
+    size     = "Standard_B4als_v2"
     roles    = ["controlplane", "etcd", "worker"]
     replicas = 1
   },

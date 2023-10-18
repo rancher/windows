@@ -31,7 +31,7 @@ variable "network" {
 variable "servers" {
   type = list(object({
     name   = string
-    size   = optional(string, "Standard_B2s")
+    size   = optional(string, "Standard_B2als_v2")
     subnet = optional(string, "external")
     image = optional(object({
       publisher = string

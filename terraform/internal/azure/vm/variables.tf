@@ -51,7 +51,7 @@ variable "name" {
 variable "size" {
   type        = string
   description = "The size to use for this VM."
-  default     = "Standard_B2s"
+  default     = "Standard_B2als_v2"
 }
 
 variable "image" {

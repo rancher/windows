@@ -63,6 +63,7 @@ module "vms" {
   active_directory = each.value.domain_join ? var.active_directory : null
 
   name                = each.key
+  size                = each.value.size
   ssh_public_key_path = var.ssh_public_key_path
   image               = each.value.image
   scripts             = each.value.scripts

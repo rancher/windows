@@ -11,6 +11,6 @@ spec:
   - clusterName: ${cluster_name}
   dependsOn: ${jsonencode(depends_on)}
   resources:
-  - name: ${name}.yaml
+  - name: templates/${name}.yaml
     content: ${base64encode(manifest)}
     encoding: "base64"
