@@ -75,19 +75,14 @@ apps = {
   }
 
   rancher-gmsa-plugin-installer = {
-    path      = "https://github.com/HarrisonWAffel/Rancher-Plugin-gMSA/raw/additional-fixes-refactors-and-docs/rancher-gmsa-plugin-installer-0.0.1.tgz"
+    path      = "https://github.com/aiyengar2/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-plugin-installer/rancher-gmsa-plugin-installer-0.0.1.tgz"
     namespace = "cattle-windows-gmsa-system"
     values    = {}
   }
 
   rancher-gmsa-account-provider = {
-    path      = "https://github.com/HarrisonWAffel/Rancher-Plugin-gMSA/raw/additional-fixes-refactors-and-docs/rancher-gmsa-account-provider-0.0.1.tgz"
+    path      = "https://github.com/aiyengar2/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-account-provider/rancher-gmsa-account-provider-0.0.1.tgz"
     namespace = "cattle-windows-gmsa-system"
-    values = {
-      secret = {
-        createDefault = false
-      }
-    }
   }
 
   windows-gmsa-webserver = {
