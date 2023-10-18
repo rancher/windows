@@ -33,8 +33,9 @@ data "helm_template" "chart" {
   create_namespace = true
   include_crds     = true
   # Cannot validate since the KUBECONFIG we are using is the local cluster's KUBECONFIG, not the downstream cluster's KUBECONFIG
-  validate     = false
-  kube_version = var.kubernetes_version
+  validate         = false
+  kube_version     = var.kubernetes_version
+  disable_webhooks = false
 }
 
 data "http" "manifest" {

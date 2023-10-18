@@ -8,10 +8,16 @@ variable "name" {
   }
 }
 
+variable "size" {
+  type        = string
+  description = "Default size to use for the single server this Rancher instance will run on."
+  default     = "Standard_B4als_v2"
+}
+
 variable "rancher_version" {
   type        = string
   description = "Version of Rancher to use. Find this on https://hub.docker.com/r/rancher/rancher."
-  default     = "2.7.3"
+  default     = "2.7.7"
 }
 
 variable "create_record" {

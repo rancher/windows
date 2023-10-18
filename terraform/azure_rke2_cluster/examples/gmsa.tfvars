@@ -2,6 +2,7 @@ nodes = [
   {
     name     = "linux-server"
     image    = "linux"
+    size     = "Standard_B4als_v2"
     roles    = ["controlplane", "etcd", "worker"]
     replicas = 1
   },
@@ -20,45 +21,28 @@ apps = {
   }
 
   cert-manager = {
-    path         = "https://charts.jetstack.io//charts/cert-manager-v1.12.4.tgz"
+    path         = "https://charts.jetstack.io/charts/cert-manager-v1.12.4.tgz"
     namespace    = "cert-manager"
     values       = {}
     dependencies = ["cert-manager-crd"]
   }
 
-  # This is a hack that has been put into place to support an existing bug in the
-  # current rancher-gmsa-webhook chart. Currently, if the admission webhook is deployed
-  # before the webhook Pod itself is deployed, the webhook will not be able to start because
-  # the Kubernetes API server will attempt to reach out to the webhook to verify the webhook Pod,
-  # which is a circular dependency. To resolve this, we add the namespace we deploy the webhook
-  # pod onto as one where the admission webhook is disabled.
-  hack-gmsa-namespace = {
-    manifest = <<-EOT
-    apiVersion: v1
-    kind: Namespace
-    metadata:
-        name: cattle-windows-gmsa-system
-        labels:
-          gmsa-webhook: disabled
-    EOT
+  rancher-windows-gmsa-crd = {
+    path      = "https://github.com/aiyengar2/Rancher-Plugin-gMSA/raw/main/assets/rancher-windows-gmsa-crd/rancher-windows-gmsa-crd-3.0.0.tgz"
+    namespace = "cattle-windows-gmsa-system"
+    values    = {}
   }
 
-  gmsa-crd = {
-    path         = "https://github.com/HarrisonWAffel/charts/raw/update-gmsa/assets/rancher-windows-gmsa-crd/rancher-windows-gmsa-crd-3.0.0.tgz"
-    namespace    = "cattle-windows-gmsa-system"
-    values       = {}
-    dependencies = ["hack-gmsa-namespace"]
-  }
-
-  gmsa = {
-    path      = "https://github.com/HarrisonWAffel/charts/raw/update-gmsa/assets/rancher-windows-gmsa/rancher-windows-gmsa-3.0.0.tgz"
+  rancher-windows-gmsa = {
+    path      = "https://github.com/aiyengar2/Rancher-Plugin-gMSA/raw/main/assets/rancher-windows-gmsa/rancher-windows-gmsa-3.0.0.tgz"
     namespace = "cattle-windows-gmsa-system"
     values = {
-      credential = {
-        enabled = false
+      # TODO: remove this when image-mirror PR is merged
+      image = {
+        tag = "v0.3.0"
       }
     }
-    dependencies = ["gmsa-crd", "cert-manager"]
+    dependencies = ["rancher-windows-gmsa-crd", "cert-manager"]
   }
 
   windows-ad-setup = {
@@ -71,23 +55,24 @@ apps = {
     #
     # Alternatively, you can manually create the expected `values.json` for an external Active Directory
     values_file  = "dist/active_directory/values.json"
-    dependencies = ["gmsa"]
+    dependencies = ["rancher-windows-gmsa"]
   }
 
   rancher-gmsa-plugin-installer = {
-    path      = "https://github.com/HarrisonWAffel/Rancher-Plugin-gMSA/raw/additional-fixes-refactors-and-docs/rancher-gmsa-plugin-installer-0.0.1.tgz"
+    path      = "https://github.com/aiyengar2/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-plugin-installer/rancher-gmsa-plugin-installer-0.0.1.tgz"
     namespace = "cattle-windows-gmsa-system"
     values    = {}
   }
 
   rancher-gmsa-account-provider = {
-    path      = "https://github.com/HarrisonWAffel/Rancher-Plugin-gMSA/raw/additional-fixes-refactors-and-docs/rancher-gmsa-account-provider-0.0.1.tgz"
+    path      = "https://github.com/aiyengar2/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-account-provider/rancher-gmsa-account-provider-0.0.1.tgz"
     namespace = "cattle-windows-gmsa-system"
     values = {
       secret = {
         createDefault = false
       }
     }
+    dependencies = ["cert-manager"]
   }
 
   windows-gmsa-webserver = {
@@ -96,6 +81,6 @@ apps = {
     values = {
       gmsa = "gmsa1-ccg"
     }
-    dependencies = ["windows-ad-setup", "rancher-gmsa-plugin-installer", "rancher-gmsa-account-provider", "cert-manager"]
+    dependencies = ["windows-ad-setup", "rancher-gmsa-plugin-installer", "rancher-gmsa-account-provider"]
   }
 }

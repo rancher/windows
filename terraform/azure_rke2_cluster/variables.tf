@@ -45,7 +45,7 @@ variable "nodes" {
   type = list(object({
     name        = string
     image       = optional(string, "linux")
-    size        = optional(string, "Standard_B2s")
+    size        = optional(string, "Standard_B2als_v2")
     scripts     = optional(list(string), [])
     roles       = optional(list(string), ["worker"])
     replicas    = optional(number, 1)
@@ -56,6 +56,7 @@ variable "nodes" {
     {
       name     = "linux-server"
       image    = "linux"
+      size     = "Standard_B4als_v2"
       roles    = ["controlplane", "etcd", "worker"]
       replicas = 1
     },
@@ -72,7 +73,7 @@ variable "servers" {
   type = list(object({
     name        = string
     image       = optional(string, "linux")
-    size        = optional(string, "Standard_B2s")
+    size        = optional(string, "Standard_B2als_v2")
     scripts     = optional(list(string), [])
     domain_join = optional(bool, false)
   }))

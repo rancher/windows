@@ -74,6 +74,7 @@ module "server" {
     {
       name  = var.name
       image = module.images.source_images["linux"]
+      size  = var.size
       scripts = [
         templatefile("${path.module}/files/install_docker.sh", {
           docker_version = var.docker_version
