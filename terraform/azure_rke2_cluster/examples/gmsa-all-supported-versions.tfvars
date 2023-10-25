@@ -7,8 +7,26 @@ nodes = [
     replicas = 1
   },
   {
-    name     = "windows-server"
-    image    = "windows"
+    name     = "windows-server-2019-core"
+    image    = "windows-2019-core"
+    roles    = ["worker"]
+    replicas = 1
+  },
+  {
+    name     = "windows-server-2019"
+    image    = "windows-2019"
+    roles    = ["worker"]
+    replicas = 1
+  },
+  {
+    name     = "windows-server-2022"
+    image    = "windows-2022"
+    roles    = ["worker"]
+    replicas = 1
+  },
+  {
+    name     = "windows-server-core-2022"
+    image    = "windows-2022-core"
     roles    = ["worker"]
     replicas = 1
   }
