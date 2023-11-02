@@ -14,6 +14,8 @@ terraform -chdir=terraform/azure_active_directory init
 terraform -chdir=terraform/azure_rke2_cluster init
 ```
 
+> **Note**: Windows requires a rsa ssh key pair
+
 ### Connecting to Azure (and DigitalOcean)
 
 The Terraform modules used in this guide assume that the user has already authenticated their current machine to Azure by following the guidance of the [Azure Terraform Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure).

@@ -50,6 +50,8 @@ VMs
 YAML
 sku
 PowerShell
+rsa
+RSA
 VPC
 VPCs
 subnet
