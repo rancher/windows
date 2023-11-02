@@ -95,6 +95,6 @@ variable "address_space" {
 
 variable "ssh_public_key_path" {
   type        = string
-  description = "The path to a public SSH key to be mounted on hosts."
+  description = "The path to a public SSH key to be mounted on hosts. This must be a RSA public key."
   default     = "~/.ssh/id_rsa.pub"
 }
