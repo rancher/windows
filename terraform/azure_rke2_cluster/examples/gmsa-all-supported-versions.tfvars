@@ -46,13 +46,13 @@ apps = {
   }
 
   rancher-windows-gmsa-crd = {
-    path      = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-windows-gmsa-crd/rancher-windows-gmsa-crd-3.0.0.tgz"
+    path      = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-webhook-crd/rancher-gmsa-webhook-crd-0.1.0.tgz"
     namespace = "cattle-windows-gmsa-system"
     values    = {}
   }
 
   rancher-windows-gmsa = {
-    path         = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-windows-gmsa/rancher-windows-gmsa-3.0.0.tgz"
+    path         = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-webhook/rancher-gmsa-webhook-0.1.0.tgz"
     namespace    = "cattle-windows-gmsa-system"
     values       = {}
     dependencies = ["rancher-windows-gmsa-crd", "cert-manager"]
@@ -78,7 +78,7 @@ apps = {
   }
 
   rancher-gmsa-account-provider = {
-    path      = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-account-provider/rancher-gmsa-account-provider-0.0.1.tgz"
+    path      = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-account-provider/rancher-gmsa-account-provider-0.1.0.tgz"
     namespace = "cattle-windows-gmsa-system"
     values = {
       secret = {

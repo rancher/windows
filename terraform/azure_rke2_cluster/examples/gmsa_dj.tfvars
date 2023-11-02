@@ -46,14 +46,14 @@ apps = {
   }
 
   gmsa-crd = {
-    path         = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-windows-gmsa-crd/rancher-windows-gmsa-crd-3.0.0.tgz"
+    path         = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-webhook-crd/rancher-gmsa-webhook-crd-0.1.0.tgz"
     namespace    = "cattle-windows-gmsa-system"
     values       = {}
     dependencies = ["hack-gmsa-namespace"]
   }
 
   gmsa = {
-    path      = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-windows-gmsa/rancher-windows-gmsa-3.0.0.tgz"
+    path      = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-webhook/rancher-gmsa-webhook-0.1.0.tgz"
     namespace = "cattle-windows-gmsa-system"
     values = {
       credential = {
