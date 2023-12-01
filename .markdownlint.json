@@ -16,6 +16,7 @@
         "json",
         "markdown",
         "text",
+        "C#",
         "go",
         "mermaid"
       ],
@@ -43,5 +44,7 @@
     "ul-style": {
       "style": "dash"
     },
-    "line-length": false
+    "line-length": false,
+
+    "MD012": false
 }
