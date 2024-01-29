@@ -60,13 +60,9 @@ apps = {
   }
 
   rancher-gmsa-account-provider = {
-    path      = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-account-provider/rancher-gmsa-account-provider-0.1.0.tgz"
-    namespace = "cattle-windows-gmsa-system"
-    values = {
-      secret = {
-        createDefault = false
-      }
-    }
+    path         = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-account-provider/rancher-gmsa-account-provider-0.1.0.tgz"
+    namespace    = "cattle-windows-gmsa-system"
+    values       = {}
     dependencies = ["cert-manager"]
   }
 
