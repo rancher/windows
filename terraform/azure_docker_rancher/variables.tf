@@ -17,7 +17,7 @@ variable "size" {
 variable "rancher_version" {
   type        = string
   description = "Version of Rancher to use. Find this on https://hub.docker.com/r/rancher/rancher."
-  default     = "2.7.7"
+  default     = "2.8.1"
 }
 
 variable "create_record" {
@@ -40,7 +40,7 @@ variable "registry_hostname" {
 
 variable "docker_version" {
   type        = string
-  default     = "24.0"
+  default     = "23.0"
   description = "Version of Docker to run Rancher on. Find this in https://github.com/rancher/install-docker/tree/master/dist."
 }
 
