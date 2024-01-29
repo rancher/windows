@@ -53,6 +53,7 @@ sku
 PowerShell
 rsa
 RSA
+RSA-based
 VPC
 VPCs
 subnet
@@ -82,6 +83,10 @@ IPC
 
 windows-webserver
 windows-gmsa-webserver
+
+VSCode
+chocolatey
+kubernetes-cli
 
 Arvind
 Iyengar

@@ -49,6 +49,12 @@ variable "image" {
   default     = "linux"
 }
 
+variable "dev_tools" {
+  type        = bool
+  description = "Whether to install developer tools (i.e. kubectl, git, golang, docker, etc.) onto this host. Only supported for Windows hosts today."
+  default     = false
+}
+
 variable "scripts" {
   type        = list(string)
   description = "The scripts to run on this server on boot."

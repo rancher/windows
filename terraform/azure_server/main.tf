@@ -2,6 +2,21 @@ module "images" {
   source = "../internal/azure/images"
 }
 
+locals {
+  scripts = var.dev_tools && module.images.source_images[var.image].os == "windows" ? concat(
+    [
+      file("${path.module}/files/enable_containers.ps1"),
+      file("${path.module}/files/install-choco.ps1"),
+      # need to run it twice since first time will fail when it installs .NET Framework
+      file("${path.module}/files/install-choco.ps1"),
+      file("${path.module}/files/setup-choco.ps1"),
+      file("${path.module}/files/install-tools.ps1"),
+      file("${path.module}/files/install-docker.ps1"),
+    ],
+    var.scripts
+  ) : var.scripts
+}
+
 module "server" {
   source = "../internal/azure/servers"
 
@@ -19,7 +34,7 @@ module "server" {
     {
       name        = "${var.name}-${i}"
       image       = module.images.source_images[var.image]
-      scripts     = var.scripts
+      scripts     = local.scripts
       domain_join = var.active_directory != null && var.domain_join
     }
   ]
