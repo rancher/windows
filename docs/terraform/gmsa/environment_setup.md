@@ -14,7 +14,7 @@ terraform -chdir=terraform/azure_active_directory init
 terraform -chdir=terraform/azure_rke2_cluster init
 ```
 
-> **Note**: Windows requires a rsa ssh key pair
+> **Note**: Windows requires an RSA-based SSH key pair.
 
 ### Connecting to Azure (and DigitalOcean)
 
@@ -159,6 +159,6 @@ Test-AdServiceAccount "GMSA1"
 # Should return something like "user manager\containeradministrator"
 whoami
 
-# Should return "gmsa1$@arvind-test-ad.ad.com"
+# Should return "gmsa1$@clippy-test-ad.ad.com"
 whoami /UPN
 ```
