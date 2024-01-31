@@ -28,6 +28,7 @@ systemd
 cloud-init
 Terraform
 webserver
+WSL
 
 Dockershim
 Websocket
