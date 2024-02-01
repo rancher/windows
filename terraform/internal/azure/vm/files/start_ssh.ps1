@@ -14,7 +14,7 @@ Set-Service -Name sshd -StartupType 'Automatic';
 
 Write-Output "Checking if SSH public key has already been added..."
 $keyIsPresent = $false
-$authorizedKeys = Get-Content -Path 'C:\ProgramData\ssh\administrators_authorized_keys'
+$authorizedKeys = Get-Content -Path 'C:\ProgramData\ssh\administrators_authorized_keys' -ErrorAction SilentlyContinue
 foreach ($key in $authorizedKeys) {
     if ($key -eq $sshPublicKey) {
         Write-Output "Found SSH Public key."

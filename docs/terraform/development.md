@@ -39,6 +39,14 @@ Once all initialization scripts have finished running, your Windows host should 
 3. [go](https://golang.org/)
 4. [kubernetes-cli (kubectl)](https://community.chocolatey.org/packages/kubernetes-cli)
 5. [docker](https://www.docker.com)
+6. [containerd](https://containerd.io/)
+7. [WSL (Ubuntu 1804)](https://learn.microsoft.com/en-us/windows/wsl/about)
+
+> **Note**: To enable WSL, you may have to run the following command manually while logged in as `adminuser`:
+>
+> `& C:\Windows\System32\wsl\ubuntu1804.exe install --root`
+>
+> After running this command, you should be able to run `bash` to hop into the WSL terminal.
 
 It also adds two PowerShell functions to your profile:
 
