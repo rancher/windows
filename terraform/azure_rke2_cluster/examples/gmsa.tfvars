@@ -27,17 +27,17 @@ apps = {
     dependencies = ["cert-manager-crd"]
   }
 
-  rancher-windows-gmsa-crd = {
+  rancher-gmsa-webhook-crd = {
     path      = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-webhook-crd/rancher-gmsa-webhook-crd-0.1.0.tgz"
     namespace = "cattle-windows-gmsa-system"
     values    = {}
   }
 
-  rancher-windows-gmsa = {
+  rancher-gmsa-webhook = {
     path         = "https://github.com/rancher/Rancher-Plugin-gMSA/raw/main/assets/rancher-gmsa-webhook/rancher-gmsa-webhook-0.1.0.tgz"
     namespace    = "cattle-windows-gmsa-system"
     values       = {}
-    dependencies = ["rancher-windows-gmsa-crd", "cert-manager"]
+    dependencies = ["rancher-gmsa-webhook-crd", "cert-manager"]
   }
 
   windows-ad-setup = {
@@ -50,7 +50,7 @@ apps = {
     #
     # Alternatively, you can manually create the expected `values.json` for an external Active Directory
     values_file  = "dist/active_directory/values.json"
-    dependencies = ["rancher-windows-gmsa"]
+    dependencies = ["rancher-gmsa-webhook"]
   }
 
   rancher-gmsa-plugin-installer = {
