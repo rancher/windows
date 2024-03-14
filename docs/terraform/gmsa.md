@@ -20,11 +20,11 @@ terraform -chdir=terraform/azure_rke2_cluster init
 
 The Terraform modules used in this guide assume that the user has already authenticated their current machine to Azure by following the guidance of the [Azure Terraform Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure).
 
-If you plan to use the [`azure_docker_rancher`](../../../terraform/azure_docker_rancher) module with `-var-file="examples/dev.tfvars"` or `-var="create_record=true"`, you will need to export an environment variable called `DO_ACCESS_KEY` containing a [DigitalOcean Access Key](https://docs.digitalocean.com/glossary/access-key/) that corresponds to the Rancher Engineering DigitalOcean account (which has the `cp-dev.rancher.space` DNS domain). **This is optional.**
+If you plan to use the [`azure_docker_rancher`](../../terraform/azure_docker_rancher) module with `-var-file="examples/dev.tfvars"` or `-var="create_record=true"`, you will need to export an environment variable called `DO_ACCESS_KEY` containing a [DigitalOcean Access Key](https://docs.digitalocean.com/glossary/access-key/) that corresponds to the Rancher Engineering DigitalOcean account (which has the `cp-dev.rancher.space` DNS domain). **This is optional.**
 
 ### Provision an Active Directory instance
 
-To provision an Active Directory instance, run the following Terraform command at the root of this repository to create an [Azure Active Directory installation](../../../terraform/azure_active_directory):
+To provision an Active Directory instance, run the following Terraform command at the root of this repository to create an [Azure Active Directory installation](../../terraform/azure_active_directory):
 
 ```bash
 TF_NAME_PREFIX="clippy-test"
@@ -61,7 +61,7 @@ terraform -chdir=terraform/azure_active_directory output
 
 ### Provision a Rancher instance
 
-To provision a Rancher instance, run the following Terraform command at the root of this repository to create an [Azure Docker-based Rancher installation](../../../terraform/azure_docker_rancher):
+To provision a Rancher instance, run the following Terraform command at the root of this repository to create an [Azure Docker-based Rancher installation](../../terraform/azure_docker_rancher):
 
 ```bash
 TF_NAME_PREFIX="clippy-test"
@@ -97,13 +97,13 @@ TFOUTPUT
 
 This command pulls `active_directory.tar.gz` from the server and decompresses the contents into `dist/active_directory` locally.
 
-Once you run it, it should create `dist/active_directory/values.json`. This corresponds to a `values.json` for the [`windows-ad-setup`](../../../charts/windows-ad-setup) chart.
+Once you run it, it should create `dist/active_directory/values.json`. This corresponds to a `values.json` for the [`windows-ad-setup`](../../charts/windows-ad-setup) chart.
 
 > **Note**: This chart automatically handles creating `GMSACredentialSpecs` and creating an CCG Impersonation Account Secret in the cluster. The `values.json` emitted corresponds to the values specified for gMSA accounts specified in the Terraform values used to provision your Active Directory instance.
 
 ### Create an RKE2 Cluster
 
-To provision a cluster, run the following Terraform command at the root of this repository to create an [Azure RKE2 Custom Windows cluster on your Rancher setup](../../../terraform/azure_rke2_cluster/):
+To provision a cluster, run the following Terraform command at the root of this repository to create an [Azure RKE2 Custom Windows cluster on your Rancher setup](../../terraform/azure_rke2_cluster/):
 
 ```bash
 TF_NAME_PREFIX="clippy-test"

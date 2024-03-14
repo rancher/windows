@@ -8,6 +8,7 @@ RKE2
 
 AWS
 Azure
+KeyVault
 DigitalOcean
 GCP
 vsphere
@@ -19,6 +20,15 @@ kube-proxy
 etcd
 controlplane
 kubectl
+orchestrator
+nodeSelectors
+RBAC
+webhook
+webhook's
+webhooks
+SIG
+descheduled
+Kubernetes-native
 
 CLI
 docker
@@ -29,11 +39,14 @@ cloud-init
 Terraform
 webserver
 WSL
+API
+APIs
 
 Dockershim
 Websocket
 Multus
 TCP
+UDP
 DNS
 20H2
 V2
@@ -49,25 +62,31 @@ GRPC
 VM
 VMs
 YAML
+JSON
 GUID
 sku
 PowerShell
 rsa
 RSA
 RSA-based
+AES
+SSL
+HTTPS
+mTLS
+unencrypted
 VPC
 VPCs
 subnet
 subnets
 air-gapped
+datacenter
 filesystem
-gMSA
-gMSAs
 namespace
 UI
 RDP
 
 CCG
+CCG-based
 CCGRKC
 TLS
 DLL
@@ -81,6 +100,10 @@ CoClass
 coClasses
 coClass
 IPC
+GUID
+GUIDs
+vtable
+IUnknown
 
 windows-webserver
 windows-gmsa-webserver
@@ -88,6 +111,37 @@ windows-gmsa-webserver
 VSCode
 chocolatey
 kubernetes-cli
+GitBook
+
+ADDS
+DC
+DCs
+PDC
+PDCs
+BDCs
+BDCs
+KDC
+KDC's
+gMSA
+gMSAs
+gMSA's
+sMSAs
+NetBIOS
+Kerberos
+LDAP
+LDAPS
+TGT
+TGTs
+DN
+MAPI
+REPL
+schemas
+IWA
+OU
+OUs
+CCGAKV
+CCGRKC
+IMDS
 
 Arvind
 Iyengar

@@ -18,7 +18,7 @@ The Terraform modules used in this guide assume that the user has already authen
 
 ### Using VSCode Remote Explorer (optional)
 
-For developers who utilize VSCode, it may be useful to install the [Remote Explorer extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer), which makes it far easier to launch terminals or view files on a remote machine.
+For developers who use VSCode, it may be useful to install the [Remote Explorer extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer), which makes it far easier to launch terminals or view files on a remote machine.
 
 ## Provision a Windows development server
 
