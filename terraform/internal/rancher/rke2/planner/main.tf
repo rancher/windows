@@ -16,7 +16,7 @@ locals {
           }) : "echo \"No need to install etcdctl.\""
           ] : [
           templatefile("${path.module}/files/windows/install_containers.ps1", {}),
-          format("%s -Worker", var.registration_commands.windows),
+          var.registration_commands.windows,
           templatefile("${path.module}/files/windows/rke2_profile.ps1", {})
         ]
       }
