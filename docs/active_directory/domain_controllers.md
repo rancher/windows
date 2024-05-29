@@ -5,8 +5,8 @@ Domain controllers (DCs) are the heart of Active Directory.
 On a high level, each domain controller serves the following roles in a domain:
 
 1. **Distributed Database**: Maintains a **global catalog** of all organizational data and **replicates** that database across other domain controllers to avoid a single point of failure
-2. **Distributed API Server**: Implements APIs (described [here](./storing_and_querying_data.md#api-layer)) and maintains **schemas** that contain definitions of objects stored in Active Directory and the attributes of those objects.
-3. **DNS Server**: Provides **DNS services** to allow Windows computers on the same network to discover domain controllers and other technical resources on the network via Active Directory DNS.
+2. **Distributed API Server**: Implements APIs (described [here](./storing_and_querying_data.md#api-layer)) and maintains **schemas** that contain definitions of objects stored in Active Directory and the attributes of those objects
+3. **DNS Server**: Provides **DNS services** that automatically provide **every** object stored on a domain controller a DNS name (prefixed by the DC's DNS name). This allows Windows computers on the same network to discover domain controllers and other technical resources on the network via Active Directory DNS
 
 > **Note** Every Active Directory domain has a DNS domain name (i.e. `ad.com`),
 >

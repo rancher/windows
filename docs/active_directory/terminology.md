@@ -73,5 +73,5 @@ DCs with the `Global` role replicate forest-level data across all domain control
 
 Even though there is an overhead with having more than one domain (namely, more domain controllers), there are two primary reasons why system administrators may want to set up a forest:
 
-1. **Security**: splitting information across domains (or across forests) creates a **hard security boundary** since different sets of domain controllers store and manage information for a domain. Different system administrators can also manage different domains.
+1. **Security**: splitting information across forests creates a **hard security boundary** since different sets of domain controllers store and manage information for a domain. Different system administrators can also manage different domains.
 2. **Database Replication**: Since fault tolerance requires all domain controllers tied to a given domain to replicate their database across other domain controllers, splitting Active Directory across different sets of domain controllers helps administrators manage the flow of data across the network, that is, to control how much data needs replication and where that replication traffic takes place.

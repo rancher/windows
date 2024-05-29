@@ -104,7 +104,7 @@ In short, the CCG-based solution for passing in Active Directory credentials gen
 >
 > If you were to use the `NetworkService` account, you would need to have **two** Windows nodes; one joined to each domain. Then you would need to orchestrate those workloads (i.e. using nodeSelectors) onto the specific node connected to the right domain.
 >
-> If you wanted to scale up, you would similarly need to maintain **two Windows node pools**, which increases your costs.
+> If you wanted to scale up, you would similarly need to maintain **two Windows node pools**, which increases your costs; in addition, the provisioned nodes will require additional effort to properly join the nodes to the desired domain before gMSA workloads can run on them, slowing down how long it takes to deploy the new nodes.
 >
 > In the CCG approach, since all nodes that have the same CCG plugin installed that responds differently based on the input provided within the credential spec (i.e. the same plugin can pass back a different set of credentials based on the desired domain based on provided arguments), **every** Windows node can schedule the containers, regardless of whether the Windows node is domain joined since host credentials are no longer used.
 >
@@ -130,7 +130,7 @@ To describe the process in more detail:
 
 5. The **CCGAKV DLL** uses the access token from the Azure IMDS to access the Active Directory credentials from Azure Key Vault and returns a response back to `ccg.exe`.
 
-6. **`ccg.exe`** uses the response to inject credentials into the container.
+6. **`ccg.exe`** uses the response to inject credentials into the container through `containerd` (the sole container runtime that supports this process today).
 
 7. The **container** uses the injected credentials to assume the role of the gMSA(s) added to the container. Once it starts, it can perform operations such as querying Active Directory.
 
