@@ -82,7 +82,8 @@ module "server" {
         templatefile("${path.module}/files/install_or_upgrade_rancher.sh", {
           replace            = var.replace ? timestamp() : null
           bootstrap_password = local.rancher_password
-          image              = "${var.registry_hostname}/rancher:v${var.rancher_version}"
+          image              = var.image
+          agent_image        = var.agent_image
         }),
         local.user_script
       ]
