@@ -3,6 +3,11 @@ ubuntu-1804:
   offer: UbuntuServer
   sku: 18.04-LTS
   scripts: []
+ubuntu-2204:
+  publisher: Canonical
+  offer: 0001-com-ubuntu-server-jammy
+  sku: 22_04-lts
+  scripts: []
 sles-15:
   publisher: SUSE
   offer: sles-15-sp3
