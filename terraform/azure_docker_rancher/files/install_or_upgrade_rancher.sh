@@ -17,4 +17,5 @@ docker run -d --restart=unless-stopped $VOLUME_COMMAND \
 -p 80:80 -p 443:443 -p 6443:6443 \
 --privileged \
 -e 'CATTLE_BOOTSTRAP_PASSWORD=${bootstrap_password}' \
+-e 'CATTLE_AGENT_IMAGE=${agent_image}' \
 ${image}
