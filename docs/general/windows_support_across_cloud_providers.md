@@ -6,8 +6,6 @@ The Rancher Windows team has a goal to add automated infrastructure in the [`ter
 
 The Rancher Windows team supports Windows clusters provisioned using [RKE2](https://github.com/rancher/rke2).
 
-> **Note**: RKE1 Windows is no longer supported. Please see [SUSE Support's document](https://www.suse.com/support/kb/doc/?id=000020684) on this or our docs in [`docs/distributions/rke1_windows.md`](../distributions/rke1_windows.md) for more information.
-
 - [Azure](https://support.microsoft.com/en-us/topic/windows-server-images-for-january-2022-51a88228-17f6-422d-a593-b09ff9f20632)
   - `Windows Server, version 2022`
   - `Windows Server 2019`
