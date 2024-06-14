@@ -84,6 +84,16 @@ filesystem
 namespace
 UI
 RDP
+CRD
+CRDs
+struct
+structs
+golangci-lint
+Dockerfile
+k3d
+proxying
+GitHub
+DockerHub
 
 CCG
 CCG-based
