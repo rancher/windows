@@ -9,7 +9,6 @@ For tracking:
 
 The Windows on Rancher team is:
 
-- [Arvind Iyengar](https://github.com/aiyengar2)
 - [Harrison Affel](https://github.com/harrisonwaffel)
 
 With assists by:
