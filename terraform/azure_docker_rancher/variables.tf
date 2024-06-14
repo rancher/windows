@@ -14,12 +14,6 @@ variable "size" {
   default     = "Standard_B4als_v2"
 }
 
-variable "rancher_version" {
-  type        = string
-  description = "Version of Rancher to use. Find this on https://hub.docker.com/r/rancher/rancher."
-  default     = "2.8.1"
-}
-
 variable "create_record" {
   type        = bool
   description = "Whether to create a DigitalOcean record pointing to the Rancher instance's IP. This is only intended for Rancher internal use-cases."
@@ -32,10 +26,16 @@ variable "replace" {
   default     = false
 }
 
-variable "registry_hostname" {
+variable "image" {
   type        = string
-  description = "The hostname to use for the Docker image (i.e. if you supply 'clippy' here, the Rancher image used will be 'clippy/rancher' with the tag specified by the rancher_version var)."
-  default     = "rancher"
+  description = "The Docker image to use to set up Rancher"
+  default     = "rancher/rancher:v2.8.4"
+}
+
+variable "agent_image" {
+  type        = string
+  description = "The Docker image that Rancher should use for the agent. Must be a public image (or at least made available to all downstream cluster nodes)."
+  default     = "rancher/rancher-agent:v2.8.4"
 }
 
 variable "docker_version" {
