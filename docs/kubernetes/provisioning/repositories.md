@@ -40,6 +40,6 @@ A System Agent Installer is a Docker image that contains a `run.sh` or `run.ps1`
 
 The run file itself typically just runs the underlying `k3s` or `rke2` installation process the same way that users are instructed to do so to manually provision those clusters in the docs.
 
-System Agent Installer images are typically built from [`scratch`](https://hub.docker.com/_/scratch) since they are only pulled by System Agent to extract the files; once extracted, the image is never executed since the command is run on the host.
+System Agent Installer images are typically built from [`scratch`](https://hub.docker.com/_/scratch) since they are treated as an [**OCI Artifact**](https://edu.chainguard.dev/open-source/oci/what-are-oci-artifacts/); this means that they are only pulled by System Agent to extract the files. Once extracted, the image is never executed since the command is run on the host.
 
 For more information on how this "one-time instruction" is executed within Provisioning V2, see the [System Agent](./system_agent.md) docs.

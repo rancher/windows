@@ -12,10 +12,6 @@ A cluster may have one or more Machine Pools associated with it. A common config
 
 > **Note**: Rancher Machine Pools are **have nothing to do with** (currently) experimental [CAPI Machine Pools](https://cluster-api.sigs.k8s.io/tasks/experimental-features/machine-pools.html), which are **not currently implemented by Rancher**.
 
-## Node Drivers
-
-
-
 ## "Parent" and "Child" Objects
 
 Provisioning V2 leverages the [`apply` module of `rancher/wrangler`](https://github.com/rancher/wrangler/tree/master/pkg/apply) is to create and manage "child" objects from a single "parent" object.
