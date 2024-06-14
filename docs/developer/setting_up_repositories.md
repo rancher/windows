@@ -4,7 +4,7 @@ This document is a guide on known steps for setting up new Rancher repositories 
 
 1. User / Developer Docs
 
-2. Application Code / Scripts (Go, Bash, Powershell, .NET)
+2. Application Code / Scripts (Go, Bash, PowerShell, .NET)
 
 3. Docker Images
 
@@ -14,7 +14,7 @@ If your repository does not need one of the above, skip that section.
 
 ## Minimum Requirements
 
-Once any Rancher repository has been created, there are a couple of files that should always be made (examples are linked within this repository itself):
+On creating a Rancher repository, there are a couple of files that should always exist:
 
 1. [`README.md`](../../README.md)
 
@@ -42,23 +42,23 @@ Once any Rancher repository has been created, there are a couple of files that s
 
 13. [`.github/workflows/stale.yml`](../../.github/workflows/stale.yml)
 
-> **Note**: You will need to ensure this repository is set up with a `GITHUB_TOKEN` secret for the `label-opened-issues.yml` workflow to work.
+> **Note**: You will need to ensure this repository has a `GITHUB_TOKEN` secret for the `label-opened-issues.yml` workflow to work.
 
 ### Setting up build targets
 
 It's typical for most Rancher repositories to include a [`Makefile`](https://www.gnu.org/software/make/) that identifies build targets for developers to use (`make prepare`, `make build`, `make ci`, etc.).
 
-This `Makefile` typically just contains targets that point into the (Bash) `scripts/` directory, i.e.
+This `Makefile` typically contains targets that point into the (Bash) `scripts/` directory, i.e.
 
 ```text
 TARGETS := $(shell ls scripts)
 ```
 
-So `make lint` is equivalent to running `./scripts/lint`.
+`make lint` is equivalent to running `./scripts/lint`.
 
 ### Setting up cross-platform build targets
 
-If you are creating a repository that needs to be able to be built on a Windows machine, typically we replace `make` with [`mage`](https://github.com/magefile/mage), since it allows us to encode our scripts in Golang (which is cross-platform).
+If you are creating a repository that needs to run on Windows, typically we replace `make` with [`mage`](https://github.com/magefile/mage), since it allows us to encode our scripts in Go (which is cross-platform).
 
 If you are using mage, see the [`magefiles/magefiles.go`](https://github.com/rancher/wins/blob/main/magefiles/magefile.go) on the `rancher/wins` repository for an example on how to set this up.
 
@@ -88,7 +88,7 @@ Makefile # or `mage.go` or `magefiles/*`
 
 ## User / Developer Docs
 
-Once you have created the boilerplate files, it's usually a good idea to start by creating a [`docs/README.md`](../README.md) that points to a couple of other docs targeted to different audiences of your repository.
+Once you have created the boilerplate files, it's a good idea to start by creating a [`docs/README.md`](../README.md) that points to a couple of other docs targeted to different audiences of your repository.
 
 > **Note**: A good example of a repository with these kinds of docs is [`rancher/helm-project-operator`](https://github.com/rancher/helm-project-operator).
 
@@ -98,7 +98,7 @@ Here are some good examples of docs you should write.
 
 #### `getting_started.md`
 
-A doc for first-time users or new developers. This should be a relatively short document with clear, step-by-step instructions on how to get started running the **final product** of your repository (e.g. if you are shipping a Helm chart and a Docker image, just include instructions on how to run the Helm chart).
+A doc for first-time users or new developers. This should be a short document with clear, step-by-step instructions on how to get started running the **final product** of your repository.
 
 If your repository ships Helm chart(s), it should tell a user how to install that chart on a Kubernetes cluster locally (i.e. the helm command) and how to install it on Rancher's Apps & Marketplace.
 
@@ -110,7 +110,7 @@ If your repository ships a library (i.e. Go modules), it should tell a user how 
 
 #### `developing.md`
 
-A doc for new or experienced developers. This should be a relatively mechanical document that gives clear, step-by-step instructions on how to make changes at **every** level and test them.
+A doc for new or experienced developers. This should be a mechanical document that gives clear, step-by-step instructions on how to make changes at **every** level and test them.
 
 If your repository ships a library (i.e. Go modules), it should tell a user how to run the tests.
 
@@ -122,9 +122,9 @@ If your repository ships Helm chart(s), it should tell a user how to provide ove
 
 #### `design.md`
 
-A doc for experienced developers and advanced users. This should be a fairly lengthly reference guide.
+A doc for experienced developers and advanced users. This should be a lengthy reference guide.
 
-This is the document where you talk in detail about what you built, why it was built, and how it was implemented.
+This is the document where you talk in detail about software design, purpose, and implementation details.
 
 A great example of such a doc is the one on [`k3s-io/kine`](https://github.com/k3s-io/kine/blob/master/docs/flow.md).
 
@@ -140,11 +140,11 @@ In this repository, we use three linting solutions:
 
 3. [`spellchecker`](https://github.com/tbroadley/spellchecker-cli): checks for spelling mistakes. See [`.spellcheckerrc.yaml`](../../.spellcheckerrc.yaml) and [`.spellchecker.dict.txt`](../../.spellchecker.dict.txt) for example configuration
 
-> **Note**: For a quick setup, just use `markdownlint` and `write-good` since they require the least customization.
+> **Note**: For a quick setup, use `markdownlint` and `write-good` since they require the least customization.
 
 To copy this setup, copy [scripts/lint](../../scripts/lint) and modify it accordingly for your repository (e.g. add more excluded `markdown_files`, remove `charts_dirs`, remove `terraform_dirs`, etc.).
 
-Once you set everything else up, make sure you create a `.github/workflows/lint_docs.yml` file to set up a Github Actions Workflow and test it:
+Once you set everything else up, make sure you create a `.github/workflows/lint_docs.yml` file to set up a GitHub Actions Workflow and test it:
 
 ```yaml
 name: Lint Docs
@@ -205,7 +205,7 @@ If you are using Bash for build scripts, it should be in the `scripts/` director
 
 If you are using PowerShell for build scripts, it should be in the `scripts/windows` directory.
 
-If you are developing Powershell modules / scripts or .NET code, it should be in the `src/` directory.
+If you are developing PowerShell modules / scripts or .NET code, it should be in the `src/` directory.
 
 When in doubt, look for other Rancher repositories that have similar contents and replicate their directory structure.
 
@@ -217,25 +217,25 @@ To start, make sure you create a `go.mod` by running `go mod init rancher/<repo-
 
 #### Go Modules
 
-The majority of your code (i.e. your Go modules) should belong in the `pkg/` directory. If you are creating a Go library, like [`rancher/permissions`](https://github.com/rancher/permissions), this will be the **only** directory containing Go code.
+The majority of your code (i.e. your Go modules) should belong in the `pkg/` directory. If you are creating a Go library, like [`rancher/permissions`](https://github.com/rancher/permissions), no other directory should contain Go code.
 
 #### `main.go`
 
-If you are shipping a tool or CLI Binary (i.e. `system-agent`, `wins`, `fleet`, etc.), the canoncial tool we use for setting up the CLI is [`rancher/wrangler-cli`](https://github.com/rancher/wrangler-cli). This wraps [`spf13/cobra`](https://github.com/spf13/cobra), a popular library for creating CLI applications, in a clean and readable way.
+If you are shipping a tool or CLI Binary (i.e. `system-agent`, `wins`, `fleet`, etc.), the canonical tool we use for setting up the CLI is [`rancher/wrangler-cli`](https://github.com/rancher/wrangler-cli). This wraps [`spf13/cobra`](https://github.com/spf13/cobra), a popular library for creating CLI applications, in a clean and readable way.
 
 > **Note**: A good example of a repository that uses `rancher/wrangler-cli` in a single `main.go` is [`rancher/helm-locker`](https://github.com/rancher/helm-locker/blob/main/main.go).
 
-If the CLI tool you are building does not use subcommands (e.g. `helm-locker <args>`), you can place the `rancher/wrangler-cli` logic directly in a `main.go`.
+If the CLI tool you are building does not use sub-commands (e.g. `helm-locker <args>`), you can place the `rancher/wrangler-cli` logic directly in a `main.go`.
 
-If the CLI tool you are building uses subcommands (e.g. `wins cli prc run <args>`), it's typical to place your `main.go` in a `cmd/main.go` with `cmd/<subcommand>/*.go` containing the logic for executing the subcommands.
+If the CLI tool you are building uses sub-commands (e.g. `wins cli prc run <args>`), it's typical to place your `main.go` in a `cmd/main.go` with `cmd/<subcommand>/*.go` containing the logic for executing the sub-commands.
 
 If you are building multiple CLI tools, it's typical to place each tool's `main.go` under `cmd/<tool>/main.go` instead.
 
-> **Note**: A good example of a repository that organizes subcommands in `cmd/` is [`rancher/Rancher-Plugin-gMSA`](https://github.com/rancher/Rancher-Plugin-gMSA/tree/main/cmd).
+> **Note**: A good example of a repository that organizes sub-commands in `cmd/` is [`rancher/Rancher-Plugin-gMSA`](https://github.com/rancher/Rancher-Plugin-gMSA/tree/main/cmd).
 
 It's also typical for us to define [`pkg/version/version.go`](https://github.com/rancher/helm-locker/blob/main/pkg/version/version.go) for tools / CLI binaries to report their version.
 
-This module contains a simple `FriendlyVersion` function that takes in the hard-coded `Version` and `GitCommit`, which is typically overridden on `go build` by specifying the following LINKFLAGS in a `scripts/build` file:
+This module contains a simple `FriendlyVersion` function that takes in the hard-coded `Version` and `GitCommit`, which is typically overridden on `go build` by specifying the following `LINKFLAGS` in a `scripts/build` file:
 
 ```bash
 REPO="<repo>"
@@ -251,7 +251,7 @@ CGO_ENABLED=0 go build -ldflags "$LINKFLAGS $OTHER_LINKFLAGS" -o bin/$REPO
 
 #### Generated code
 
-If you are generating code (which is common for controllers written in Go), the `go generate` logic should typically be placed in a [`generate.go`](https://github.com/rancher/helm-locker/blob/main/generate.go) file at the repository root.
+If you are generating code (which is common for controllers written in Go), define a [`generate.go`](https://github.com/rancher/helm-locker/blob/main/generate.go) file at the repository root that runs your `go generate` commands.
 
 This is generally accompanied by a [`scripts/validate-ci`](https://github.com/rancher/helm-locker/blob/main/scripts/validate-ci) target that runs `go generate` and then enforces that Git is clean.
 
@@ -263,17 +263,17 @@ Common directories that get auto-generated like this include:
 
 3. Some of the files in [`./pkg/apis`](https://github.com/rancher/helm-locker/tree/main/pkg/apis) that start with `zz_generated`
 
-Typically, we place the logic that is run on `go generate` in a single module at [`pkg/codegen/`](https://github.com/rancher/helm-locker/tree/main/pkg/codegen).
+Typically, we place `go generate` logic in a single module at [`pkg/codegen/`](https://github.com/rancher/helm-locker/tree/main/pkg/codegen).
 
 Some useful wrangler packages that are using in code generation for Kubernetes clusters include:
 
-1. [`cleanup`](https://github.com/rancher/wrangler/blob/master/pkg/cleanup): removes `zz_generated` files only from a directory
+1. [`cleanup`](https://github.com/rancher/wrangler/blob/master/pkg/cleanup): removes `zz_generated` files from a directory
 
-2. [`crd`](https://github.com/rancher/wrangler/tree/master/pkg/crd): provides a utility to batch create CRDs when provided a `*rest.Config` to a Kubernetes cluster (which is usually one of the first steps a controller takes on initialization) as well as contains utilities that convert those same structs into YAML objects that can be outputted to a `crd/` directory
+2. [`crd`](https://github.com/rancher/wrangler/tree/master/pkg/crd): provides a utility to batch create CRDs when provided a `*rest.Config` to a Kubernetes cluster (one of the first steps a controller takes on initialization) as well as contains utilities that convert those same structs into YAML objects placed in the `crd/` directory
 
 3. [`yaml`](https://github.com/rancher/wrangler/tree/master/pkg/yaml): makes it easy to export objects as YAML, for CRD export
 
-4. [`controller-gen`](https://github.com/rancher/wrangler/tree/master/pkg/controller-gen): actually generates boilerplate controller code from each struct provided. The actual struct is expected to be contained in [`pkg/apis/<group>.cattle.io/<version>/*.go`](https://github.com/rancher/helm-locker/blob/main/pkg/apis/helm.cattle.io/v1alpha1/release.go), as long as each struct embeds `metav1.TypeMeta` and `metav1.ObjectMeta`.
+4. [`controller-gen`](https://github.com/rancher/wrangler/tree/master/pkg/controller-gen): actually generates boilerplate controller code from each struct provided. The actual struct should be in [`pkg/apis/<group>.cattle.io/<version>/*.go`](https://github.com/rancher/helm-locker/blob/main/pkg/apis/helm.cattle.io/v1alpha1/release.go), as long as each struct embeds `metav1.TypeMeta` and `metav1.ObjectMeta`.
 
 #### Controller code
 
@@ -287,7 +287,7 @@ Discussing how to actually set up a controller is out-of-scope for this document
 
 Within `pkg/controllers`, there's typically a [`pkg/controllers/controller.go`](https://github.com/rancher/helm-locker/blob/main/pkg/controllers/controller.go) that handles all of the boilerplate logic, such as defining an `appContext` (which contains all controllers and clients created from a `SharedControllerFactory`) and registering handlers on controllers.
 
-Each handler's `OnChange` logic is expected to be located at `pkg/controllers/<handler>/controller.go`.
+Each handler's `OnChange` logic should be in `pkg/controllers/<handler>/controller.go`.
 
 ### Adding Tests
 
@@ -295,7 +295,7 @@ Similarly, your application code / scripts should have testing set up in a way t
 
 If you are using Go, make sure you have `_test.go` files so you can run `go test`.
 
-If you are using Powershell, try to incorporate [Pester](https://pester.dev/docs/quick-start) tests, if applicable, under `*.Tests.ps1`.
+If you are using PowerShell, try to incorporate [Pester](https://pester.dev/docs/quick-start) tests, if applicable, under `*.Tests.ps1`.
 
 ### Adding Build Targets
 
@@ -303,7 +303,7 @@ Once you have finished adding your Go code, here are some basic build targets yo
 
 1. [`test`](https://github.com/rancher/Rancher-Plugin-gMSA/blob/main/scripts/test): A script that runs `go test`, `Invoke-Pester`, etc.
 
-2. [`generate-coverage`](https://github.com/rancher/Rancher-Plugin-gMSA/blob/main/scripts/generate-coverage): A script that runs `go test` with coverage and outputs an HTML file. Only for users to use.
+2. [`generate-coverage`](https://github.com/rancher/Rancher-Plugin-gMSA/blob/main/scripts/generate-coverage): A script that runs `go test` with coverage and outputs an HTML file. Intended for users to directly use.
 
 3. [`validate`](https://github.com/rancher/Rancher-Plugin-gMSA/blob/main/scripts/validate): runs `go fmt` and [golangci-lint](https://github.com/golangci/golangci-lint). Make sure you also create [`.golangci.json`](https://github.com/rancher/Rancher-Plugin-gMSA/blob/main/.golangci.json) in your repository root if you do this.
 
@@ -319,25 +319,25 @@ If you are generating code:
 
 You may also want to consider adding the following meta-targets:
 
-1. [`default`](https://github.com/rancher/helm-locker/blob/main/scripts/default): The default build target containing just `build` and `test`
+1. [`default`](https://github.com/rancher/helm-locker/blob/main/scripts/default): The default build target that runs `build` and `test`
 
-2. [`ci`](https://github.com/rancher/helm-locker/blob/main/scripts/ci): The default build target for Github Actions. Should run `build` (if you are using it), `test`, `validate`, and `validate-ci` (if you are using it)
+2. [`ci`](https://github.com/rancher/helm-locker/blob/main/scripts/ci): The default build target for GitHub Actions. Should run `build` (if you are using it), `test`, `validate`, and `validate-ci` (if you are using it)
 
 ### Adding CI
 
-Assuming that any repository that has application code will also have docs, you can modify the [above Github Action](#adding-ci) to add a dependency on `golangci-lint` and execute `bash ./scripts/ci`.
+Assuming that any repository that has application code will also have docs, you can modify the [above GitHub Action](#adding-ci) to add a dependency on `golangci-lint` and execute `bash ./scripts/ci`.
 
 If you do this, rename the file `.github/workflows/ci.yml`.
 
-If you are developing a tool or CLI binary, you will also need to likely add a [`.github/workflows/release.yml`](https://github.com/rancher/wins/blob/main/.github/workflows/release.yaml) to handle creating the GitHub release using `gh release create`.
+If you are developing a tool or CLI binary, you will also need to add a [`.github/workflows/release.yml`](https://github.com/rancher/wins/blob/main/.github/workflows/release.yaml) to handle creating the GitHub release using `gh release create`.
 
 Make sure this GitHub workflow passes in the necessary environment variables to ensure that the `version` script provides the right output for the image you cut.
 
 ## Docker Images
 
-Any Docker image and the relevant code mounted onto it (i.e. scripts) should be contained within the `package/` directory.
+Any Docker image and the relevant code mounted onto it (i.e. scripts) should exist in the `package/` directory.
 
-Images should typically be built on the smallest possible image, typically `registry.suse.com/bci/bci-micro` or `mcr.microsoft.com/windows/nanoserver`.
+Use the smallest possible base image in your `Dockerfile`, typically `registry.suse.com/bci/bci-micro` or `mcr.microsoft.com/windows/nanoserver`.
 
 > **Note**: Ensure that the base image that you use at least has sufficient tooling to allow you to debug issues in production after you ship it.
 >
@@ -349,23 +349,23 @@ In addition to the build targets mentioned [above](#adding-build-targets), once 
 
 1. [`package`](https://github.com/rancher/Rancher-Plugin-gMSA/blob/main/scripts/package): A script that runs `docker build` to build all images based on the `IMAGE` provided by `version`
 
-2. [`publish`](https://github.com/rancher/Rancher-Plugin-gMSA/blob/main/scripts/publish): A script that runs `ORG=$ORG REPO=$REPO docker push $ORG/$REPO:$TAG` to push generated images. Developers are expected to export customized values for `$ORG` and `$REPO` on running this script to avoid pushing straight to the official Dockerhub.
+2. [`publish`](https://github.com/rancher/Rancher-Plugin-gMSA/blob/main/scripts/publish): A script that runs `ORG=$ORG REPO=$REPO docker push $ORG/$REPO:$TAG` to push generated images. Developers should export customized environment values for `$ORG` and `$REPO` on running this script to avoid pushing straight to the official DockerHub.
 
-You will need to modify [`version`](https://github.com/rancher/helm-locker/blob/main/scripts/version) to calculate the right `IMAGE` to be used based on environment variables.
+You will need to modify [`version`](https://github.com/rancher/helm-locker/blob/main/scripts/version) to calculate the right `IMAGE` based on environment variables.
 
 You may also want to consider updating the `default` target to include `package` and the `ci` target to include `publish` (if you plan to publish images for every merged commit).
 
 ### Adding CI
 
-If you followed the steps to set up a `.github/workflows/ci.yml` in the previous section, you will just need to update your `.github/workflows/release.yml` to also publish the image and manifests.
+If you followed the steps to set up a `.github/workflows/ci.yml` in the previous section, you will need to update your `.github/workflows/release.yml` to also publish the image and manifests.
 
 ## Helm Charts
 
-Any Helm chart(s) should be contained within the `charts/` directory.
+All Helm chart(s) should exist within the `charts/` directory.
 
-> **Note**: The only exception to this rules is  repositories that use [`rancher/charts-build-scripts`](https://github.com/rancher/charts-build-scripts), like [`rancher/prometheus-federator`](https://github.com/rancher/prometheus-federator).
+> **Note**: The exception to this rule are the repositories that use [`rancher/charts-build-scripts`](https://github.com/rancher/charts-build-scripts), like [`rancher/prometheus-federator`](https://github.com/rancher/prometheus-federator).
 >
-> Discussing how or why to set up a `rancher/charts-build-scripts` repository is out-of-scope for this document, but it should be noted that the canonical directories / files we use for those directories are:
+> Discussing how or why to set up a `rancher/charts-build-scripts` repository is out-of-scope for this document, but the canonical directories / files we use for those directories are:
 >
 > 1. `packages/`: contains each chart "package" we maintain
 >
@@ -381,16 +381,16 @@ Any Helm chart(s) should be contained within the `charts/` directory.
 
 After your `ci.yaml` builds the Docker images you intend to test using this Helm chart, you can use [`AbsaOSS/k3d-action`](https://github.com/AbsaOSS/k3d-action) to create a [k3d](https://k3d.io/) cluster.
 
-> **Note**: If you are developing a Helm chart that is expected to be deployed on a Windows cluster with Windows components, there is no way for you to add CI at a Helm chart level today.
+> **Note**: If you are developing a Helm chart that deploys on a Windows cluster with Windows components, there is no way for you to add CI at a Helm chart level today.
 >
-> This is because it is currently impossible to create a mixed OS Kubernetes cluster within a single GitHub runner (Linux or Windows) using k3d.
+> This is because it is impossible to create a mixed OS Kubernetes cluster within a single GitHub runner (Linux or Windows) using k3d today.
 
 You can then test if a simple `helm install` works. Make sure your `helm install` provides values that override the default Helm chart values (which should point to the official Rancher repository) to point at your locally built image.
 
-Once that's done, it's up to you how much more testing you want to do (i.e. `helm uninstall`, `helm upgrade`, making sure workloads are up, proxying service endpoints to probe them, ensuring certain resources are created, etc.).
+Once that's done, it's up to you how much more testing you want to do (i.e. `helm uninstall`, `helm upgrade`, making sure workloads are up, proxying service endpoints to probe them, ensuring resources exist, etc.).
 
 An example of a repository that has set up such CI is [`rancher/helm-project-oprator`](https://github.com/rancher/helm-project-operator/blob/main/.github/workflows/e2e-ci.yaml).
 
 ### After Release
 
-After your first release, make sure that your Helm charts find a place in the correct release branch(es) on [`rancher/charts`](https://github.com/rancher/charts); this is how they will actually be released to all customers.
+After your first release, make sure that your Helm charts find a place in the correct release branch(es) on [`rancher/charts`](https://github.com/rancher/charts) to release them to all Rancher users.
