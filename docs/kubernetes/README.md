@@ -8,3 +8,4 @@ This directory contains documentation on Kubernetes:
 This directory also contains several subdirectories on specific Kubernetes concepts:
 
 - [Distributions](./distributions/README.md)
+- [Provisioning](./provisioning/README.md)
