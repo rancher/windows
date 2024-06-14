@@ -38,7 +38,7 @@ For more information, please see the [docs](./generic_machine_provider.md).
 
 ## System Agent
 
-Instead of bootstrapping nodes directly with a Kubernetes distribution, Provisioning V2 bootstraps nodes with [System Agent](./system_agent.md), a daemon that can watch for Machine Plans and execute them on the host on Rancher's behalf.
+Instead of bootstrapping nodes directly with a Kubernetes distribution, Provisioning V2 bootstraps nodes with [System Agent](./system_agent.md) (or [Wins](./wins.md), which embeds System Agent within itself), a daemon that can watch for Machine Plans and execute them on the host on Rancher's behalf.
 
 While the machine plan's initial purpose is to install a Kubernetes distribution via a script provided by a [System Agent Installer](./system_agent_installer.md) image, it can continuously receive updates, which allows Rancher to uniquely support in-place upgrades of Kubernetes components on existing nodes. This cannot be done in most CAPI providers today.
 
