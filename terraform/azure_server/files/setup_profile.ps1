@@ -54,11 +54,9 @@ if (!(Test-Path -Path $PROFILE.AllUsersCurrentHost)) {
 }
 
 $profileFile = @"
-`$env:PATH += ";C:\ProgramData\chocolatey\bin"
-
-`$null = Import-Module C:\ProgramData\chocolatey\helpers\chocolateyProfile.psm1
 `$null = refreshenv
 `$null = Import-Module -WarningAction Ignore -Name `"$toolsPsm1Path`"
+`$env:PATH += "C:\ProgramData\Scoop\shims"
 
 Set-Item -Path Env:\CRI_CONFIG_FILE -Value `$env:ProgramData\crictl\crictl.yaml
 "@

@@ -39,6 +39,10 @@ locals {
       </Query>
       </QueryList>
       "@
+
+      # Monitor the initialization scripts. These can take several minutes to complete.
+      while(1){Get-ScheduledTask -TaskPath "\Rancher\Terraform\"; sleep 5; clear}
+
       EOT
     linux   = <<-EOT
       # Check all stderr logs from initialization scripts

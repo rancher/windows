@@ -5,12 +5,13 @@ module "images" {
 locals {
   scripts = var.dev_tools && module.images.source_images[var.image].os == "windows" ? concat(
     [
-      file("${path.module}/files/enable_features.ps1"),
-      file("${path.module}/files/install_choco.ps1"),
       file("${path.module}/files/setup_profile.ps1"),
       file("${path.module}/files/install_docker.ps1"),
       file("${path.module}/files/install_containerd.ps1"),
-      file("${path.module}/files/install_wsl.ps1")
+      file("${path.module}/files/install_wsl.ps1"),
+      file("${path.module}/files/install_scoop.ps1"),
+      file("${path.module}/files/install_scoop_tools.ps1"),
+      file("${path.module}/files/enable_features.ps1")
     ],
     var.scripts
   ) : var.scripts

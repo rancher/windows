@@ -3,11 +3,6 @@
 variable "name" {
   type        = string
   description = "The name of the server you would like to provision."
-
-  validation {
-    condition     = endswith(var.name, "-server")
-    error_message = "Name must end with -server"
-  }
 }
 
 variable "replicas" {
