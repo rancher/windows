@@ -6,5 +6,5 @@ variable "name" {
 variable "kubernetes_version" {
   type        = string
   description = "The version of RKE2 that you would like to use to provision a cluster."
-  default     = "v1.24.13+rke2r1"
+  default     = "v1.30.9+rke2r1"
 }

@@ -10,7 +10,7 @@ variable "location" {
 
 variable "name" {
   type        = string
-  description = "The name of the group of servers you would like to provision."
+  description = "The name of the group of servers you would like to provision or destroy."
 }
 
 variable "network" {
@@ -49,7 +49,7 @@ variable "servers" {
     scripts     = optional(list(string), [])
     domain_join = optional(bool, false)
   }))
-  description = "The group of servers you would like to provision."
+  description = "The group of servers you would like to provision or destroy."
   default     = []
 }
 
