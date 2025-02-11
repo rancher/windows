@@ -12,6 +12,8 @@ KeyVault
 DigitalOcean
 GCP
 vsphere
+vSphere
+Datacenter
 
 kubelet
 kube-apiserver
@@ -36,9 +38,14 @@ containerd
 dockerd
 systemd
 cloud-init
+Cloudbase
+CloudBase
 Terraform
+Hashicorp
+VMWare
 webserver
 WSL
+hcl
 API
 APIs
 
@@ -81,6 +88,8 @@ subnets
 air-gapped
 datacenter
 filesystem
+gMSA
+gMSAs
 namespace
 UI
 RDP
@@ -94,6 +103,21 @@ k3d
 proxying
 GitHub
 DockerHub
+ISO
+ISOs
+
+
+sysprep
+Sysprep
+sys-prepping
+unattend
+Unattend
+hostname
+templating
+Templating
+Init
+Preinstallation
+userdata
 
 CCG
 CCG-based
@@ -114,9 +138,12 @@ GUID
 GUIDs
 vtable
 IUnknown
+Oobe
+oobe
 
 windows-webserver
 windows-gmsa-webserver
+vSphere-Templates-For-Rancher
 
 VSCode
 chocolatey
@@ -152,6 +179,7 @@ OUs
 CCGAKV
 CCGRKC
 IMDS
+linux
 
 Arvind
 Iyengar
