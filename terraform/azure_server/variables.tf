@@ -3,11 +3,6 @@
 variable "name" {
   type        = string
   description = "The name of the server you would like to provision."
-
-  validation {
-    condition     = endswith(var.name, "-server")
-    error_message = "Name must end with -server"
-  }
 }
 
 variable "replicas" {
@@ -49,9 +44,21 @@ variable "image" {
   default     = "linux"
 }
 
+variable "debug_tools" {
+  type        = bool
+  description = "Whether to install debugging tools (i.e. system-internals, etc.) onto this host. Only supported for Windows hosts today."
+  default     = false
+}
+
 variable "dev_tools" {
   type        = bool
-  description = "Whether to install developer tools (i.e. kubectl, git, golang, docker, etc.) onto this host. Only supported for Windows hosts today."
+  description = "Whether to install standard developer tools (i.e. kubectl, git, golang, docker, scoop, etc.) onto this host. Only supported for Windows hosts today."
+  default     = false
+}
+
+variable "advanced_dev_tools" {
+  type        = bool
+  description = "Whether to install advanced developer tools (i.e. WSL2, HyperV,  etc.) onto this host. Only supported for Windows hosts today."
   default     = false
 }
 
