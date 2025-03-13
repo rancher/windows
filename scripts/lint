@@ -46,6 +46,8 @@ markdown_files=$(
     ! -name 'SECURITY.md' \
     ! -path "./.github/*" \
     ! -path "./docs/kubernetes/*" \
+    ! -path "./vsphere-templates/README.md" \
+    ! -path 'README.md' \
     ! -path "*/.terraform/*"
 )
 

@@ -9,14 +9,13 @@ For tracking:
 
 For developers:
 
-- [terraform automation](./terraform) for standing up VMs easily
+- [terraform automation](./terraform) for standing up VMs
 - [packer automation](./vsphere-templates) for creating new vSphere Windows VM templates
-- [documentation](./docs) on various aspects of Windows in relation to Rancher
+- [documentation](./docs) on multiple aspects of Windows in relation to Rancher
 
 The Windows on Rancher team is:
 
 - [Harrison Affel](https://github.com/harrisonwaffel)
-- [Pedro Franco de Carvalho](https://github.com/pedromfcarvalho)
 
 With assists by:
 
@@ -30,4 +29,4 @@ Links:
 - [Rancher GitHub project](https://github.com/rancher/rancher)
 - [Windows on Rancher Docs](https://rancher.com/docs/rancher/v2.x/en/cluster-provisioning/rke-clusters/windows-clusters/)
 
-Note: All new Windows related Rancher bug reports should be opened in [rancher/rancher](https://github.com/rancher/rancher/issues?q=is%3Aissue+is%3Aopen+label%3Aarea%2Fwindows)
+Note: Rancher bug reports go in [rancher/rancher](https://github.com/rancher/rancher/issues?q=is%3Aissue+is%3Aopen+label%3Aarea%2Fwindows) and will get transferred over as needed.

@@ -41,6 +41,7 @@ cloud-init
 Cloudbase
 CloudBase
 Terraform
+terraform
 Hashicorp
 VMWare
 webserver
