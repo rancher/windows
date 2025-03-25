@@ -18,11 +18,11 @@ A VM template is a "Golden Image" which has all required packages, programs, and
 vSphere Users create VM templates in multiple ways. In the simplest case, users can manually provision a VM after uploading a publicly available OS ISO to their vSphere server. They can then manually install all programs and applications needed for future VM instances. This is a common way to create VM templates which require minimal configuration, however this is a time-consuming method which is prone to human error.
 
 
-If manually creating templates is too time-consuming, [Hashicorp Packer](https://developer.hashicorp.com/packer) automates the creation of templates. Packer uses the hcl language to describe how a VM should be creating in vSphere, which ISO a VM will use, and what commands must execute in order to configure the VM. Packer is a useful tool which greatly reduces the time to create VM templates as well as eliminates potential user error which could arise during manual templating. This process is the recommended way to create VM templates for use by Rancher, and a [dedicated repository](https://github.com/HarrisonWAffel/vsphere-templates-for-rancher) allows Rancher employees to automatically build Windows images.
+If manually creating templates is too time-consuming, [Hashicorp Packer](https://developer.hashicorp.com/packer) automates the creation of templates. Packer uses the hcl language to define VM configurations in vSphere, which ISO a VM will use, and what commands must execute in order to configure the VM. Packer is a useful tool which greatly reduces the time to create VM templates as well as eliminates potential user error which could arise during manual templating. This process is the recommended way to create VM templates for use by Rancher, and a [dedicated repository](https://github.com/HarrisonWAffel/vsphere-templates-for-rancher) allows Rancher employees to automatically build Windows images.
 
 ### VM Template Creation Considerations
 
-It is critical that a VM template remove of all instance specific properties generated during the templating process. This includes values such as the hostname and IP address, as these must be unique to each VM instance created from a VM template. "**Generalization**" is the process of removing these instance specific properties while creating a VM template.
+It is critical that a VM template remove all instance specific properties generated during the templating process. This includes values such as the hostname and IP address, as these must be unique to each VM instance created from a VM template. "**Generalization**" is the process of removing these instance specific properties while creating a VM template.
 
 
 > [!NOTE]
@@ -35,7 +35,7 @@ Creating a Windows Server ISO requires knowledge of low level Windows components
 
 ### Hashicorp Packer
 
-Packer is a VM templating tool which provides a way to automatically create and manage VM templates in vSphere. It uses the hcl language to describe VM templates in a similar manner to how Terraform describes cloud infrastructure. Rancher maintains our own Packer templates for vSphere VM templates [here](https://github.com/HarrisonWAffel/vsphere-templates-for-rancher/tree/main).
+Packer is a VM templating tool which provides a way to automatically create and manage VM templates in vSphere. It uses the hcl language to describe VM templates in a similar manner to how Terraform describes cloud infrastructure. Rancher maintains our own Packer templates for vSphere VM templates [here](../../vsphere-templates).
 
 
 The following sections speak on specific aspects of creating Windows VM templates. These nuances and details are already implemented in the Packer automation. Nevertheless, understanding the files which play a role in the process and why the automation uses specific settings is important for future maintenance.
@@ -88,7 +88,7 @@ The sysprep command is by default located in `C:\Windows\Panther\sysprep.exe`. U
 Much like Linux, a cloud init solution also exists for Windows. CloudBase init is a near one to one implementation of Cloud init for linux. CloudBase Init automatically configures VMs on startup, and plays a critical role in the Rancher provisioning process through the execution of provisioning scripts provided in the userdata. However, there are some differences between Cloud Init for Linux, and CloudBase Init. In general, Windows is not as flexible as Linux when changing properties such as the hostname. Additional reboots of the OS are often needed to ensure that the desired changes take effect.
 
 
-You can configure how CloudBase Init functions by creating and updating the `C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init.conf` file. This file describes what how to configure the host each time the Windows OS boots up. The Windows registry contains a list of CloudBase configuration passes, ensuring that properties like the hostname are not overwritten after a restart.
+You can configure how CloudBase Init functions by creating and updating the `C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init.conf` file. This file describes how to configure the host each time the Windows OS boots up. The Windows registry contains a list of CloudBase configuration passes, ensuring that properties like the hostname are not overwritten after a restart.
 
 
 An example configuration file looks like the following,
