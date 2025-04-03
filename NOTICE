@@ -1,0 +1,10 @@
+This project incorporates material from the following open source projects:
+
+BSD 2-Clause Licensed Code:
+The following directories and child files are derived from code licensed under the BSD 2-Clause license:
+- vsphere-templates
+
+The original copyright and license text for these files are preserved within the vsphere-templates directory
+
+Apache License 2.0:
+All other files in this project are licensed under the Apache License 2.0, see the LICENSE file at the root of this project.
