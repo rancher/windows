@@ -132,6 +132,7 @@ The directory structure of the repository.
 The files are distributed in the following directories.
 * **`builds`** - contains the templates, variables, and configuration files for the machine image build.
 * **`scripts`** - contains the scripts to initialize and prepare a Windows machine image build.
+  * **This includes installing and configuring important dependencies, such as CloudBase init, as well as configuring access over SSH.**  
 * **`certificates`** - contains the Trusted Root Authority certificates for a Windows machine image build.
 * **`manifests`** - manifests created after the completion of the machine image build.
 * **`terraform`** - contains example Terraform plans to test machine image builds.
@@ -429,12 +430,10 @@ If required, modify the configuration files for Microsoft Windows.
 
 Variables are passed into the [Microsoft Windowsunattend files (`autounattend.xml`)][microsoft-windows-unattend] as Packer template files (`autounattend.pkrtpl.hcl`) to generate these on-demand. Unattend files are used to automatically configure Windows on initial bootup. This includes setting up user profiles, defining the language and timezone, and many other options that would normally be configured in the Windows UI on initial boot of the OS. 
 
-By default, each unattended file is set to use the [KMS client setup keys][microsoft-kms] as the **Product Key**. **If you are using an Evaluation edition of Windows server, a valid product key is not required.** 
-
 **Need help customizing the configuration files?**
 
 * **Microsoft Windows** - Use the Microsoft Windows [Answer File Generator][microsoft-windows-afg] if you need to customize the provided examples further.
-  * Additionally, refer to the CloudBase Init documentation on specifics relating to how each VM created from a Windows template is personalized and made unique.   
+  * Additionally, refer to the [CloudBase Init documentation][cloud-base-init] on specifics relating to how each VM created from a Windows template is personalized and made unique.   
 
 ### Step 6 - Add Certificates
 
@@ -516,8 +515,8 @@ Happy building!!!
 [gomplate-install]: https://gomplate.ca/
 [hashicorp]: https://www.hashicorp.com/
 [iso]: https://en.wikipedia.org/wiki/ISO_image
-[microsoft-kms]: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys
-[microsoft-windows-afg]: https://www.windowsafg.com
+[microsoft-windows-afg]: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/update-windows-settings-and-scripts-create-your-own-answer-file-sxs?view=windows-11#create-and-modify-an-answer-file
+[cloud-base-init]: https://cloudbase-init.readthedocs.io/en/latest/index.html
 [microsoft-windows-autologon]: https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-shell-setup-autologon-password-value
 [microsoft-windows-unattend]: https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/
 [packer]: https://www.packer.io
