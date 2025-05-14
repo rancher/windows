@@ -76,14 +76,27 @@ variable "servers" {
     size        = optional(string, "Standard_B2als_v2")
     scripts     = optional(list(string), [])
     domain_join = optional(bool, false)
+    sql_server  = optional(bool, false)
   }))
   description = "Additional servers that should be created alongside your cluster. These servers will automatically be added to the same network as the cluster."
   default     = []
 }
 
+
+// It's important to note that currently both vpc_only_ports and open_ports are top level attributes that
+// apply to all servers in the cluster and cannot be specified per-server.
+// TODO: Fix this so that it can be done both at a global level and server specific level.
+
+
 variable "open_ports" {
   type        = list(string)
   description = "Ports to leave on the external (default) subnet."
+  default     = []
+}
+
+variable "vpc_only_ports" {
+  type        = list(string)
+  description = "Ports that should only be accessible by other machines in the VPC"
   default     = []
 }
 

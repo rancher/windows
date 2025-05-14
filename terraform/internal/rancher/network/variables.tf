@@ -26,6 +26,12 @@ variable "airgap" {
   default     = false
 }
 
+variable "vpc_only_ports" {
+  type        = list(string)
+  description = "List of ports and/or port ranges that should only be accessible from other machines in the VPC."
+  default     = []
+}
+
 variable "open_ports" {
   type        = list(string)
   description = "Ports to leave on the external (default) subnet."
