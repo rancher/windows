@@ -43,7 +43,7 @@ module "server" {
   servers = [
     {
       name  = var.name
-      image = module.images.source_images["windows"]
+      image = module.images.source_images["windows-2022"]
       scripts = [
         local.install_active_directory,
         local.setup_active_directory,
