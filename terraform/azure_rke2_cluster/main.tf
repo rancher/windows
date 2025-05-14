@@ -45,6 +45,26 @@ module "planner" {
 }
 
 locals {
+
+     sqlScript = var.active_directory == null ? [] : concat([templatefile("${path.module}/files/setup_sql.ps1", {
+        windows_AD_user = var.active_directory.join_credentials.username
+        windows_AD_password = var.active_directory.join_credentials.password
+        windows_AD_domain = var.active_directory.domain_name
+      })],
+      [templatefile("${path.module}/files/setup_sql_database.ps1", {
+        test_database_name = "sqlTest"
+        test_table_name = "testTable"
+      })],
+      [templatefile("${path.module}/files/setup_sql_users.ps1", {
+        test_database_name = "sqlTest"
+      })],
+       // The sql management installation takes a very long time,
+       // this script should always be executed last. The SQL server
+       // can be used while this script is executing, however no UI
+       // application will be available.
+      [file("${path.module}/files/setup_sql_management_ui.ps1")]
+    )
+
   servers = merge({
     for name, node in module.planner.plan : name => {
       name        = name
@@ -60,7 +80,7 @@ locals {
       size        = server.size
       subnet      = "external"
       image       = module.images.source_images[server.image]
-      scripts     = server.scripts
+      scripts     = server.sql_server ? concat(server.scripts, local.sqlScript) : server.scripts
       domain_join = server.domain_join
     }
   })
@@ -72,10 +92,11 @@ module "servers" {
   name = var.name
 
   network = {
-    type          = "rke2-calico"
-    address_space = var.address_space
-    airgap        = false
-    open_ports    = var.open_ports
+    type           = "rke2-calico"
+    address_space  = var.address_space
+    airgap         = false
+    open_ports     = var.open_ports
+    vpc_only_ports = var.vpc_only_ports
   }
 
   servers = [
