@@ -65,9 +65,10 @@ module "server" {
     type = "simple"
     // We hard-code a unique address_space to avoid conflicts with other modules
     // creating a peering relationship with the network created by this module
-    address_space = var.address_space
-    airgap        = false
-    open_ports    = ["80", "443", "6443"]
+    address_space  = var.address_space
+    airgap         = false
+    open_ports     = ["80", "443", "6443"]
+    vpc_only_ports = []
   }
 
   servers = [

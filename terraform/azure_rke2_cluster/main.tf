@@ -46,24 +46,28 @@ module "planner" {
 
 locals {
 
-  sqlScript = var.active_directory == null ? [] : concat([templatefile("${path.module}/files/setup_sql.ps1", {
+  sqlScript = var.active_directory == null ? [] : [templatefile("${path.module}/files/setup_sql.ps1", {
     windows_AD_user     = var.active_directory.join_credentials.username
     windows_AD_password = var.active_directory.join_credentials.password
     windows_AD_domain   = var.active_directory.domain_name
-    })],
-    [templatefile("${path.module}/files/setup_sql_database.ps1", {
+    }),
+    templatefile("${path.module}/files/setup_sql_database.ps1", {
       test_database_name = "sqlTest"
       test_table_name    = "testTable"
-    })],
-    [templatefile("${path.module}/files/setup_sql_users.ps1", {
+    }),
+    templatefile("${path.module}/files/setup_sql_users.ps1", {
       test_database_name = "sqlTest"
-    })],
+    }),
     // The sql management installation takes a very long time,
     // this script should always be executed last. The SQL server
     // can be used while this script is executing, however no UI
     // application will be available.
-    [file("${path.module}/files/setup_sql_management_ui.ps1")]
-  )
+    file("${path.module}/files/setup_sql_management_ui.ps1")
+  ]
+
+}
+
+locals {
 
   servers = merge({
     for name, node in module.planner.plan : name => {
