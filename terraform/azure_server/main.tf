@@ -55,6 +55,7 @@ module "server" {
     address_space = var.address_space
     airgap        = false
     open_ports    = var.open_ports
+    vpc_ports     = var.vpc_only_ports
   }
 
   servers = [

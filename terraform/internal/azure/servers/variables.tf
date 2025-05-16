@@ -15,16 +15,18 @@ variable "name" {
 
 variable "network" {
   type = object({
-    type          = string
-    address_space = string
-    airgap        = bool
-    open_ports    = list(string)
+    type           = string
+    address_space  = string
+    airgap         = bool
+    open_ports     = list(string)
+    vpc_only_ports = list(string)
   })
   default = {
-    type          = "simple"
-    address_space = "10.0.256.0/16"
-    airgap        = false
-    open_ports    = []
+    type           = "simple"
+    address_space  = "10.0.256.0/16"
+    airgap         = false
+    open_ports     = []
+    vpc_only_ports = []
   }
 }
 

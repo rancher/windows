@@ -17,6 +17,13 @@ variable "open_ports" {
   default     = []
 }
 
+variable "vpc_only_ports" {
+  type        = list(string)
+  description = "Ports that should only be accessible by other machines in the VPC"
+  default     = []
+}
+
+
 variable "active_directory" {
   type = object({
     name                = string

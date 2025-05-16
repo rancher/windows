@@ -1,9 +1,11 @@
-$domainName = "${domain_name}"
-$machineUsername = "${machine_username}"
-$machinePassword = "${machine_password}"
-$activeDirectoryUsername = "${domain_netbios_name}\${active_directory_username}"
-$activeDirectoryPassword = "${active_directory_password}"
-$networkPrefixLength = "${network_prefix_length}"
+# Ensure single quotes are used, as double quotes may result in an
+# attempt to expand nonexistent variables or execute commands via $()
+$domainName = '${domain_name}'
+$machineUsername = '${machine_username}'
+$machinePassword = '${machine_password}'
+$activeDirectoryUsername = '${domain_netbios_name}\${active_directory_username}'
+$activeDirectoryPassword = '${active_directory_password}'
+$networkPrefixLength = '${network_prefix_length}'
 
 Write-Output "Installing Windows Feature RSAT-AD-Tools..."
 Install-WindowsFeature -Name RSAT-AD-Tools

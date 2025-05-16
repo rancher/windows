@@ -1,10 +1,11 @@
 module "network" {
   source = "../../rancher/network"
 
-  type          = var.type
-  address_space = var.address_space
-  airgap        = var.airgap
-  open_ports    = var.open_ports
+  type           = var.type
+  address_space  = var.address_space
+  airgap         = var.airgap
+  open_ports     = var.open_ports
+  vpc_only_ports = var.vpc_only_ports
 }
 
 locals {

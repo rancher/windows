@@ -11,8 +11,9 @@ module "server" {
     type = "simple"
     // We hard-code a unique address_space to avoid conflicts with other modules
     // creating a peering relationship with the network created by this module
-    address_space = var.address_space
-    airgap        = false
+    address_space  = var.address_space
+    airgap         = false
+    vpc_only_ports = []
     open_ports = [
       // DirectAccess
       "441",
@@ -42,7 +43,7 @@ module "server" {
   servers = [
     {
       name  = var.name
-      image = module.images.source_images["windows"]
+      image = module.images.source_images["windows-2022"]
       scripts = [
         local.install_active_directory,
         local.setup_active_directory,

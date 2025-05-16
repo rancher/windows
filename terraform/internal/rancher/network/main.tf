@@ -91,16 +91,43 @@ locals {
   flannel_rules = yamldecode(file("${path.module}/files/flannel.yaml"))["rules"]
 
   # Open Ports
-  open_port_rules = flatten([
-    for port in concat(var.open_ports) : [
+  open_port_rules = [
+    for port in var.open_ports : {
+      name        = "open-${port}"
+      description = "Allows TCP traffic to port ${port} on hosts in the external subnet"
+      direction   = "inbound"
+      action      = "allow"
+      port_range  = port
+      from        = "*"
+      to          = "external"
+      protocol    = "*"
+    }
+  ]
+
+  vpc_only_port_rules = flatten([
+    for port in var.vpc_only_ports : [
+      // NOTE: Deny rules must be applied first in order for the
+      //       priority values to be ordered correctly.
+      //       This can be removed when we rectify the simple.yaml
+      //       rules in the future
       {
-        name        = "open-${port}"
-        description = "Allows TCP traffic to port ${port} on hosts in the external subnet"
+        name        = "vpc-only-${port}"
+        description = "Denies all traffic from machines outside the VPC to ${port}"
+        direction   = "inbound"
+        action      = "deny"
+        port_range  = port
+        from        = "*"
+        to          = "*"
+        protocol    = "*"
+      },
+      {
+        name        = "vpc-only-${port}"
+        description = "Allow all traffic from machines inside the VPC to ${port}"
         direction   = "inbound"
         action      = "allow"
-        port_range  = "${port}"
-        from        = "*"
-        to          = "external"
+        port_range  = port
+        from        = "vpc"
+        to          = "*"
         protocol    = "*"
       },
     ]
@@ -110,6 +137,7 @@ locals {
   simple_rule_template = concat(
     var.airgap ? local.airgap_rules : local.basic_rules,
     local.remote_rules,
+    local.vpc_only_port_rules,
     local.open_port_rules
   )
 
