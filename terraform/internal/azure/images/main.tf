@@ -2,8 +2,8 @@ locals {
   linux_images   = yamldecode(file("${path.module}/files/linux.yaml"))
   windows_images = yamldecode(file("${path.module}/files/windows.yaml"))
 
-  default_linux_image   = "ubuntu-1804"
-  default_windows_image = "windows-2019"
+  default_linux_image   = "ubuntu-2204"
+  default_windows_image = "windows-2022"
 
   source_images = {
     for k, v in merge(
