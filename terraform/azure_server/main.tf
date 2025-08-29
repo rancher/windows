@@ -51,11 +51,11 @@ module "server" {
   name = var.name
 
   network = {
-    type          = "simple"
-    address_space = var.address_space
-    airgap        = false
-    open_ports    = var.open_ports
-    vpc_ports     = var.vpc_only_ports
+    type           = "simple"
+    address_space  = var.address_space
+    airgap         = false
+    open_ports     = var.open_ports
+    vpc_only_ports = var.vpc_only_ports
   }
 
   servers = [

@@ -8,7 +8,7 @@ nodes = [
   },
   {
     name     = "windows-worker"
-    image    = "windows-2022-core"
+    image    = "windows-2022"
     roles    = ["worker"]
     replicas = 1
   }

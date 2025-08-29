@@ -56,14 +56,14 @@ terraform -chdir=terraform/azure_server destroy -var-file="examples/windows.tfva
 
 Windows Servers do not come configured with support for containerized workloads out of the box; in order for a Windows Server to run containerized workloads, you must install the optional `Containers` feature.
 
-To trigger the module to create a Windows node with the `Containers` feature enabled, use the example from [`examples/windows_containers.tfvars`](./examples/windows_containers.tfvars)
+To trigger the module to create a Windows node with the `Containers` feature enabled, use the example from [`examples/windows_2022_containers.tfvars`](./examples/windows_containers.tfvars)
 
 ```bash
-terraform -chdir=terraform/azure_server apply -var-file="examples/windows_containers.tfvars"
+terraform -chdir=terraform/azure_server apply -var-file="examples/windows_2022_containers.tfvars"
 
 terraform -chdir=terraform/azure_server output
 
-terraform -chdir=terraform/azure_server destroy -var-file="examples/windows_containers.tfvars"
+terraform -chdir=terraform/azure_server destroy -var-file="examples/windows_2022_containers.tfvars"
 ```
 
 > **Note:** The node will be automatically restarted once the Containers feature installs, due to this you should wait about 1-2 minutes after provisioning to register the node.
