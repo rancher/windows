@@ -82,12 +82,12 @@ Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 # Install Chocolatey
 Write-Output "Installing Chocolatey..."
 
-# Bandaid. Force Chocolatey to 1.4.0. This version does not require DotNet Framework 4.8, which simplfies the install scripts.
-# If this bandaid falls off in the future, an additional step needs to be added to properly reboot the instance after DotNet
-# Framework 4.8 is installed by Chocolately (potentially by disabling the firewall in the windows-finish.ps1 script).
-$env:chocolateyVersion = '1.4.0'
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+Invoke-Expression ((New-Object net.webclient).DownloadString("https://community.chocolatey.org/install.ps1"))
 choco feature enable -n allowGlobalConfirmation
+choco install dotnetfx -y
+choco install visualstudio2019buildtools -y
+choco install netfx-4.8-devpack -y
+choco install dotnet-sdk -y
 
 # Temporarily disable firewall until the ports all get sorted.
 Write-Output "Disabling Windows firewall until all ports are sorted for K8s..."
