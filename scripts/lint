@@ -54,7 +54,7 @@ markdown_files=$(
 markdown_command_fmts=(
     "markdownlint %s"
     "spellchecker -q --files %s"
-    "write-good --no-illusion --no-tooWordy %s"
+    "write-good --no-illusion --no-tooWordy --no-passive --no-adverb %s"
 )
 
 for cmd_fmt in "${markdown_command_fmts[@]}"; do

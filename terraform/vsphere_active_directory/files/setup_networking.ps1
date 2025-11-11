@@ -43,10 +43,6 @@ foreach($ip in $ips) {
 Wait-ForService "DNS"
 Wait-ForService "Dnscache"
 
-# TODO: Is this needed now that we don't do network peering?
-#Write-Output "Setting subnet mask prefix length to $networkPrefixLength"
-#Set-NetIPAddress -InterfaceIndex $interfaceIndex -PrefixLength "$networkPrefixLength"
-
 $active_directory_ip = (Get-NetIPAddress -AddressFamily IPV4 -InterfaceIndex $interfaceIndex).IPAddress
 
 Write-Output "Setting Primary DNS server address to the IP address of this host..."

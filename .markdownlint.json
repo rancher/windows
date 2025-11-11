@@ -45,6 +45,6 @@
       "style": "dash"
     },
     "line-length": false,
-
+    "MD040": false,
     "MD012": false
 }

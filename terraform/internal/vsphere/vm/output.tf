@@ -58,7 +58,7 @@ resource "local_file" "rdp_file" {
   username:s:Administrator
   desktopwidth:i:1920
   desktopheight:i:1080
-
+  screen mode id:i:1
   EOT
   filename = "${path.cwd}/${var.name}.rdp"
 }

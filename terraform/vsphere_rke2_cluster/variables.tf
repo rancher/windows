@@ -90,6 +90,12 @@ variable "nodes" {
     ((s.windows_script_bundle != null) && ((s.windows_script_bundle == "dev") || (s.windows_script_bundle == "advancedDev") || (s.windows_script_bundle == "debug") || (s.windows_script_bundle == "")))])
     error_message = "A server can only specify a single available script bundle (dev, advancedDev, debug) or none at all."
   }
+
+  validation {
+    condition = alltrue([for s in var.nodes :
+    ((s.image.os != "linux") || (s.windows_script_bundle == ""))])
+    error_message = "Only Windows servers can specify the windows_script_bundle field."
+  }
 }
 
 

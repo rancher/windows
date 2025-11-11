@@ -1,4 +1,4 @@
-## vSphere RKE2 Cluster
+# vSphere RKE2 Cluster
 
 This module provides automation for creating a rke2 **custom cluster** within a target Rancher Server, automatically handling provisioning and joining an arbitrary number of nodes to the cluster.
 
@@ -10,8 +10,8 @@ Then, copy `examples/simple-cluster.tfvarsexample` and populate the required fie
 
 ## Other Details
 
-+ Unlike the more general `vsphere_server` package, it is not possible to provision Windows nodes which are joined to an Active Directory domain.
-+ It's possible to automatically deploy helm charts to the provisioned clusters. For more details on this is done, refer to `examples/windows_2022_apps.tfvarsexample`
+- Unlike the more general `vsphere_server` package, it is not possible to provision Windows nodes which are joined to an Active Directory domain.
+- It's possible to automatically deploy helm charts to the provisioned clusters. For more details on this is done, refer to `examples/windows_2022_apps.tfvarsexample`
 
 ## State of Support
 

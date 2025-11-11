@@ -1,24 +1,24 @@
-## vSphere server
+# vSphere server
 
 This directory contains automation for standing up one or more VMs within a vSphere environment.
 
-### Usage
+## Usage
 
 Reference `examples/ubuntu.tfvarsexample` or `examples/windows_2022.tfvarsexample` as a reference for standing up servers. Create a copy of these example files and populate the required fields for the given vSphere environment.
 
-### Additional Details
+## Additional Details
 
-#### MS SQL Server Support
+### MS SQL Server Support
 
-This module supports creating a VM preconfigured with an instance of Microsoft SQL Server. Some prerequisites must be met in order for this configuration to work 
+This module supports creating a VM preconfigured with an instance of Microsoft SQL Server. Some prerequisites must be met in order for this configuration to work
 
-+ An Active Directory instance must be created and defined within the `tfvars` file. The SQL server relies on AD for user authentication.
-+ The VM should be configured with sufficient resources
-  + 16vCPU, 32 GB RAM, >= 100GB diskspace
+- An Active Directory instance must be created and defined within the `tfvars` file. The SQL server relies on AD for user authentication.
+- The VM should be configured with sufficient resources
+  - 16 vCPU, 32 GB RAM, >= 100 GB disk space
 
-#### Custom Script Support
+### Custom Script Support
 
-This module supports running arbitrary scripts on nodes during the provisioning process. The definition of a custom script list in this module can be found below, with key behavior differences between Linux and Windows described. 
+This module supports running arbitrary scripts on nodes during the provisioning process. The definition of a custom script list in this module can be found below, with key behavior differences between Linux and Windows described.
 
 ```terraform
 scripts = [
@@ -39,18 +39,18 @@ scripts = [
 ]
 ```
 
-For more information on how Windows handles the execution of script files, refer to `terraform/internal/vsphere/vm/files/add_scheduled_tasks.ps1`. 
+For more information on how Windows handles the execution of script files, refer to `terraform/internal/vsphere/vm/files/add_scheduled_tasks.ps1`.
 
-#### Windows Script Bundles
+### Windows Script Bundles
 
 By default, Windows does not ship common developer tooling that may be useful when debugging a cluster (Go, Git, sys-internals, etc.). To make setting up development nodes easier, a dedicated `windows_script_bundle` field can be defined when creating Windows VMs. Three possible values can be passed,
 
-+ `debug`
-  + The smallest bundle, `debug` installs the `scoop` package manager and low level tools such as `sys-internals`. 
-+ `dev`
-  + The recommended bundle, `dev` includes the `debug` bundle as well as additional tools such as `docker`
-+ `advancedDev`
-  + The largest bundle, `advancedDev` dev includes `dev` bundle, and also installs less commonly used OS features such as WSL2 and Hyper-V
+- `debug`
+  - The smallest bundle, `debug` installs the `scoop` package manager and low level tools such as `sys-internals`.
+- `dev`
+  - The recommended bundle, `dev` includes the `debug` bundle as well as additional tools such as `docker`
+- `advancedDev`
+  - The largest bundle, `advancedDev` dev includes `dev` bundle, and also installs less commonly used OS features such as WSL2 and Hyper-V
 
 ## State of Support
 
