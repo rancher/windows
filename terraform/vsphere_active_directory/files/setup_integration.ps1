@@ -1,3 +1,7 @@
+# setup_integration.ps1 queries the configured active directory instance and builds a values.json file
+# which reports the primary properties of the domain. This file can then be used to integrate with other
+# solutions, such as gMSA CCG implementations.
+
 $ProgressPreference = "SilentlyContinue"
 
 while ($true) {
@@ -43,6 +47,7 @@ $values = [PSCustomObject]@{
         gmsas = @($gmsas)
     }
 }
+
 $values | ConvertTo-Json -Compress -Depth 10 | Set-Content -Path $activeDirectoryIntegrationsDir | Out-Null
 Write-Output "Wrote values.json to $activeDirectoryIntegrationsDir"
 

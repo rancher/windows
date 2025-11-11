@@ -1,0 +1,38 @@
+# Name is incorporated into the AD domain string
+# (windows-ad-deployment.ad.com)
+name = "windows-ad-deployment"
+
+vsphere_user     = ""
+vsphere_password = ""
+vsphere_server   = ""
+data_center      = ""
+datastore        = ""
+compute_cluster  = ""
+network          = ""
+resource_pool    = ""
+folder           = ""
+
+content_library = {
+  library = "library"
+  item    = "item"
+}
+connection_details = {
+  username     = "username"
+  password     = "password"
+  ssh_key_path = ""
+}
+windows_script_bundle = "dev"
+
+# AD configuration
+
+default_password = ""
+standard_users = [
+  {
+    name     = ""
+    password = ""
+  }
+]
+gmsas = [
+  "GMSA1"
+]
+

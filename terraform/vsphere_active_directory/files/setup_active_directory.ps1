@@ -1,3 +1,5 @@
+# setup_active_directory.ps1 creates active directory users, groups, and gMSA's.
+
 $ProgressPreference = "SilentlyContinue"
 
 Write-Output "Registering this computer as an Active Directory Domain Controller..."
