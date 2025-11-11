@@ -58,10 +58,9 @@ for ($i=0; $i -lt $scripts.Length; $i++) {
         "Start-Sleep -Seconds 3",
         "Write-Output `"Executing script...`""
     )
-    $destinationPath = Join-Path -Path $scriptDir $scripts[$i]
+    $destinationPath = Join-Path -Path "C:\\scripts" $scripts[$i]
     $ps1Script += "Write-Output `"Executing $destinationPath...`""
     $ps1Script += "& `"$destinationPath`""
-    Copy-Item $scripts[$i] -Destination $destinationPath
 
     $ps1Script += "Unregister-ScheduledTask -TaskName $taskName -TaskPath $taskPath -Confirm:`$false -ErrorAction SilentlyContinue;"
 
