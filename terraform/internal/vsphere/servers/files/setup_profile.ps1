@@ -72,7 +72,7 @@ function Get-RemoteFile {
 
 # Note: A Powershell module must be placed in a default module path, such as
 #
-#   C:\Users\adminuser\Documents\WindowsPowerShell\Modules
+#   C:\Users\rainpole\Documents\WindowsPowerShell\Modules
 #   C:\Program Files\WindowsPowerShell\Modules
 #   C:\Windows\system32\WindowsPowerShell\v1.0\Modules
 
@@ -84,7 +84,7 @@ function Get-RemoteFile {
 
 # The scheduled task does not use the standard user created by terraform (adminuser)
 # so the $PROFILE variable should not be used.
-$profileFileDirectory = "C:\Users\adminuser\Documents\WindowsPowerShell"
+$profileFileDirectory = "C:\Windows\system32\WindowsPowerShell\v1.0"
 if (-not (Test-Path $profileFileDirectory)) {
     New-Item -ItemType Directory -Force -Path $profileFileDirectory
 }

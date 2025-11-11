@@ -1,7 +1,9 @@
-# Add AD users and roles to the test database, including the default GMSA
+# setup_sql_users.ps1 Adds AD users and roles to the test database, including the default GMSA
 Write-Host "Creating user logins and accounts"
 
 $testDBName = '${test_database_name}'
+$ADNetBiosName = '${ad_net_bios}'
+$testUser = '${test_user_name}'
 
 if ($testDBName -eq "") {
     Write-Host "Did not provide a test database name"
@@ -14,8 +16,8 @@ $logonAndUsers = @(
         Username = "defaultGmsa"
     }
     [PSCustomObject]@{
-        Logon = "ad\User1"
-        Username = "testUser"
+        Logon = "$ADNetBiosName\$testUser"
+        Username = "$testUser"
     }
 )
 

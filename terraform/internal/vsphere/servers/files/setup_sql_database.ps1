@@ -1,6 +1,8 @@
 Write-Host "Setting up test database..."
 # dba tools module allows us to make sql queries from powershell
-Install-Module -Name "dbatools" -Force
+Install-PackageProvider -Name NuGet -Force
+Install-Module -Name PowerShellGet -Force
+Install-Module -Name "dbatools" -Force -Scope AllUsers -AllowClobber
 Set-Dbatoolsinsecureconnection
 
 $testDBName = '${test_database_name}'
