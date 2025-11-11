@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "3.90.0"
+    vsphere = {
+      source  = "vmware/vsphere"
+      version = "2.15.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -15,8 +15,12 @@ terraform {
   }
 }
 
-provider "azurerm" {
-  features {}
+provider "vsphere" {
+  user                 = var.vsphere_user
+  password             = var.vsphere_password
+  vsphere_server       = var.vsphere_server
+  allow_unverified_ssl = true
+  api_timeout          = 10
 }
 
 data "external" "kubeconfig" {
