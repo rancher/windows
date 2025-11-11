@@ -1,9 +1,0 @@
-rules:
-- name: "node-join"
-  description: "Allow all nodes to access the supervisor port on etcd and controlplane nodes"
-  action: "allow"
-  direction: "inbound"
-  port_range: "9345"
-  from: "cluster"
-  to: "controlplane-etcd"
-  protocol: "tcp"
