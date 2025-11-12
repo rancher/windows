@@ -1,9 +1,9 @@
 locals {
   integrations_directory = "dist/active_directory"
   setup_integration_cmd = <<-EOT
-      [[ -d ${local.integrations_directory} ]] && rm -rf ${local.integrations_directory}; mkdir -p ${local.integrations_directory}; ${join("'type C:\\etc\\rancher-dev\\active_directory.tar.gz'", matchkeys(split("'",
+      [[ -d ${local.integrations_directory} ]] && rm -rf ${local.integrations_directory}; mkdir -p ${local.integrations_directory}; ${join("'type C:\\etc\\rancher-dev\\active_directory\\values.json'", matchkeys(split("'",
   replace(module.server.vms[0].machine.ssh_command, " -t ", " ")
-), [true, false, true], [true]))} 2>/dev/null | tar -xvzf - -C ${local.integrations_directory}
+), [true, false, true], [true]))} > ${local.integrations_directory}/values.json
       EOT
 
 active_directory_integration = {

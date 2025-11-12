@@ -28,7 +28,7 @@ scripts = [
     # Script destinations on linux which do not specify absolute paths are placed in '~'.
     # All Windows scripts are unconditionally placed in `C:\scripts`. On Windows, the .ps1 extension is required.
     destination  = "example1.ps1"
-    # Specify any arguments that the script may require. 
+    # Specify any arguments that the script may require.  
     arguments    = "its true, they do"
     # 'execute' denotes if the script should be executed using `remote-exec`. 
     # Scripts which set execute to true will always run in parallel. 
