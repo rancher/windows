@@ -43,7 +43,10 @@ module "vms" {
   network         = var.network
   resource_pool   = var.resource_pool
 
-  scripts = concat(each.value.server.windows_script_bundle == "debug" ? local.debugScripts : [],
+  scripts = concat(each.value.server.image.os == "windows" ? [{
+    content = file("${path.module}/files/extend-disk.ps1")
+    name    = "extend-disk.ps1"
+    }] : [], each.value.server.windows_script_bundle == "debug" ? local.debugScripts : [],
     each.value.server.windows_script_bundle == "dev" ? local.commonDevScripts : [],
     each.value.server.windows_script_bundle == "advancedDev" ? local.advancedDevScripts : [],
     each.value.server.scripts != null ? each.value.server.scripts : [],

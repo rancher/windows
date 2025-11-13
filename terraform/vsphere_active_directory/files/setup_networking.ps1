@@ -46,9 +46,9 @@ Wait-ForService "Dnscache"
 $active_directory_ip = (Get-NetIPAddress -AddressFamily IPV4 -InterfaceIndex $interfaceIndex).IPAddress
 
 Write-Output "Setting Primary DNS server address to the IP address of this host..."
-$curDNS = Get-DnsClientServerAddress -AddressFamily IPV4
-$newDNS = @($active_directory_ip) + $curDNS.IPAddresses
-Set-DnsClientServerAddress -Interfaceindex $interfaceIndex -ServerAddresses $newDNS
+$currentDnsServers = (Get-DnsClientServerAddress -InterfaceIndex $interfaceIndex -AddressFamily IPv4).ServerAddresses
+$newDnsServerList = @($active_directory_ip) + $currentDnsServers
+Set-DnsClientServerAddress -InterfaceIndex $interfaceIndex -ServerAddresses $newDnsServerList
 
 $active_directory_ip_address_host_number = (Get-NetIPAddress -AddressFamily IPV4 -InterfaceIndex $interfaceIndex).IPAddress.split(".")[3]
 $active_directory_ip_address_range = "$((Get-NetIPAddress -AddressFamily IPV4 -InterfaceIndex $interfaceIndex).IPAddress.split(".")[0,1,2] -join ".").0/24"
