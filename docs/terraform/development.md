@@ -14,7 +14,7 @@ terraform -chdir=terraform/vsphere_server init
 
 ### Connecting to vSphere
 
-The Terraform modules used in this guide assume that the user has access to a vSphere environment. No other cloud providers are supported at the moment. 
+The Terraform modules used in this guide assume that the user has access to a vSphere environment. No other cloud providers are supported at the moment.
 
 ### Using VSCode Remote Explorer (optional)
 

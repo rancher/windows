@@ -43,8 +43,8 @@ If all you see is `entrypoint.ps1` registered, all tasks have completed and the 
 
 In the output of the Active Directory module, you will see two important outputs for this guide:
 
-1. `setup_terraform`: This contains the command line arguments you should pass into all other vsphere-based modules (i.e. `vsphere_rke2_cluster` in this guide) to automatically set up certain qualities such as DNS Server configuration, and domain joining operations.
-2. `setup_integration`: This contains a set of commands that you can be run on your local computer to obtain GUID's and SID's required for the gMSA solution.
+1. `setup_terraform`: This contains the command line arguments you should pass into all other vsphere based modules (i.e. `vsphere_rke2_cluster` in this guide) to automatically set up certain qualities such as DNS Server configuration, and domain joining operations.
+2. `setup_integration`: This contains a set of commands that you can be run on your local computer to obtain the GUID and SID required for the gMSA solution.
 
 This guide will reference these outputs later, so make sure you keep track of them. You can always get their output by running the following command:
 
@@ -72,10 +72,10 @@ TFOUTPUT
 
 This command pulls `values.json` from the server and places the contents into `dist/active_directory` locally.
 
-Once you run it, it will create `dist/active_directory/values.json`. This corresponds to a `values.json` for the [`windows-ad-setup`](../../charts/windows-ad-setup) chart, as well as the fields required for creating `GMSACredentialSpec` CRs. 
+Once you run it, it will create `dist/active_directory/values.json`. This corresponds to a `values.json` for the [`windows-ad-setup`](../../charts/windows-ad-setup) chart, as well as the fields required for creating `GMSACredentialSpec` custom resource.
 
 
-### Create an RKE2 Cluster
+### Create a RKE2 Cluster
 
 To provision a cluster, run the following Terraform command at the root of this repository to create a [vSphere RKE2 Custom Windows cluster on your Rancher setup](../../terraform/vsphere_rke2_cluster/):
 
@@ -90,4 +90,4 @@ terraform -chdir=terraform/vsphere_rke2_cluster apply -var-file="examples/simple
 
 ### Install the Rancher gMSA Solution
 
-Now that you have provisioned an rke2 cluster in the same vSphere environment as your Active Directory Instance, you can proceed to install the [Rancher gMSA Plugin Solution](https://github.com/rancher/rancher-plugin-gmsa).
+Now that you have provisioned a rke2 cluster in the same vSphere environment as your Active Directory Instance, you can proceed to install the [Rancher gMSA Plugin Solution](https://github.com/rancher/rancher-plugin-gmsa).

@@ -14,7 +14,7 @@ terraform -chdir=terraform/vsphere_rke2_cluster init
 
 ### Connecting to vSphere
 
-The Terraform modules used in this guide assume that the user has access to a vSphere environment and has permissions to provision VMs. vSphere credentials will need to be specified when creating new `tfvars` files.
+The Terraform modules used in this guide assume that the user has access to a vSphere environment and has permissions to provision virtual machines. vSphere credentials will need to be specified when creating new `tfvars` files.
 
 ### Provision a Rancher instance
 
