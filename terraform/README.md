@@ -4,7 +4,7 @@ This directory contains [Terraform](https://www.terraform.io/) modules that prod
 
 ## Directory Structure
 
-Each module rooted at this directory is a Terraform module that can be **independently** used to produce **a component within a development environment** (i.e. a [Windows or Linux server](./azure_server/), [Docker-based Rancher setup](./azure_docker_rancher/), or [Rancher RKE2 custom cluster](./azure_rke2_cluster/)).
+Each module rooted at this directory is a Terraform module that can be **independently** used to produce **a component within a development environment** (i.e. a [Windows or Linux server](./vsphere_server/),  or [Rancher RKE2 custom cluster](./vsphere_rke2_cluster/)).
 
 The [`internal/`](./internal/) directory is the exception, which contains the underlying Terraform "library" modules referenced by all "external" Terraform modules to produce the underlying Terraform resources.
 

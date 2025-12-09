@@ -2,9 +2,13 @@ Kubernetes
 CNI
 
 k3s
+K3s
 RKE
+rke
 RKE1
+rke1
 RKE2
+rke2
 
 AWS
 Azure
@@ -186,4 +190,12 @@ Arvind
 Iyengar
 Harrison
 Affel
+
+preconfigured
+vCPU
+vcpu
+RAM
+GB
+dev
+WSL2
 

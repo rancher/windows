@@ -15,9 +15,13 @@ Start-Service sshd
 
 New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force
 
-# Set PowerShell as default shell.
-Write-Output "Setting PowerShell as default shell..."
-Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name Shell -Value 'PowerShell.exe -NoExit'
+# Only set PowerShell as default shell if we are running a core image. Setting this for Desktop experiences
+# actually prevents the UI from working after login.
+if ((Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").InstallationType -ne "Server")
+{
+    Write-Output "Setting PowerShell as default shell..."
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name Shell -Value 'PowerShell.exe -NoExit'
+}
 
 # Install Cloudbase Init
 Write-Output "Installing cloudbase-init..."

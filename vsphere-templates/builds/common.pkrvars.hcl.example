@@ -27,4 +27,3 @@ common_http_ip          = null
 common_http_port_min    = 8000
 common_http_port_max    = 8099
 common_ip_wait_timeout  = "50m"
-common_shutdown_timeout = "30m"

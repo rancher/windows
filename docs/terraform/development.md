@@ -7,14 +7,14 @@ To set up an environment to develop on Rancher Windows repositories, you can tak
 Initialize all the Terraform modules used in this guide:
 
 ```bash
-terraform -chdir=terraform/azure_server init
+terraform -chdir=terraform/vsphere_server init
 ```
 
 > **Note**: Windows requires an RSA-based SSH key pair.
 
-### Connecting to Azure
+### Connecting to vSphere
 
-The Terraform modules used in this guide assume that the user has already authenticated their current machine to Azure by following the guidance of the [Azure Terraform Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure).
+The Terraform modules used in this guide assume that the user has access to a vSphere environment. No other cloud providers are supported at the moment.
 
 ### Using VSCode Remote Explorer (optional)
 
@@ -22,25 +22,26 @@ For developers who use VSCode, it may be useful to install the [Remote Explorer 
 
 ## Provision a Windows development server
 
-To provision a Windows development server in Azure, run the following Terraform command at the root of this repository to create an [Windows server with Rancher Developer Tools installed](../../terraform/azure_server):
+To provision a Windows development server in vSphere, create a copy of `terraform/vsphere_server/examples/windows_2022.tfvarsexample` and provide the relevant vSphere configuration information. Once this is done, just run
 
 ```bash
-TF_NAME_PREFIX="clippy-test"
-
-terraform -chdir=terraform/azure_server apply -var="name=${TF_NAME_PREFIX}-server" -var-file="examples/windows_dev.tfvars"
+terraform -chdir=terraform/vsphere_server apply -var-file="examples/windows_2022.tfvars"
 ```
 
 ## Setting up repositories
 
 Once all initialization scripts have finished running, your Windows host should have the following tools installed:
 
-1. [chocolatey (choco)](https://chocolatey.org/)
+1. [Scoop](https://chocolatey.org/)
 2. [git](https://git-scm.com/)
 3. [go](https://golang.org/)
-4. [kubernetes-cli (kubectl)](https://community.chocolatey.org/packages/kubernetes-cli)
-5. [docker](https://www.docker.com)
-6. [containerd](https://containerd.io/)
-7. [WSL (Ubuntu 1804)](https://learn.microsoft.com/en-us/windows/wsl/about)
+4. [docker](https://www.docker.com)
+
+Depending on the `windows_script_bundle` you've specified, the host may also contain
+
+1. [kubernetes-cli (kubectl)](https://community.chocolatey.org/packages/kubernetes-cli)
+2. [containerd](https://containerd.io/)
+3. [WSL (Ubuntu 1804)](https://learn.microsoft.com/en-us/windows/wsl/about)
 
 > **Note**: To enable WSL, you may have to run the following command manually while logged in as `adminuser`:
 >

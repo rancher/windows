@@ -1,0 +1,59 @@
+# This is an example tf vars file for creating a simple two node
+# rke2 v1.32.5 cluster.
+
+name = "simple-rke2-cluster"
+
+vsphere_user     = ""
+vsphere_password = ""
+vsphere_server   = ""
+data_center      = ""
+datastore        = ""
+compute_cluster  = ""
+network          = ""
+resource_pool    = ""
+
+common_connection_details = {
+  windows_username    = "The username for all windows machines. Based off of the VM template"
+  windows_password    = "The password for all windows machines. Based off of the VM template"
+  linux_username      = "The username for all linux machines. Based off of the VM template"
+  linux_password      = "The password for all linux machines. Based off of the VM template. Not needed if a custom SSH key is provided."
+  ssh_key_path        = "A path to a local SSH key that will be added to the VM upon provisioning, and used to execute file and remote-exec provisioners."
+  ssh_public_key_path = "A path to the local SSH public key that will be added to the VM vApp configuration upon creation of the VM"
+}
+
+kubernetes_version = "v1.32.5+rke2r1"
+
+nodes = [
+  {
+    name         = "ubuntu-control-plane"
+    cpu_count    = 4
+    memory_in_mb = 8192
+    disk_size    = 40
+    guest_id     = "ubuntu64Guest"
+    image = {
+      template_path = "TEMPLATE_PATH"
+      os            = "linux"
+    }
+    folder   = "FOLDER"
+    roles    = ["worker", "controlplane", "etcd"]
+    replicas = 1
+  },
+  {
+    name         = "windows-2022"
+    cpu_count    = 8
+    memory_in_mb = 8192
+    disk_size    = 50
+    guest_id     = "windows2019srvNext_64Guest"
+    image = {
+      content_library = {
+        library = "LIBRARY"
+        item    = "ITEM"
+      }
+      os = "windows"
+    }
+    windows_script_bundle = "dev"
+    folder                = "FOLDER"
+    replicas              = 1
+    roles                 = ["worker"]
+  }
+]

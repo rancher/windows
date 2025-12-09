@@ -31,14 +31,6 @@ menu_option_{{ $func_index }}() {
   {{- else -}}
   {{- $message = printf "a %s Template" $submenu.entry -}}
   {{- end -}}
-  echo -e "\nCONFIRM: Build {{ $message }} for VMware vSphere?"
-  echo -e "\nContinue? (y/n)"
-  read -r REPLY
-  if [[ ! $REPLY =~ ^[Yy]$ ]]
-  then
-    exit 1
-  fi
-
   echo "Do you want to provide a custom name prefix for this template? This can be helpful for creating debug templates."
   echo "By default all templates use the format of '[prefix-][OSType]-[Year]-[Edition]-v[Year].[Month]'"
   echo "(e.g. windows-server-2022-standard-core-v24.12)"
@@ -52,6 +44,14 @@ menu_option_{{ $func_index }}() {
         echo "Must provide a custom name"
         exit 1
     fi
+  fi
+
+  echo -e "\nCONFIRM: Build {{ $message }} for VMware vSphere?"
+  echo -e "\nContinue? (y/n)"
+  read -r REPLY
+  if [[ ! $REPLY =~ ^[Yy]$ ]]
+  then
+    exit 1
   fi
 
   ### Build {{ $message }} for VMware vSphere. ###
