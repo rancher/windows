@@ -38,9 +38,7 @@ On creating a Rancher repository, there are a couple of files that should always
 
 11. [`.github/ISSUE_TEMPLATE/feature_request.md`](../../.github/ISSUE_TEMPLATE/feature_request.md): modify this to your repository's needs
 
-12. [`.github/workflows/label_opened_issues.yml`](../../.github/workflows/label-opened-issues.yml): update the label from `team/area2` to your team's label on GitHub
-
-13. [`.github/workflows/stale.yml`](../../.github/workflows/stale.yml)
+12. [`.github/workflows/stale.yml`](../../.github/workflows/stale.yml)
 
 > **Note**: You will need to ensure this repository has a `GITHUB_TOKEN` secret for the `label-opened-issues.yml` workflow to work.
 
