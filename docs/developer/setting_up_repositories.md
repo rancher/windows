@@ -126,57 +126,6 @@ This is the document where you talk in detail about software design, purpose, an
 
 A great example of such a doc is the one on [`k3s-io/kine`](https://github.com/k3s-io/kine/blob/master/docs/flow.md).
 
-### Adding CI
-
-It's generally a good idea to add some form of linting to your repository for docs.
-
-In this repository, we use three linting solutions:
-
-1. [`markdownlint`](https://github.com/DavidAnson/markdownlint): checks for basic formatting inconsistencies in Markdown files. Make sure you add [.markdownlint.json](../../.markdownlint.json).
-
-2. [`write-good`](https://github.com/btford/write-good): checks for readability issues, such as using passive voice
-
-3. [`spellchecker`](https://github.com/tbroadley/spellchecker-cli): checks for spelling mistakes. See [`.spellcheckerrc.yaml`](../../.spellcheckerrc.yaml) and [`.spellchecker.dict.txt`](../../.spellchecker.dict.txt) for example configuration
-
-> **Note**: For a quick setup, use `markdownlint` and `write-good` since they require the least customization.
-
-To copy this setup, copy [scripts/lint](../../scripts/lint) and modify it accordingly for your repository (e.g. add more excluded `markdown_files`, remove `charts_dirs`, remove `terraform_dirs`, etc.).
-
-Once you set everything else up, make sure you create a `.github/workflows/lint_docs.yml` file to set up a GitHub Actions Workflow and test it:
-
-```yaml
-name: Lint Docs
-
-on:
-  push:
-    branches:
-    - main
-    paths:
-    - '**/*.md'
-  pull_request:
-    branches:
-    - main
-    paths:
-    - '**/*.md'
-
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3
-
-    - name: Install dependencies
-      run: |
-        npm install -g markdownlint-cli
-        npm install -g write-good
-        # Uncomment this if you would like to use spellchecker-cli
-        # npm install -g spellchecker-cli
-
-    - name: Run custom lint script
-      run: ./scripts/lint
-```
-
 ### Verifying
 
 Once you have finished these steps, you should see the following added files and/or directories:
@@ -375,19 +324,6 @@ All Helm chart(s) should exist within the `charts/` directory.
 >
 > 5. `scripts/charts-build-scripts/`: for running scripts related to charts-build-scripts, like pulling scripts or removing assets. Typically, these scripts are directly linked as target(s) on the `Makefile`.
 
-### Adding CI
-
-After your `ci.yaml` builds the Docker images you intend to test using this Helm chart, you can use [`AbsaOSS/k3d-action`](https://github.com/AbsaOSS/k3d-action) to create a [k3d](https://k3d.io/) cluster.
-
-> **Note**: If you are developing a Helm chart that deploys on a Windows cluster with Windows components, there is no way for you to add CI at a Helm chart level today.
->
-> This is because it is impossible to create a mixed OS Kubernetes cluster within a single GitHub runner (Linux or Windows) using k3d today.
-
-You can then test if a simple `helm install` works. Make sure your `helm install` provides values that override the default Helm chart values (which should point to the official Rancher repository) to point at your locally built image.
-
-Once that's done, it's up to you how much more testing you want to do (i.e. `helm uninstall`, `helm upgrade`, making sure workloads are up, proxying service endpoints to probe them, ensuring resources exist, etc.).
-
-An example of a repository that has set up such CI is [`rancher/helm-project-oprator`](https://github.com/rancher/helm-project-operator/blob/main/.github/workflows/e2e-ci.yaml).
 
 ### After Release
 

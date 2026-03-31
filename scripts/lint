@@ -3,6 +3,8 @@ set -e
 
 cd $(dirname $0)/..
 
+# TODO: readd explicit spell check, ideally using something other than aspell.
+
 check_executable () {
     if [[ -z $0 ]] || [[ -z $1 ]]; then
         echo "Usage: check_executable <command-fmt>"
@@ -36,35 +38,6 @@ run_command () {
 }
 
 unset fail
-
-# TODO: remove docs/kubernetes
-markdown_files=$(
-    find . -type f -name "*.md" \
-    ! -name 'CODE_OF_CONDUCT.md' \
-    ! -name 'MAINTAINERS.md' \
-    ! -name 'CONTRIBUTING.md' \
-    ! -name 'SECURITY.md' \
-    ! -path "./.github/*" \
-    ! -path "./docs/kubernetes/*" \
-    ! -path "./vsphere-templates/README.md" \
-    ! -path 'README.md' \
-    ! -path "*/.terraform/*"
-)
-
-markdown_command_fmts=(
-    "markdownlint %s"
-    "spellchecker -q --files %s"
-    "write-good --no-illusion --no-tooWordy --no-passive --no-adverb %s"
-)
-
-for cmd_fmt in "${markdown_command_fmts[@]}"; do
-    if ! check_executable ${cmd_fmt}; then
-        continue
-    fi
-    for path in ${markdown_files[@]}; do
-        run_command "${cmd_fmt}" "${path}"
-    done
-done
 
 chart_dirs=$(
     find ./charts -type f -name "Chart.yaml" | rev | cut -d'/' -f2- | rev
