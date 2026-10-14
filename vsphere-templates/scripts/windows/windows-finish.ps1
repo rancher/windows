@@ -49,7 +49,8 @@ logging_serial_port_settings=
 mtu_use_dhcp_config=true
 ntp_use_dhcp_config=true
 local_scripts_path=C:\Program Files\Cloudbase Solutions\Cloudbase-Init\LocalScripts\
-metadata_services=cloudbaseinit.metadata.services.nocloudservice.NoCloudConfigDriveService
+metadata_services=cloudbaseinit.metadata.services.nocloudservice.NoCloudConfigDriveService,
+        cloudbaseinit.metadata.services.vmwareguestinfoservice.VMwareGuestInfoService
 netbios_host_name_compatibility=false
 plugins=cloudbaseinit.plugins.common.mtu.MTUPlugin,
         cloudbaseinit.plugins.common.userdata.UserDataPlugin,
